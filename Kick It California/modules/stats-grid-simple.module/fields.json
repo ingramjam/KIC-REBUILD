@@ -1,0 +1,43 @@
+[
+  {
+    "id": "stats",
+    "name": "stats",
+    "label": "Stats",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 6,
+      "default": 3
+    },
+    "default": [
+      {
+        "number": "1M+",
+        "stat_label": "CA Residents Helped"
+      },
+      {
+        "number": "24/7",
+        "stat_label": "Support Available"
+      },
+      {
+        "number": "100%",
+        "stat_label": "Free Service"
+      }
+    ],
+    "children": [
+      {
+        "id": "number",
+        "name": "number",
+        "label": "Stat Number",
+        "type": "text",
+        "default": "1M+"
+      },
+      {
+        "id": "stat_label",
+        "name": "stat_label",
+        "label": "Stat Label",
+        "type": "text",
+        "default": "Label"
+      }
+    ]
+  }
+]

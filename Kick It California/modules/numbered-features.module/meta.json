@@ -1,0 +1,14 @@
+{
+  "label": "Numbered Features (Effortel Style)",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Features list with large gradient numbers. Perfect for 'How It Works' sections. Fully editable repeater fields.",
+  "host_template_types": ["PAGE", "BLOG_LISTING", "BLOG_POST"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": [],
+  "is_available_for_new_content": true,
+  "icon": "../images/module-icons/ellipses.svg"
+}

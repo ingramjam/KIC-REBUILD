@@ -1,0 +1,173 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Modern Landing Page
+  screenshotPath: ../images/template-previews/landing-page.png
+-->
+<!doctype html>
+<html lang="{{ html_lang }}" {{ html_lang_dir }}>
+<head>
+    <meta charset="utf-8">
+    <title>{{ content.html_title }}</title>
+    {% if site_settings.favicon_src %}<link rel="shortcut icon" href="{{ site_settings.favicon_src }}" />{% endif %}
+    <meta name="description" content="{{ content.meta_description }}">
+    {{ require_css(get_asset_url("../css/main.css")) }}
+    {{ standard_header_includes }}
+    
+    <style>
+      :root {
+        --primary-dark: #0a0f1e;
+        --secondary-dark: #1a2332;
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-orange: #f97316;
+        --text-light: #f8fafc;
+        --text-gray: #94a3b8;
+        --border-color: #1e293b;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--primary-dark);
+        color: var(--text-light);
+        line-height: 1.6;
+      }
+      
+      /* Modern Header */
+      .modern-header {
+        background: rgba(10, 15, 30, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.5rem 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      
+      .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-light);
+        text-decoration: none;
+        letter-spacing: -0.5px;
+      }
+      
+      .header-cta {
+        background: var(--accent-orange);
+        color: white;
+        padding: 0.875rem 2rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .header-cta:hover {
+        background: #ea580c;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+      }
+      
+      /* Main Content */
+      .main-content {
+        padding-top: 80px;
+      }
+      
+      @media (max-width: 768px) {
+        .header-container {
+          padding: 0 1.5rem;
+        }
+        .main-content {
+          padding-top: 70px;
+        }
+      }
+    </style>
+</head>
+<body>
+
+  <!-- Modern Header -->
+  <header class="modern-header">
+    <div class="header-container">
+      <a href="https://244593765.hs-sites-na2.com/home" class="logo">KICK IT CALIFORNIA</a>
+      <a href="tel:8003008086" class="header-cta">Call 800-300-8086</a>
+    </div>
+  </header>
+
+  <!-- Main Content - Drag & Drop Areas -->
+  <main class="main-content">
+    {% dnd_area "landing_hero" label="Hero Section" %}
+      {% dnd_section %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../modules/modern-hero.module" %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+    {% end_dnd_area %}
+    
+    {% dnd_area "landing_content" label="Main Content" %}
+      {% dnd_section %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../modules/contact-methods.module" %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+      
+      {% dnd_section %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../modules/numbered-features.module" %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+      
+      {% dnd_section %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../modules/stats-grid.module" %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+    {% end_dnd_area %}
+    
+    {% dnd_area "landing_cta" label="Call to Action" %}
+      {% dnd_section %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../modules/modern-cta.module" %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+    {% end_dnd_area %}
+  </main>
+
+  {{ require_js(get_asset_url("../js/main.js")) }}
+  {{ standard_footer_includes }}
+</body>
+</html>

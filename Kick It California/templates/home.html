@@ -1,0 +1,129 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Home
+  screenshotPath: ../images/template-previews/home.png
+-->
+{% extends "./layouts/base.html" %}
+
+{% block body %}
+
+{% dnd_area "dnd_area"
+  label="Main content",
+  class="body-container body-container--home"
+%}
+
+  {# Hero Section #}
+  {% dnd_section vertical_alignment="MIDDLE" %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        {% dnd_module path="../modules/hero-with-background.module" %}
+          {% module_attribute "background_type" %}none{% end_module_attribute %}
+          {% module_attribute "hero_label" %}Free California Quit Program{% end_module_attribute %}
+          {% module_attribute "hero_title" %}Quit Smoking.<br>Quit Vaping.<br>Take Control.{% end_module_attribute %}
+          {% module_attribute "hero_description" %}Science-based strategies. Personal coaching. Real results. Get free support to quit tobacco and nicotine for good.{% end_module_attribute %}
+          {% module_attribute "primary_button_text" %}📞 Call 800-300-8086{% end_module_attribute %}
+          {% module_attribute "primary_button_url" %}tel:8003008086{% end_module_attribute %}
+          {% module_attribute "secondary_button_text" %}💬 Start Live Chat{% end_module_attribute %}
+          {% module_attribute "secondary_button_url" %}https://helpline-vision.ucsd.edu/Chat{% end_module_attribute %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+  {# Journey/About Section #}
+  {% dnd_section %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        {% dnd_module path="../modules/journey-timeline.module" %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+  {# How Coaching Works #}
+  {% dnd_section %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        {% dnd_module path="../modules/numbered-features.module" %}
+          {% module_attribute "section_label" %}Simple Process{% end_module_attribute %}
+          {% module_attribute "section_title" %}How Our Quit Coaching Works{% end_module_attribute %}
+          {% module_attribute "columns" %}3{% end_module_attribute %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+  {# Stats Section #}
+  {% dnd_section %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        {% dnd_module path="../modules/stats-grid-simple.module" %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+  {# Programs Section #}
+  {% dnd_section %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        {% dnd_module path="../modules/programs-grid.module" %}
+          {% module_attribute "section_label" %}Tailored Programs{% end_module_attribute %}
+          {% module_attribute "section_title" %}We Help You Quit{% end_module_attribute %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+  {# CTA Section #}
+  {% dnd_section %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        {% dnd_module path="../modules/cta-section.module" %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+{% end_dnd_area %}
+
+{# Floating CTA #}
+<a href="tel:8003008086" class="floating-cta">
+  <span class="floating-cta-icon">📞</span>
+  <span class="floating-cta-text">Call 800-300-8086</span>
+</a>
+
+<style>
+.floating-cta {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.floating-cta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(249, 115, 22, 0.6);
+}
+.floating-cta-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+.floating-cta-text {
+  font-size: 16px;
+  white-space: nowrap;
+}
+</style>
+
+{% endblock body %}

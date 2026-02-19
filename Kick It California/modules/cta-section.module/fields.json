@@ -1,0 +1,51 @@
+[
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section Label",
+    "type": "text",
+    "default": "Ready to Quit?"
+  },
+  {
+    "id": "title",
+    "name": "title",
+    "label": "Title",
+    "type": "text",
+    "default": "Take the First Step Today"
+  },
+  {
+    "id": "description",
+    "name": "description",
+    "label": "Description",
+    "type": "text",
+    "default": "Join thousands of Californians who've quit for good. Free support is just a call, text, or click away."
+  },
+  {
+    "id": "primary_button_text",
+    "name": "primary_button_text",
+    "label": "Primary Button Text",
+    "type": "text",
+    "default": "📞 Call 800-300-8086"
+  },
+  {
+    "id": "primary_button_url",
+    "name": "primary_button_url",
+    "label": "Primary Button URL",
+    "type": "text",
+    "default": "tel:8003008086"
+  },
+  {
+    "id": "secondary_button_text",
+    "name": "secondary_button_text",
+    "label": "Secondary Button Text",
+    "type": "text",
+    "default": "💬 Start Chat Now"
+  },
+  {
+    "id": "secondary_button_url",
+    "name": "secondary_button_url",
+    "label": "Secondary Button URL",
+    "type": "text",
+    "default": "https://helpline-vision.ucsd.edu/Chat"
+  }
+]

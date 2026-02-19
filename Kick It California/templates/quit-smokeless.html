@@ -1,0 +1,706 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Quit Smokeless Tobacco Program
+  screenshotPath: ../images/template-previews/home.png
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ content.html_title or "Quit Chewing Tobacco & Dip - Free Support | Kick It California" }}</title>
+    <meta name="description" content="{{ content.meta_description or 'Get free help to quit smokeless tobacco, chew, dip, and snus. Expert coaching and proven strategies.' }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    {{ standard_header_includes }}
+    
+    <style>
+      :root {
+        --primary-dark: #0a0f1e;
+        --secondary-dark: #1a2332;
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-orange: #f97316;
+        --text-light: #f8fafc;
+        --text-gray: #94a3b8;
+        --border-color: #1e293b;
+      }
+      
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--primary-dark);
+        color: var(--text-light);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      
+      .site-header {
+        background: rgba(10, 15, 30, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.5rem 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      
+      .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 50px;
+        width: auto;
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(101%) contrast(95%);
+        transition: all 0.3s ease;
+      }
+      
+      .logo img:hover {
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(110%) contrast(95%);
+      }
+      
+      .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 3rem;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .main-nav a {
+        text-decoration: none;
+        color: var(--text-gray);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .main-nav a:hover,
+      .main-nav a.active {
+        color: var(--text-light);
+      }
+      
+      /* Floating CTA Button */
+      .floating-cta {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+      
+      .floating-cta:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(249, 115, 22, 0.6);
+      }
+      
+      .floating-cta-icon {
+        font-size: 24px;
+        line-height: 1;
+      }
+      
+      .floating-cta-text {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      
+      .page-hero {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+        padding: 12rem 3rem 6rem;
+        text-align: center;
+        margin-top: 80px;
+        position: relative;
+      }
+      
+      .page-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+      }
+      
+      .hero-content {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .hero-label {
+        display: inline-block;
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--accent-green);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+      }
+      
+      .hero-icon {
+        font-size: 5rem;
+        margin-bottom: 2rem;
+      }
+      
+      .page-hero h1 {
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .page-hero p {
+        font-size: 1.4rem;
+        color: var(--text-gray);
+        margin-bottom: 3rem;
+      }
+      
+      .hero-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .btn {
+        padding: 1.2rem 3rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-block;
+      }
+      
+      .btn-primary {
+        background: var(--accent-orange);
+        color: white;
+      }
+      
+      .btn-primary:hover {
+        background: #ea580c;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-light);
+        border: 2px solid var(--border-color);
+      }
+      
+      .btn-secondary:hover {
+        border-color: var(--accent-orange);
+        background: rgba(249, 115, 22, 0.1);
+      }
+      
+      .section {
+        padding: 6rem 3rem;
+      }
+      
+      .section-alt {
+        background: var(--secondary-dark);
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .section-label {
+        display: inline-block;
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--accent-green);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+      }
+      
+      .section h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .section-subtitle {
+        font-size: 1.3rem;
+        color: var(--text-gray);
+        margin-bottom: 4rem;
+      }
+      
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin: 4rem 0;
+        padding: 4rem 0;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+      }
+      
+      .stat-item {
+        text-align: center;
+      }
+      
+      .stat-number {
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+      }
+      
+      .stat-label {
+        font-size: 1.1rem;
+        color: var(--text-gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      
+      .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      
+      .tip-card {
+        background: var(--secondary-dark);
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2.5rem;
+        transition: all 0.3s;
+      }
+      
+      .tip-card:hover {
+        border-color: var(--accent-green);
+        transform: translateY(-4px);
+      }
+      
+      .tip-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .tip-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .tip-card p {
+        color: var(--text-gray);
+        line-height: 1.8;
+      }
+      
+      .health-risks {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      
+      .risk-card {
+        background: rgba(239, 68, 68, 0.1);
+        border: 2px solid rgba(239, 68, 68, 0.3);
+        border-radius: 12px;
+        padding: 2.5rem;
+      }
+      
+      .risk-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .risk-card h3 {
+        font-size: 1.5rem;
+        color: #ef4444;
+        margin-bottom: 1rem;
+      }
+      
+      .risk-card ul {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .risk-card li {
+        color: var(--text-gray);
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+      
+      .risk-card li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: #ef4444;
+        font-weight: bold;
+      }
+      
+      .substitutes-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      
+      .substitute-card {
+        background: var(--secondary-dark);
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s;
+      }
+      
+      .substitute-card:hover {
+        border-color: var(--accent-green);
+        transform: translateY(-4px);
+      }
+      
+      .substitute-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .substitute-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .substitute-card p {
+        color: var(--text-gray);
+        font-size: 0.95rem;
+      }
+      
+      @media (max-width: 968px) {
+        .main-nav { display: none; }
+        .floating-cta {
+          bottom: 20px;
+          right: 20px;
+          padding: 12px 20px;
+        }
+        .floating-cta-text { font-size: 14px; }
+        .floating-cta-icon { font-size: 20px; }
+        .page-hero h1 { font-size: 3rem; }
+        .stats-grid { grid-template-columns: 1fr; }
+        .tips-grid { grid-template-columns: 1fr; }
+        .health-risks { grid-template-columns: 1fr; }
+        .substitutes-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <a href="https://244593765.hs-sites-na2.com/home" class="logo">
+        <img src="https://www.kickitca-wp.ucsd.edu/wp-content/uploads/2021/06/Primary.png" alt="Kick It California">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/quit-smoking">Smoking</a></li>
+          <li><a href="/quit-vaping">Vaping</a></li>
+          <li><a href="/quit-smokeless">Smokeless</a></li>
+          <li><a href="/quit-marijuana">Marijuana</a></li>
+          <li><a href="/quit-videos">Videos</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Floating CTA Button -->
+  <a href="/quit-now" class="floating-cta">
+    <span class="floating-cta-icon">🚀</span>
+    <span class="floating-cta-text">Quit Now</span>
+  </a>
+
+  <section class="page-hero">
+    <div class="hero-content">
+      <span class="hero-label">Chew, Dip, Snus & Pouches</span>
+      <div class="hero-icon">🎯</div>
+      <h1>Quit Smokeless Tobacco</h1>
+      <p>Get specialized support to quit chewing tobacco, dip, snus, and nicotine pouches. We understand your challenges.</p>
+      <div class="hero-buttons">
+        <a href="tel:8003008086" class="btn btn-primary">Call Now 800-300-8086</a>
+        <a href="/contact" class="btn btn-secondary">Start Live Chat</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">50X</div>
+          <div class="stat-label">Higher Oral Cancer Risk</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$900</div>
+          <div class="stat-label">Average Annual Cost of Dipping</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">30</div>
+          <div class="stat-label">Chemicals Known to Cause Cancer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Serious Health Risks</span>
+      <h2>What Smokeless Tobacco Does</h2>
+      <p class="section-subtitle">Just because you're not smoking doesn't mean it's safe. Smokeless tobacco causes serious health problems.</p>
+      
+      <div class="health-risks">
+        <div class="risk-card">
+          <div class="risk-icon">👄</div>
+          <h3>Oral Cancer</h3>
+          <ul>
+            <li>Cancer of the mouth, tongue, cheek, and gums</li>
+            <li>50 times higher risk than non-users</li>
+            <li>Can require surgery, radiation, chemotherapy</li>
+            <li>May result in disfigurement or death</li>
+          </ul>
+        </div>
+        
+        <div class="risk-card">
+          <div class="risk-icon">🦷</div>
+          <h3>Gum & Tooth Damage</h3>
+          <ul>
+            <li>Receding gums that expose tooth roots</li>
+            <li>Tooth decay and tooth loss</li>
+            <li>Bone loss around teeth</li>
+            <li>Permanent staining and bad breath</li>
+          </ul>
+        </div>
+        
+        <div class="risk-card">
+          <div class="risk-icon">❤️</div>
+          <h3>Heart Disease</h3>
+          <ul>
+            <li>Increased heart rate and blood pressure</li>
+            <li>Higher risk of heart attack and stroke</li>
+            <li>Damage to blood vessels</li>
+            <li>Irregular heartbeat</li>
+          </ul>
+        </div>
+        
+        <div class="risk-card">
+          <div class="risk-icon">🧠</div>
+          <h3>Nicotine Addiction</h3>
+          <ul>
+            <li>More nicotine absorbed than cigarettes</li>
+            <li>Strong physical and psychological dependence</li>
+            <li>Difficult withdrawal symptoms</li>
+            <li>Impacts brain development in young users</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Mouth-Healthy Alternatives</span>
+      <h2>What to Use Instead</h2>
+      <p class="section-subtitle">Keep your mouth busy without the harmful chemicals. These alternatives satisfy the oral fixation without nicotine.</p>
+      
+      <div class="substitutes-grid">
+        <div class="substitute-card">
+          <div class="substitute-icon">🌱</div>
+          <h3>Herbal Snuff</h3>
+          <p>Tobacco-free and nicotine-free alternatives that mimic the feel of chew</p>
+        </div>
+        
+        <div class="substitute-card">
+          <div class="substitute-icon">🌰</div>
+          <h3>Sunflower Seeds</h3>
+          <p>Satisfies hand-to-mouth habit, keeps you busy, and is actually healthy</p>
+        </div>
+        
+        <div class="substitute-card">
+          <div class="substitute-icon">🍬</div>
+          <h3>Sugar-Free Gum</h3>
+          <p>Keeps mouth busy, freshens breath, and helps manage cravings</p>
+        </div>
+        
+        <div class="substitute-card">
+          <div class="substitute-icon">🥕</div>
+          <h3>Crunchy Veggies</h3>
+          <p>Carrots, celery, or jerky give you something to chew on</p>
+        </div>
+        
+        <div class="substitute-card">
+          <div class="substitute-icon">🧊</div>
+          <h3>Mint Leaves or Ice</h3>
+          <p>Fresh taste and sensation without harmful chemicals</p>
+        </div>
+        
+        <div class="substitute-card">
+          <div class="substitute-icon">🎯</div>
+          <h3>Toothpicks</h3>
+          <p>Flavored or plain, keeps your mouth occupied safely</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Quit Strategies</span>
+      <h2>How to Quit Smokeless Tobacco</h2>
+      <p class="section-subtitle">Quitting chew and dip requires specific strategies. Here's what works.</p>
+      
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon">📅</div>
+          <h3>Pick a Quit Date</h3>
+          <p>Choose a specific date within 2 weeks. Pick a low-stress day. Mark it on your calendar and tell people about it.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-icon">🚮</div>
+          <h3>Throw It All Out</h3>
+          <p>Get rid of all tobacco products, tins, and spittoons. Clean your truck, locker, and anywhere you kept dip.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-icon">💊</div>
+          <h3>Use Nicotine Replacement</h3>
+          <p>Nicotine gum, lozenges, or patches can help manage withdrawal. They give you nicotine without the harmful chemicals.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-icon">🔄</div>
+          <h3>Find Substitutes</h3>
+          <p>Stock up on sunflower seeds, gum, mints, or herbal snuff. Have multiple options ready for different situations.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-icon">⏰</div>
+          <h3>Break Your Routine</h3>
+          <p>If you always dip while driving or fishing, change your routine. Take a different route, try a new activity.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-icon">💪</div>
+          <h3>Stay Active</h3>
+          <p>Exercise reduces cravings and stress. Even a 10-minute walk can help you get through a strong craving.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-icon">👥</div>
+          <h3>Get Support</h3>
+          <p>Talk to a Quit Coach who understands smokeless tobacco addiction. Join online support groups with people who get it.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-icon">🎯</div>
+          <h3>Track Your Savings</h3>
+          <p>Calculate how much you're saving. A can-a-day habit costs $900-1,500 per year. Watch your savings grow!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="text-align: center;">
+      <span class="section-label">Recovery Timeline</span>
+      <h2>Your Body Starts Healing Immediately</h2>
+      <p class="section-subtitle" style="max-width: 800px; margin: 0 auto 3rem;">The health benefits of quitting smokeless tobacco begin right away and continue for years.</p>
+      
+      <div style="max-width: 800px; margin: 0 auto;">
+        <div class="tips-grid" style="grid-template-columns: 1fr;">
+          <div class="tip-card">
+            <h3 style="color: var(--accent-green); margin-bottom: 0.5rem;">24 Hours</h3>
+            <p>Your blood pressure and heart rate begin to return to normal levels.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3 style="color: var(--accent-green); margin-bottom: 0.5rem;">3 Days</h3>
+            <p>Nicotine is completely out of your system. Cravings peak but will start to decrease.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3 style="color: var(--accent-green); margin-bottom: 0.5rem;">2 Weeks</h3>
+            <p>Your sense of taste and smell begin to improve. Mouth sores start to heal.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3 style="color: var(--accent-green); margin-bottom: 0.5rem;">1 Month</h3>
+            <p>Circulation improves, gum tissue begins to heal, and white patches in mouth start to fade.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3 style="color: var(--accent-green); margin-bottom: 0.5rem;">5 Years</h3>
+            <p>Your risk of oral cancer is cut in half compared to when you were using.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container" style="text-align: center;">
+      <span class="section-label">Get Started Today</span>
+      <h2>You're Tougher Than Tobacco</h2>
+      <p class="section-subtitle">Thousands of dippers and chewers have quit with our help. Free, confidential support available 24/7.</p>
+      
+      <div class="hero-buttons">
+        <a href="tel:8003008086" class="btn btn-primary">Call 800-300-8086</a>
+        <a href="sms:66819&body=KICKIT" class="btn btn-secondary">Text KICKIT to 66819</a>
+      </div>
+    </div>
+  </section>
+
+  {{ standard_footer_includes }}
+</body>
+</html>

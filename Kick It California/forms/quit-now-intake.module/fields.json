@@ -1,0 +1,48 @@
+[
+  {
+    "id": "form_guid",
+    "name": "form_guid",
+    "label": "HubSpot Form ID",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "REPLACE_WITH_YOUR_FORM_GUID",
+    "help_text": "Enter the HubSpot Form GUID from your portal"
+  },
+  {
+    "id": "form_title",
+    "name": "form_title",
+    "label": "Form Title",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "Start Your Quit Journey"
+  },
+  {
+    "id": "form_description",
+    "name": "form_description",
+    "label": "Form Description",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "Complete this form to get connected with a Quit Coach"
+  },
+  {
+    "id": "show_welcome_message",
+    "name": "show_welcome_message",
+    "label": "Show Welcome Message for Returning Users",
+    "required": false,
+    "locked": false,
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "id": "redirect_url",
+    "name": "redirect_url",
+    "label": "Redirect URL After Submission",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "/thank-you"
+  }
+]

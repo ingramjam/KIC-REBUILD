@@ -1,0 +1,78 @@
+[
+  {
+    "id": "show_label",
+    "name": "show_label",
+    "label": "Show Label Badge",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "id": "label_text",
+    "name": "label_text",
+    "label": "Label Text",
+    "type": "text",
+    "default": "Ready to Quit?"
+  },
+  {
+    "id": "title",
+    "name": "title",
+    "label": "CTA Title",
+    "type": "text",
+    "default": "Take the First Step Today"
+  },
+  {
+    "id": "description",
+    "name": "description",
+    "label": "Description",
+    "type": "text",
+    "default": "Join thousands of Californians who've quit for good. Free support is just a call, text, or click away."
+  },
+  {
+    "id": "primary_button",
+    "name": "primary_button",
+    "label": "Primary Button",
+    "type": "cta",
+    "default": {
+      "url": {
+        "href": "tel:8003008086",
+        "text": "Call 800-300-8086"
+      }
+    }
+  },
+  {
+    "id": "primary_button_icon",
+    "name": "primary_button_icon",
+    "label": "Primary Button Icon (emoji)",
+    "type": "text",
+    "default": "📞"
+  },
+  {
+    "id": "primary_button_color",
+    "name": "primary_button_color",
+    "label": "Primary Button Color",
+    "type": "color",
+    "default": {
+      "color": "#f97316"
+    }
+  },
+  {
+    "id": "secondary_button",
+    "name": "secondary_button",
+    "label": "Secondary Button",
+    "type": "cta",
+    "default": {
+      "url": {
+        "href": "https://helpline-vision.ucsd.edu/Chat",
+        "text": "Start Chat Now",
+        "open_in_new_tab": true
+      }
+    }
+  },
+  {
+    "id": "secondary_button_icon",
+    "name": "secondary_button_icon",
+    "label": "Secondary Button Icon (emoji)",
+    "type": "text",
+    "default": "💬"
+  }
+]

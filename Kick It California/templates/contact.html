@@ -1,0 +1,328 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Contact Us - Modern
+  screenshotPath: ../images/template-previews/contact.png
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ content.html_title or "Contact Us - Kick It California | 800-300-8086" }}</title>
+    <meta name="description" content="{{ content.meta_description or 'Contact Kick It California. Call, text, chat, or download our app. Free quit support available 24/7.' }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    {{ require_css(get_asset_url("../css/main.css")) }}
+    {{ standard_header_includes }}
+    
+    <style>
+      :root {
+        --primary-dark: #0a0f1e;
+        --secondary-dark: #1a2332;
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-orange: #f97316;
+        --text-light: #f8fafc;
+        --text-gray: #94a3b8;
+        --border-color: #1e293b;
+      }
+      
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--primary-dark);
+        color: var(--text-light);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      
+      .site-header {
+        background: rgba(10, 15, 30, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.5rem 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      
+      .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 50px;
+        width: auto;
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(101%) contrast(95%);
+        transition: all 0.3s ease;
+      }
+      
+      .logo img:hover {
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(110%) contrast(95%);
+      }
+      
+      .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 3rem;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .main-nav a {
+        text-decoration: none;
+        color: var(--text-gray);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .main-nav a:hover {
+        color: var(--text-light);
+      }
+      
+      /* Floating CTA Button */
+      .floating-cta {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+      
+      .floating-cta:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(249, 115, 22, 0.6);
+      }
+      
+      .floating-cta-icon {
+        font-size: 24px;
+        line-height: 1;
+      }
+      
+      .floating-cta-text {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      
+      .page-header {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+        padding: 12rem 3rem 6rem;
+        text-align: center;
+        margin-top: 80px;
+        position: relative;
+      }
+      
+      .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%),
+          radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+        background-size: 100% 100%, 20px 20px;
+        pointer-events: none;
+      }
+      
+      .page-header > * {
+        position: relative;
+        z-index: 1;
+      }
+      
+      .page-header h1 {
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin-bottom: 1.5rem;
+        color: var(--text-light);
+      }
+      
+      .page-header p {
+        font-size: 1.4rem;
+        color: var(--text-gray);
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 4rem 3rem;
+      }
+      
+      .contact-card {
+        background: rgba(26, 35, 50, 0.6);
+        border: 2px solid rgba(59, 130, 246, 0.2);
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        text-align: center;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 350px;
+      }
+      
+      .contact-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent-orange);
+        box-shadow: 0 20px 40px rgba(249, 115, 22, 0.3);
+        background: rgba(26, 35, 50, 0.8);
+      }
+      
+      .contact-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .contact-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-light);
+      }
+      
+      .contact-card p {
+        color: var(--text-gray);
+        margin-bottom: 2rem;
+        flex-grow: 1;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+      
+      .contact-link {
+        display: inline-block;
+        background: var(--accent-orange);
+        color: white !important;
+        padding: 1rem 2.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1rem;
+        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+      }
+      
+      .contact-link:hover {
+        color: white !important;
+      }
+      
+      @media (max-width: 1024px) {
+        .contact-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+      
+      @media (max-width: 768px) {
+        .contact-grid { grid-template-columns: 1fr; }
+        .main-nav { display: none; }
+        .floating-cta {
+          bottom: 20px;
+          right: 20px;
+          padding: 12px 20px;
+        }
+        .floating-cta-text { font-size: 14px; }
+        .floating-cta-icon { font-size: 20px; }
+      }
+    </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <a href="https://244593765.hs-sites-na2.com/home" class="logo">
+        <img src="https://www.kickitca-wp.ucsd.edu/wp-content/uploads/2021/06/Primary.png" alt="Kick It California">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/quit-smoking">Smoking</a></li>
+          <li><a href="/quit-vaping">Vaping</a></li>
+          <li><a href="/quit-smokeless">Smokeless</a></li>
+          <li><a href="/quit-marijuana">Marijuana</a></li>
+          <li><a href="/quit-videos">Videos</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Floating CTA Button -->
+  <a href="/quit-now" class="floating-cta">
+    <span class="floating-cta-icon">🚀</span>
+    <span class="floating-cta-text">Quit Now</span>
+  </a>
+
+  <section class="page-header">
+    <h1>Get in Touch</h1>
+    <p>We're here to help you quit. Choose the contact method that works best for you.</p>
+  </section>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <h3>Call Us</h3>
+      <p>Talk to a Quit Coach right now. Available 7 days a week, 7am-9pm PT.</p>
+      <a href="tel:8003008086" class="contact-link">800-300-8086</a>
+    </div>
+    
+    <div class="contact-card">
+      <div class="contact-icon">💬</div>
+      <h3>Text Us</h3>
+      <p>Get support via text message. Text KICKIT to get started with a coach.</p>
+      <a href="sms:66819?&body=KICKIT" class="contact-link">Text KICKIT to 66819</a>
+    </div>
+    
+    <div class="contact-card">
+      <div class="contact-icon">🗨️</div>
+      <h3>Live Chat</h3>
+      <p>Chat online with a Quit Coach. Quick, confidential, and convenient.</p>
+      <a href="https://helpline-vision.ucsd.edu/Chat" target="_blank" class="contact-link">Start Chat</a>
+    </div>
+    
+    <div class="contact-card">
+      <div class="contact-icon">📱</div>
+      <h3>Mobile App</h3>
+      <p>Download our app for 24/7 quit support tools and resources.</p>
+      <a href="#" class="contact-link">Get the App</a>
+    </div>
+  </div>
+
+  {{ require_js(get_asset_url("../js/main.js")) }}
+  {{ standard_footer_includes }}
+</body>
+</html>

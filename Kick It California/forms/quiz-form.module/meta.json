@@ -1,0 +1,8 @@
+{
+  "label": "Quit Smoking Quiz Form",
+  "module_id": 0,
+  "is_available_for_new_content": true,
+  "smart_type": "NOT_SMART",
+  "host_template_types": ["PAGE"],
+  "icon": "📝"
+}

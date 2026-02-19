@@ -1,0 +1,256 @@
+<!--
+  HubSpot Quit Now Intake Form with CRM Integration
+  Captures user data, saves to contacts, prefills on return visits
+-->
+
+{% set portalId = request.portal_id %}
+{% set formGuid = module.form_guid %}
+
+<div class="hubspot-form-wrapper">
+  <div id="hubspotForm-{{ name }}" class="hubspot-form-container"></div>
+</div>
+
+<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  // HubSpot Form with CRM Integration
+  hbspt.forms.create({
+    region: "na1",
+    portalId: "{{ portalId }}",
+    formId: "{{ formGuid }}",
+    target: '#hubspotForm-{{ name }}',
+    
+    // Pre-fill form fields if user exists in CRM
+    onFormReady: function($form) {
+      // Check for existing HubSpot user token (cookie)
+      const hubspotutk = document.cookie.match(/hubspotutk=([^;]+)/);
+      
+      if (hubspotutk) {
+        console.log('Returning user detected - prefilling form data');
+        
+        // HubSpot automatically prefills known contact data
+        // via the hubspotutk cookie
+      }
+      
+      // Add custom styling and behavior
+      $form.find('input, select, textarea').on('focus', function() {
+        $(this).parent().addClass('field-focused');
+      }).on('blur', function() {
+        $(this).parent().removeClass('field-focused');
+      });
+    },
+    
+    // Handle form submission
+    onFormSubmit: function($form) {
+      console.log('Form submitted - saving to HubSpot CRM');
+      
+      // Get form values
+      const formData = {};
+      $form.serializeArray().forEach(function(field) {
+        formData[field.name] = field.value;
+      });
+      
+      // Track custom event in HubSpot
+      var _hsq = window._hsq = window._hsq || [];
+      _hsq.push(["trackEvent", {
+        id: "Quit Now Form Submitted",
+        value: formData
+      }]);
+      
+      // Store in localStorage for session persistence
+      localStorage.setItem('kickit_user_data', JSON.stringify({
+        firstName: formData.firstname || '',
+        lastName: formData.lastname || '',
+        email: formData.email || '',
+        phone: formData.phone || '',
+        quitProducts: formData.quit_products || [],
+        submitDate: new Date().toISOString()
+      }));
+    },
+    
+    // After successful submission
+    onFormSubmitted: function($form, data) {
+      console.log('Form successfully submitted to CRM');
+      
+      // Redirect to thank you page
+      setTimeout(function() {
+        window.location.href = '/thank-you?source=quit-now';
+      }, 1500);
+    },
+    
+    // Custom error handling
+    onFormSubmitError: function(error) {
+      console.error('Form submission error:', error);
+      alert('There was an error submitting your form. Please try again or call us at 800-300-8086.');
+    },
+    
+    // Customize form rendering
+    cssClass: 'kickit-hubspot-form',
+    submitButtonClass: 'hs-button primary',
+    errorClass: 'hs-error-msgs',
+    errorMessageClass: 'hs-error-msg',
+    
+    // Custom translations
+    translations: {
+      en: {
+        required: 'This field is required',
+        invalidEmail: 'Please enter a valid email address',
+        invalidNumber: 'Please enter a valid phone number'
+      }
+    }
+  });
+  
+  // Add personalization for returning users
+  window.addEventListener('DOMContentLoaded', function() {
+    const userData = localStorage.getItem('kickit_user_data');
+    
+    if (userData) {
+      try {
+        const user = JSON.parse(userData);
+        
+        // Show personalized welcome message
+        if (user.firstName) {
+          const welcomeMsg = document.createElement('div');
+          welcomeMsg.className = 'welcome-back-message';
+          welcomeMsg.innerHTML = `
+            <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; margin-bottom: 2rem; border-radius: 8px;">
+              <p style="margin: 0; color: #3b82f6; font-weight: 600;">👋 Welcome back, ${user.firstName}!</p>
+              <p style="margin: 0.5rem 0 0 0; color: #94a3b8; font-size: 0.9rem;">We've saved your information to make things easier.</p>
+            </div>
+          `;
+          
+          const formContainer = document.getElementById('hubspotForm-{{ name }}');
+          if (formContainer && formContainer.parentElement) {
+            formContainer.parentElement.insertBefore(welcomeMsg, formContainer);
+          }
+        }
+      } catch (e) {
+        console.error('Error parsing user data:', e);
+      }
+    }
+  });
+</script>
+
+<style>
+  .hubspot-form-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .kickit-hubspot-form {
+    background: rgba(26, 35, 50, 0.5);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  
+  .kickit-hubspot-form .hs-form-field {
+    margin-bottom: 1.5rem;
+  }
+  
+  .kickit-hubspot-form label {
+    display: block;
+    color: #f8fafc;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .kickit-hubspot-form input[type="text"],
+  .kickit-hubspot-form input[type="email"],
+  .kickit-hubspot-form input[type="tel"],
+  .kickit-hubspot-form select,
+  .kickit-hubspot-form textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(10, 15, 30, 0.8);
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    color: #f8fafc;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .kickit-hubspot-form input:focus,
+  .kickit-hubspot-form select:focus,
+  .kickit-hubspot-form textarea:focus {
+    outline: none;
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+  }
+  
+  .kickit-hubspot-form .field-focused {
+    transform: translateX(4px);
+    transition: transform 0.2s ease;
+  }
+  
+  .kickit-hubspot-form .hs-button {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    color: white;
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .kickit-hubspot-form .hs-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+  }
+  
+  .kickit-hubspot-form .hs-error-msgs {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+  }
+  
+  .kickit-hubspot-form .hs-error-msg {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  .kickit-hubspot-form .hs-input[type="checkbox"],
+  .kickit-hubspot-form .hs-input[type="radio"] {
+    width: auto;
+    margin-right: 0.5rem;
+  }
+  
+  .kickit-hubspot-form .hs-form-checkbox-display,
+  .kickit-hubspot-form .hs-form-radio-display {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Loading state */
+  .kickit-hubspot-form.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 15, 30, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .kickit-hubspot-form {
+      padding: 1.5rem;
+    }
+    
+    .kickit-hubspot-form .hs-button {
+      padding: 0.875rem 2rem;
+      font-size: 1rem;
+    }
+  }
+</style>

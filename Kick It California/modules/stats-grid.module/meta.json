@@ -1,0 +1,14 @@
+{
+  "label": "Stats Grid (Social Proof)",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Display key statistics with large gradient numbers. Perfect for social proof sections showing impact and credibility.",
+  "host_template_types": ["PAGE", "BLOG_LISTING", "BLOG_POST"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": [],
+  "is_available_for_new_content": true,
+  "icon": "../images/module-icons/table.svg"
+}

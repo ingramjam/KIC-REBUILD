@@ -1,0 +1,94 @@
+[
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section Label",
+    "type": "text",
+    "default": "Tailored Programs"
+  },
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Section Title",
+    "type": "text",
+    "default": "We Help You Quit"
+  },
+  {
+    "id": "programs",
+    "name": "programs",
+    "label": "Programs",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 4
+    },
+    "default": [
+      {
+        "icon": "🚬",
+        "title": "Cigarettes",
+        "description": "Personalized strategies to break the habit and stay smoke-free.",
+        "link_url": "/quit-smoking",
+        "link_text": "Learn More →"
+      },
+      {
+        "icon": "💨",
+        "title": "Vapes & E-Cigs",
+        "description": "Overcome nicotine addiction from vaping devices and pods.",
+        "link_url": "/quit-vaping",
+        "link_text": "Learn More →"
+      },
+      {
+        "icon": "🎯",
+        "title": "Smokeless",
+        "description": "Quit chew, dip, and other smokeless tobacco products.",
+        "link_url": "/quit-smokeless",
+        "link_text": "Learn More →"
+      },
+      {
+        "icon": "🌿",
+        "title": "Marijuana",
+        "description": "Safe, supportive space to discuss cannabis use and quitting.",
+        "link_url": "/quit-marijuana",
+        "link_text": "Learn More →"
+      }
+    ],
+    "children": [
+      {
+        "id": "icon",
+        "name": "icon",
+        "label": "Icon (emoji or text)",
+        "type": "text",
+        "default": "🚬"
+      },
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Title",
+        "type": "text",
+        "default": "Program Title"
+      },
+      {
+        "id": "description",
+        "name": "description",
+        "label": "Description",
+        "type": "text",
+        "default": "Program description"
+      },
+      {
+        "id": "link_url",
+        "name": "link_url",
+        "label": "Link URL",
+        "type": "text",
+        "default": "/"
+      },
+      {
+        "id": "link_text",
+        "name": "link_text",
+        "label": "Link Text",
+        "type": "text",
+        "default": "Learn More →"
+      }
+    ]
+  }
+]

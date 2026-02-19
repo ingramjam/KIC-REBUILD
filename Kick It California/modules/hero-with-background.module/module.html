@@ -1,0 +1,23 @@
+<section class="hero-section">
+  {% if module.background_type == "image" and module.background_image.src %}
+    <img src="{{ module.background_image.src }}" alt="{{ module.background_image.alt }}" class="hero-background-media">
+  {% elif module.background_type == "video" and module.background_video %}
+    <video class="hero-background-media" autoplay muted loop playsinline>
+      <source src="{{ module.background_video }}" type="video/mp4">
+    </video>
+  {% endif %}
+  
+  <div class="hero-content">
+    <span class="hero-label">{{ module.hero_label }}</span>
+    <h1>{{ module.hero_title }}</h1>
+    <p>{{ module.hero_description }}</p>
+    <div class="hero-buttons">
+      <a href="{{ module.primary_button_url }}" class="hero-button-primary">
+        {{ module.primary_button_text }}
+      </a>
+      <a href="{{ module.secondary_button_url }}" class="hero-button-secondary">
+        {{ module.secondary_button_text }}
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,74 @@
+<!-- Hero Section Module - Effortel Style -->
+<section class="modern-hero-section" style="background: {{ module.background_color }}; padding: {{ module.padding_top }}px 3rem {{ module.padding_bottom }}px;">
+  <div class="hero-content" style="max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+    
+    {% if module.show_label %}
+    <span class="hero-label" style="display: inline-block; background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2rem;">
+      {{ module.label_text }}
+    </span>
+    {% endif %}
+    
+    <h1 style="font-size: {{ module.title_size }}rem; margin-bottom: 2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; color: #f8fafc;">
+      {{ module.title|safe }}
+    </h1>
+    
+    <p style="font-size: 1.4rem; margin-bottom: 3rem; color: #94a3b8; font-weight: 400;">
+      {{ module.subtitle }}
+    </p>
+    
+    <div class="hero-buttons" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+      {% if module.primary_button.url.href %}
+      <a href="{{ module.primary_button.url.href }}" 
+         style="display: inline-flex; align-items: center; gap: 0.75rem; background: {{ module.primary_button_color }}; color: white; padding: 1.25rem 3rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: all 0.3s;">
+        {% if module.primary_button_icon %}
+        <span>{{ module.primary_button_icon }}</span>
+        {% endif %}
+        {{ module.primary_button.url.text }}
+      </a>
+      {% endif %}
+      
+      {% if module.secondary_button.url.href %}
+      <a href="{{ module.secondary_button.url.href }}" 
+         {% if module.secondary_button.url.open_in_new_tab %}target="_blank"{% endif %}
+         style="display: inline-flex; align-items: center; gap: 0.75rem; background: transparent; color: #f8fafc; padding: 1.25rem 3rem; border: 2px solid #1e293b; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s;">
+        {% if module.secondary_button_icon %}
+        <span>{{ module.secondary_button_icon }}</span>
+        {% endif %}
+        {{ module.secondary_button.url.text }}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+.modern-hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-buttons a:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem !important;
+  }
+  .hero-buttons {
+    flex-direction: column;
+  }
+}
+</style>

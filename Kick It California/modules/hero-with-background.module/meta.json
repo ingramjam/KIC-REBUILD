@@ -1,0 +1,7 @@
+{
+  "label": "Hero with Background Media",
+  "is_available_for_new_content": true,
+  "host_template_types": ["PAGE"],
+  "icon": "IMAGE",
+  "categories": ["BODY_CONTENT", "MEDIA"]
+}

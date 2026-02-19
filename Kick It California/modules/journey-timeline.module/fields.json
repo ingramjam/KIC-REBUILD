@@ -1,0 +1,133 @@
+[
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section Label",
+    "type": "text",
+    "default": "Our Story"
+  },
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Section Title",
+    "type": "text",
+    "default": "Your Success Is Our Mission"
+  },
+  {
+    "id": "section_subtitle",
+    "name": "section_subtitle",
+    "label": "Section Subtitle",
+    "type": "text",
+    "default": "For over 30 years, we've been California's trusted partner in helping people break free from tobacco and nicotine addiction."
+  },
+  {
+    "id": "cards",
+    "name": "cards",
+    "label": "Journey Cards",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 4
+    },
+    "default": [
+      {
+        "card_number": "01",
+        "title": "Who We Are",
+        "description": "California Smokers' Helpline, managed by UC San Diego, is the state's official quit tobacco resource. We're not just a call center—we're a team of certified Quit Coaches backed by 30+ years of research and real-world success.",
+        "list_items": [
+          "🎓 UCSF & UC San Diego Partnership",
+          "💰 100% Funded by California Tobacco Tax",
+          "🏆 Evidence-Based Methods That Work"
+        ],
+        "stat_number": "30",
+        "stat_label": "Years Helping Californians"
+      },
+      {
+        "card_number": "02",
+        "title": "Our Impact",
+        "description": "Since 1992, we've helped over 1 million Californians quit tobacco and nicotine. Our program isn't just effective—it triples your chances of quitting for good compared to going it alone.",
+        "list_items": [
+          "📊 3X Higher Success Rate",
+          "🎯 Personalized Quit Plans",
+          "💪 Ongoing Support & Check-ins"
+        ],
+        "stat_number": "1M",
+        "stat_label": "Lives Changed"
+      },
+      {
+        "card_number": "03",
+        "title": "Why It Works",
+        "description": "Our approach combines behavioral science, personalized coaching, and proven cessation strategies. Every Quit Coach is trained in Motivational Interviewing and understands the unique challenges Californians face.",
+        "list_items": [
+          "🧠 Evidence-Based Strategies",
+          "👥 Certified Quit Coaches",
+          "📱 Multi-Channel Support"
+        ],
+        "stat_number": "24/7",
+        "stat_label": "Always Available"
+      },
+      {
+        "card_number": "04",
+        "title": "Completely Free",
+        "description": "Every service we offer is 100% free. No hidden fees, no insurance required, no judgment. Just compassionate, professional support funded by California taxpayers for California residents.",
+        "list_items": [
+          "💵 Zero Cost to You",
+          "🔒 Completely Confidential",
+          "🌟 No Insurance Needed"
+        ],
+        "stat_number": "100%",
+        "stat_label": "Free Service"
+      }
+    ],
+    "children": [
+      {
+        "id": "card_number",
+        "name": "card_number",
+        "label": "Card Number",
+        "type": "text",
+        "default": "01"
+      },
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Title",
+        "type": "text",
+        "default": "Card Title"
+      },
+      {
+        "id": "description",
+        "name": "description",
+        "label": "Description",
+        "type": "text",
+        "default": "Card description text"
+      },
+      {
+        "id": "list_items",
+        "name": "list_items",
+        "label": "List Items",
+        "type": "text",
+        "occurrence": {
+          "min": 0,
+          "max": 10,
+          "default": 3
+        },
+        "default": ["Item 1", "Item 2", "Item 3"]
+      },
+      {
+        "id": "stat_number",
+        "name": "stat_number",
+        "label": "Stat Number",
+        "type": "text",
+        "default": "30"
+      },
+      {
+        "id": "stat_label",
+        "name": "stat_label",
+        "label": "Stat Label",
+        "type": "text",
+        "default": "Years Experience"
+      }
+    ]
+  }
+]

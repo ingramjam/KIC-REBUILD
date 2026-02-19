@@ -1,0 +1,1096 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Kick It California - Modern
+  screenshotPath: ../images/template-previews/home.png
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ content.html_title or "Kick It California - Free Quit Program | Call 800-300-8086" }}</title>
+    <meta name="description" content="{{ content.meta_description or 'Free California quit program. Call, text, chat, or download our app. Proven strategies to quit smoking, vaping, and tobacco for good.' }}">
+    
+    <!-- Google Fonts - Effortel Style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    {{ require_css(get_asset_url("../css/main.css")) }}
+    {{ standard_header_includes }}
+    
+    <style>
+      :root {
+        --primary-dark: #0a0f1e;
+        --secondary-dark: #1a2332;
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-orange: #f97316;
+        --text-light: #f8fafc;
+        --text-gray: #94a3b8;
+        --border-color: #1e293b;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--primary-dark);
+        color: var(--text-light);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      
+      /* Header - Effortel Style */
+      .site-header {
+        background: rgba(10, 15, 30, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.5rem 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+      
+      .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 50px;
+        width: auto;
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(101%) contrast(95%);
+        transition: all 0.3s ease;
+      }
+      
+      .logo img:hover {
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(110%) contrast(95%);
+      }
+      
+      .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 3rem;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .main-nav a {
+        text-decoration: none;
+        color: var(--text-gray);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .main-nav a:hover {
+        color: var(--text-light);
+      }
+      
+      /* Floating CTA Button */
+      .floating-cta {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+      
+      .floating-cta:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(249, 115, 22, 0.6);
+      }
+      
+      .floating-cta-icon {
+        font-size: 24px;
+        line-height: 1;
+      }
+      
+      .floating-cta-text {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      
+      /* Hero Section - Bold & Modern with Background Support */
+      .hero-section {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+        padding: 12rem 3rem 8rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      /* Background Image/Video Support */
+      .hero-section .hero-background-media {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.3;
+        z-index: 0;
+      }
+      
+      /* Dot Pattern Overlay */
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%),
+          radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+        background-size: 100% 100%, 20px 20px;
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      /* Dark Gradient Overlay for Readability */
+      .hero-section::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, 
+          rgba(10, 15, 30, 0.85) 0%, 
+          rgba(26, 35, 50, 0.75) 100%);
+        z-index: 1;
+        pointer-events: none;
+      }
+      
+      .hero-content {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+      
+      .hero-label {
+        display: inline-block;
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--accent-blue);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+      }
+      
+      .hero-section h1 {
+        font-size: 5rem;
+        margin-bottom: 2rem;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -2px;
+      }
+      
+      .hero-section p {
+        font-size: 1.4rem;
+        margin-bottom: 3rem;
+        color: var(--text-gray);
+        font-weight: 400;
+      }
+      
+      .hero-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .hero-button-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--accent-orange);
+        color: white;
+        padding: 1.25rem 3rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+      }
+      
+      .hero-button-primary:hover {
+        background: #ea580c;
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(249, 115, 22, 0.4);
+      }
+      
+      .hero-button-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: transparent;
+        color: var(--text-light);
+        padding: 1.25rem 3rem;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+      }
+      
+      .hero-button-secondary:hover {
+        border-color: var(--accent-blue);
+        background: rgba(59, 130, 246, 0.1);
+        transform: translateY(-4px);
+      }
+      
+      /* Section Styles - Effortel Inspired */
+      .section {
+        padding: 8rem 3rem;
+      }
+      
+      .section-dark {
+        background: var(--secondary-dark);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      /* Background Media Support for All Sections */
+      .section .section-background-media,
+      .section-dark .section-background-media {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.25;
+        z-index: 0;
+      }
+      
+      /* Dot Pattern Overlay for Sections */
+      .section-dark::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+        background-size: 24px 24px;
+        z-index: 1;
+        pointer-events: none;
+      }
+      
+      /* Dark Overlay for Readability */
+      .section-dark::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, 
+          rgba(26, 35, 50, 0.80) 0%, 
+          rgba(10, 15, 30, 0.85) 100%);
+        z-index: 1;
+        pointer-events: none;
+      }
+      
+      /* Ensure content is above overlays */
+      .section-dark .container {
+        position: relative;
+        z-index: 2;
+      }
+      
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      
+      .section-label {
+        display: inline-block;
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--accent-blue);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 2rem;
+      }
+      
+      .section-title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        line-height: 1.2;
+      }
+      
+      .section-subtitle {
+        font-size: 1.3rem;
+        color: var(--text-gray);
+        margin-bottom: 4rem;
+        max-width: 700px;
+      }
+      
+      /* Contact Methods Grid - Conversion Focused */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-top: 4rem;
+      }
+      
+      .contact-card {
+        background: var(--primary-dark);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 3rem 2rem;
+        text-align: center;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .contact-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+      
+      .contact-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent-blue);
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+      }
+      
+      .contact-card:hover::before {
+        transform: scaleX(1);
+      }
+      
+      .contact-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .contact-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+      
+      .contact-card p {
+        color: var(--text-gray);
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+      
+      .contact-link {
+        display: inline-block;
+        color: var(--accent-blue);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s;
+      }
+      
+      .contact-link:hover {
+        color: var(--text-light);
+      }
+      
+      /* Numbered Features - Effortel Style */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-top: 4rem;
+      }
+      
+      .feature-card {
+        position: relative;
+        padding-left: 5rem;
+      }
+      
+      .feature-number {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        opacity: 0.3;
+      }
+      
+      .feature-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+      
+      .feature-card p {
+        color: var(--text-gray);
+        line-height: 1.8;
+      }
+      
+      /* Stats Section */
+      .stats-section {
+        text-align: center;
+        padding: 6rem 3rem;
+        background: var(--primary-dark);
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+      }
+      
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .stat-item h3 {
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+      }
+      
+      .stat-item p {
+        color: var(--text-gray);
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
+      /* CTA Section */
+      .cta-section {
+        text-align: center;
+        padding: 8rem 3rem;
+        background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--primary-dark) 100%);
+        position: relative;
+      }
+      
+      .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+      }
+      
+      .cta-content {
+        position: relative;
+        z-index: 1;
+      }
+      
+      .cta-section h2 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+      }
+      
+      .cta-section p {
+        font-size: 1.4rem;
+        margin-bottom: 3rem;
+        color: var(--text-gray);
+      }
+      
+      /* Footer - Modern Dark */
+      .site-footer {
+        background: var(--primary-dark);
+        border-top: 1px solid var(--border-color);
+        padding: 4rem 3rem 2rem;
+      }
+      
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem;
+        margin-bottom: 3rem;
+      }
+      
+      .footer-brand h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+      }
+      
+      .footer-brand p {
+        color: var(--text-gray);
+        margin-bottom: 2rem;
+        line-height: 1.8;
+      }
+      
+      .footer-column h4 {
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+      }
+      
+      .footer-links {
+        list-style: none;
+      }
+      
+      .footer-links li {
+        margin-bottom: 0.75rem;
+      }
+      
+      .footer-links a {
+        color: var(--text-gray);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      
+      .footer-links a:hover {
+        color: var(--accent-blue);
+      }
+      
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--secondary-dark);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-gray);
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+      
+      .social-links a:hover {
+        background: var(--accent-blue);
+        border-color: var(--accent-blue);
+        color: white;
+        transform: translateY(-2px);
+      }
+      
+      .footer-bottom {
+        border-top: 1px solid var(--border-color);
+        padding-top: 2rem;
+        text-align: center;
+        color: var(--text-gray);
+        font-size: 0.875rem;
+      }
+      
+      /* Mobile Responsive */
+      @media (max-width: 1024px) {
+        .contact-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .stats-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .main-nav {
+          display: none;
+        }
+        
+        .floating-cta {
+          bottom: 20px;
+          left: 20px;
+          padding: 12px 20px;
+        }
+        
+        .floating-cta-text {
+          font-size: 14px;
+        }
+        
+        .floating-cta-icon {
+          font-size: 20px;
+        }
+        
+        .hero-section {
+          padding: 10rem 2rem 6rem;
+        }
+        
+        .hero-section h1 {
+          font-size: 2.5rem;
+        }
+        
+        .hero-buttons {
+          flex-direction: column;
+        }
+        
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .section-title {
+          font-size: 2rem;
+        }
+        
+        .section {
+          padding: 5rem 2rem;
+        }
+        
+        .stat-item h3 {
+          font-size: 3rem;
+        }
+      }
+    </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="https://244593765.hs-sites-na2.com/home" class="logo">
+        <img src="https://www.kickitca-wp.ucsd.edu/wp-content/uploads/2021/06/Primary.png" alt="Kick It California">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/quit-smoking">Smoking</a></li>
+          <li><a href="/quit-vaping">Vaping</a></li>
+          <li><a href="/quit-smokeless">Smokeless</a></li>
+          <li><a href="/quit-marijuana">Marijuana</a></li>
+          <li><a href="/quit-videos">Videos</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Floating CTA Button -->
+  <a href="/quit-now" class="floating-cta">
+    <span class="floating-cta-icon">🚀</span>
+    <span class="floating-cta-text">Quit Now</span>
+  </a>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <span class="hero-label">Free California Quit Program</span>
+      <h1>Quit Smoking.<br>Quit Vaping.<br>Take Control.</h1>
+      <p>Science-based strategies. Personal coaching. Real results. Get free support to quit tobacco and nicotine for good.</p>
+      <div class="hero-buttons">
+        <a href="tel:8003008086" class="hero-button-primary">
+          <span>📞</span> Call 800-300-8086
+        </a>
+        <a href="https://helpline-vision.ucsd.edu/Chat" target="_blank" class="hero-button-secondary">
+          <span>💬</span> Start Live Chat
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us - Interactive Journey Timeline -->
+  <section class="about-journey-section">
+    <div class="container">
+      <span class="section-label">Our Story</span>
+      <h2 class="section-title">Your Success Is Our Mission</h2>
+      <p class="section-subtitle">For over 30 years, we've been California's trusted partner in helping people break free from tobacco and nicotine addiction.</p>
+      
+      <!-- Journey Cards with Scroll Animation -->
+      <div class="journey-timeline">
+        <!-- Card 01: Who We Are -->
+        <div class="journey-card" data-card="1">
+          <div class="journey-card-number">01</div>
+          <div class="journey-card-content">
+            <div class="journey-text">
+              <h3 class="journey-title">Who We Are</h3>
+              <p>California Smokers' Helpline, managed by UC San Diego, is the state's official quit tobacco resource. We're not just a call center—we're a team of certified Quit Coaches backed by 30+ years of research and real-world success.</p>
+              <ul class="journey-list">
+                <li>🎓 UCSF & UC San Diego Partnership</li>
+                <li>💰 100% Funded by California Tobacco Tax</li>
+                <li>🏆 Evidence-Based Methods That Work</li>
+              </ul>
+            </div>
+            <div class="journey-visual">
+              <div class="visual-stat-box">
+                <div class="visual-stat-number" data-count="30">0</div>
+                <div class="visual-stat-label">Years of Service</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 02: Our Impact -->
+        <div class="journey-card" data-card="2">
+          <div class="journey-card-number">02</div>
+          <div class="journey-card-content">
+            <div class="journey-visual">
+              <div class="impact-grid">
+                <div class="impact-item">
+                  <div class="impact-number" data-count="500">0</div>
+                  <div class="impact-suffix">K+</div>
+                  <div class="impact-label">Lives Changed</div>
+                </div>
+                <div class="impact-item">
+                  <div class="impact-number" data-count="3">0</div>
+                  <div class="impact-suffix">X</div>
+                  <div class="impact-label">Higher Success Rate</div>
+                </div>
+              </div>
+            </div>
+            <div class="journey-text">
+              <h3 class="journey-title">Real Results</h3>
+              <p>We've helped over 1 million Californians quit for good. Our scientifically-proven approach combines behavioral coaching with personalized support, giving you 3X better odds than quitting alone.</p>
+              <div class="journey-highlight">
+                <strong>"The coaching made all the difference. I tried quitting on my own for years—this time, I had someone who believed in me."</strong>
+                <span>— Maria R., Quit After 15 Years</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 03: Why It's Free -->
+        <div class="journey-card" data-card="3">
+          <div class="journey-card-number">03</div>
+          <div class="journey-card-content">
+            <div class="journey-text">
+              <h3 class="journey-title">Why It's Free</h3>
+              <p>Every service we offer—coaching, materials, support—is 100% free for California residents. Funded by California's tobacco tax, our mission is simple: help you quit, no strings attached.</p>
+              <div class="free-services-list">
+                <div class="free-service">✅ Unlimited Coaching Sessions</div>
+                <div class="free-service">✅ Free Quit Patches & Gum</div>
+                <div class="free-service">✅ 24/7 Text & Chat Support</div>
+                <div class="free-service">✅ Personalized Quit Plan</div>
+              </div>
+            </div>
+            <div class="journey-visual">
+              <div class="visual-badge-stack">
+                <div class="visual-badge">
+                  <div class="badge-icon">🏛️</div>
+                  <div class="badge-text">State Funded</div>
+                </div>
+                <div class="visual-badge">
+                  <div class="badge-icon">🔬</div>
+                  <div class="badge-text">Science Backed</div>
+                </div>
+                <div class="visual-badge">
+                  <div class="badge-icon">🤝</div>
+                  <div class="badge-text">Trusted Partner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 04: Your Journey Starts Here -->
+        <div class="journey-card" data-card="4">
+          <div class="journey-card-number">04</div>
+          <div class="journey-card-content">
+            <div class="journey-visual">
+              <div class="journey-cta-visual">
+                <div class="cta-icon-large">🚀</div>
+                <div class="cta-pulse"></div>
+              </div>
+            </div>
+            <div class="journey-text">
+              <h3 class="journey-title">Your Journey Starts Here</h3>
+              <p>Whether you've tried quitting before or this is your first time, we're here to support you every step of the way. No judgment. No pressure. Just proven strategies and genuine support.</p>
+              <div class="journey-cta-buttons">
+                <a href="tel:8003008086" class="journey-btn-primary">
+                  <span>📞</span> Call 800-300-8086
+                </a>
+                <a href="/quit-now" class="journey-btn-secondary">
+                  <span>📝</span> Start Your Quit Plan
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div class="trust-section">
+        <p class="trust-label">TRUSTED BY CALIFORNIA'S HEALTH LEADERS</p>
+        <div class="trust-logos">
+          <div class="trust-logo">UC San Diego</div>
+          <div class="trust-logo">UCSF</div>
+          <div class="trust-logo">California Dept. of Public Health</div>
+          <div class="trust-logo">American Lung Association</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Methods - Conversion Focus -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Connect With Us</span>
+      <h2 class="section-title">Four Ways to Get Started</h2>
+      <p class="section-subtitle">Choose the method that works best for you. All services are 100% free for California residents.</p>
+      
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <h3>Call</h3>
+          <p>Talk to a Quit Coach right now. Available 7 days a week.</p>
+          <a href="tel:8003008086" class="contact-link">800-300-8086 →</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">💬</div>
+          <h3>Text</h3>
+          <p>Get support via text message. Text KICKIT to get started.</p>
+          <a href="sms:66819?&body=KICKIT" class="contact-link">Text Now →</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">🗨️</div>
+          <h3>Chat</h3>
+          <p>Live chat with a coach online. Quick and confidential.</p>
+          <a href="https://helpline-vision.ucsd.edu/Chat" target="_blank" class="contact-link">Start Chat →</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">📱</div>
+          <h3>App</h3>
+          <p>Download our mobile app for 24/7 quit support tools.</p>
+          <a href="#download-app" class="contact-link">Get App →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works - Numbered Effortel Style -->
+  <section class="section section-dark">
+    <div class="container">
+      <span class="section-label">Simple Process</span>
+      <h2 class="section-title">How Our Coaching Works</h2>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-number">01</div>
+          <h3>Connect</h3>
+          <p>Call, text, chat, or use our app. Tell us about your situation. Everything you share is 100% confidential.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-number">02</div>
+          <h3>Create Your Plan</h3>
+          <p>A personal Quit Coach works with you to build a custom quit plan using proven, science-based strategies.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-number">03</div>
+          <h3>Quit for Good</h3>
+          <p>Your coach checks in regularly to keep you motivated and adjust your plan. You're not alone in this journey.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>1M+</h3>
+          <p>CA Residents Helped</p>
+        </div>
+        <div class="stat-item">
+          <h3>24/7</h3>
+          <p>Support Available</p>
+        </div>
+        <div class="stat-item">
+          <h3>100%</h3>
+          <p>Free Service</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Section -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Tailored Programs</span>
+      <h2 class="section-title">We Help You Quit</h2>
+      
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">🚬</div>
+          <h3>Cigarettes</h3>
+          <p>Personalized strategies to break the habit and stay smoke-free.</p>
+          <a href="/quit-smoking" class="contact-link">Learn More →</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">💨</div>
+          <h3>Vapes & E-Cigs</h3>
+          <p>Overcome nicotine addiction from vaping devices and pods.</p>
+          <a href="/quit-vaping" class="contact-link">Learn More →</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">🎯</div>
+          <h3>Smokeless</h3>
+          <p>Quit chew, dip, and other smokeless tobacco products.</p>
+          <a href="/quit-smokeless" class="contact-link">Learn More →</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">🌿</div>
+          <h3>Marijuana</h3>
+          <p>Safe, supportive space to discuss cannabis use and quitting.</p>
+          <a href="/quit-marijuana" class="contact-link">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <span class="section-label">Ready to Quit?</span>
+      <h2>Take the First Step Today</h2>
+      <p>Join thousands of Californians who've quit for good. Free support is just a call, text, or click away.</p>
+      <div class="hero-buttons">
+        <a href="tel:8003008086" class="hero-button-primary">
+          <span>📞</span> Call 800-300-8086
+        </a>
+        <a href="https://helpline-vision.ucsd.edu/Chat" target="_blank" class="hero-button-secondary">
+          <span>💬</span> Start Chat Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>KICK IT CALIFORNIA</h3>
+          <p>California's free tobacco and nicotine cessation program. Helping Californians quit smoking, vaping, and all tobacco products since 1992.</p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/Kickitca/" target="_blank" aria-label="Facebook">
+              <span>f</span>
+            </a>
+            <a href="https://www.instagram.com/kickitca/" target="_blank" aria-label="Instagram">
+              <span>📷</span>
+            </a>
+            <a href="https://twitter.com/kickitca" target="_blank" aria-label="Twitter">
+              <span>𝕏</span>
+            </a>
+            <a href="https://www.youtube.com/c/kickitca" target="_blank" aria-label="YouTube">
+              <span>▶</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Programs</h4>
+          <ul class="footer-links">
+            <li><a href="/quit-smoking">Smoking</a></li>
+            <li><a href="/quit-vaping">Vaping</a></li>
+            <li><a href="/quit-smokeless">Smokeless</a></li>
+            <li><a href="/quit-marijuana">Marijuana</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/faqs">FAQs</a></li>
+            <li><a href="/success-stories">Success Stories</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="tel:8003008086">800-300-8086</a></li>
+            <li><a href="https://helpline-vision.ucsd.edu/Chat" target="_blank">Live Chat</a></li>
+            <li><a href="sms:66819?&body=KICKIT">Text KICKIT</a></li>
+            <li><a href="/contact">Contact Form</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>Major funding provided by the California Department of Public Health & First 5 California.</p>
+        <p>&copy; {{ local_dt.year }} The Regents of the University of California. All Rights Reserved. | <a href="/privacy" style="color: var(--text-gray);">Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  {{ require_js(get_asset_url("../js/main.js")) }}
+  {{ standard_footer_includes }}
+</body>
+</html>

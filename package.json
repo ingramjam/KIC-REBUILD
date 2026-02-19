@@ -1,0 +1,26 @@
+{
+  "name": "kickit-california-hubspot",
+  "version": "1.0.0",
+  "description": "Modern HubSpot CMS build for Kick It California - Mobile-friendly redesign with custom modules and templates",
+  "main": "index.js",
+  "scripts": {
+    "watch": "hs watch --portal=sandboxdev src/kickit-california-theme kickit-california-theme",
+    "upload": "hs upload --portal=sandboxdev src/kickit-california-theme kickit-california-theme",
+    "fetch": "hs fetch --portal=sandboxdev kickit-california-theme src/kickit-california-theme",
+    "create-module": "hs create module",
+    "create-template": "hs create template"
+  },
+  "keywords": [
+    "hubspot",
+    "cms",
+    "theme",
+    "kickit",
+    "california"
+  ],
+  "author": "Kick It California",
+  "license": "MIT",
+  "devDependencies": {
+    "@hubspot/cli": "^5.0.0",
+    "@hubspot/cli-lib": "^5.0.0"
+  }
+}

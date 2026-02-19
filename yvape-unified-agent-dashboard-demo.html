@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YVAPE Unified Agent Dashboard - POC Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00A6CE;
+            --secondary-color: #8DC63F;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-orange: #f97316;
+            --accent-red: #ef4444;
+            --primary-dark: #0a0f1e;
+            --secondary-dark: #1a2332;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Light Mode Variables */
+        [data-theme="light"] {
+            --primary-dark: #ffffff;
+            --secondary-dark: #fefefe;
+            --text-light: #1a1a1a;
+            --text-gray: #666666;
+            --border-color: rgba(0, 166, 206, 0.2);
+        }
+
+        [data-theme="light"] body {
+            background: linear-gradient(135deg, #e0f7fa 0%, #f0f4f8 100%);
+        }
+
+        [data-theme="light"] body::before {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 166, 206, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(141, 198, 63, 0.08) 0%, transparent 50%);
+        }
+
+        [data-theme="light"] .top-bar {
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 2px solid rgba(0, 166, 206, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="light"] .logo {
+            color: #00A6CE;
+        }
+
+        [data-theme="light"] .contact-info {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .contact-info strong {
+            color: #00A6CE;
+        }
+
+        [data-theme="light"] .call-timer {
+            background: rgba(0, 166, 206, 0.1);
+            color: #00A6CE;
+            border: 2px solid rgba(0, 166, 206, 0.3);
+        }
+
+        [data-theme="light"] .call-status {
+            background: #8DC63F;
+        }
+
+        [data-theme="light"] .protocol-section,
+        [data-theme="light"] .comm-section {
+            background: linear-gradient(135deg, rgba(0, 166, 206, 0.95), rgba(0, 149, 184, 0.95));
+            border: 2px solid #00A6CE;
+            box-shadow: 0 4px 12px rgba(0, 166, 206, 0.2);
+        }
+
+        [data-theme="light"] .section-header {
+            background: rgba(255, 255, 255, 0.15);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="light"] .section-number {
+            background: linear-gradient(135deg, #00A6CE, #8DC63F);
+            color: white;
+        }
+
+        [data-theme="light"] .section-title {
+            color: white;
+        }
+
+        [data-theme="light"] .collapse-icon {
+            color: white;
+        }
+
+        [data-theme="light"] .section-content {
+            background: white;
+        }
+
+        [data-theme="light"] .comm-title {
+            color: white;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.75rem 1rem;
+            margin: -1rem -1rem 1rem -1rem;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="light"] .section-card {
+            background: linear-gradient(135deg, rgba(0, 166, 206, 0.95), rgba(0, 149, 184, 0.95));
+            border: 2px solid #00A6CE;
+            box-shadow: 0 4px 12px rgba(0, 166, 206, 0.2);
+        }
+
+        [data-theme="light"] .section-card:hover {
+            border-color: #8DC63F;
+            box-shadow: 0 6px 16px rgba(0, 166, 206, 0.3);
+        }
+
+        [data-theme="light"] label {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        [data-theme="light"] input,
+        [data-theme="light"] select,
+        [data-theme="light"] textarea {
+            background: white;
+            border: 2px solid rgba(0, 166, 206, 0.2);
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] input:focus,
+        [data-theme="light"] select:focus,
+        [data-theme="light"] textarea:focus {
+            background: white;
+            border-color: #00A6CE;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 166, 206, 0.1);
+        }
+
+        [data-theme="light"] .control-btn,
+        [data-theme="light"] .template-btn,
+        [data-theme="light"] .email-btn {
+            background: white;
+            border: 2px solid rgba(0, 166, 206, 0.3);
+            color: #00A6CE;
+        }
+
+        [data-theme="light"] .control-btn:hover,
+        [data-theme="light"] .template-btn:hover,
+        [data-theme="light"] .email-btn:hover {
+            background: rgba(0, 166, 206, 0.05);
+            border-color: #00A6CE;
+        }
+
+        [data-theme="light"] .control-btn.active {
+            background: #00A6CE;
+            color: white;
+            border-color: #00A6CE;
+        }
+
+        [data-theme="light"] .control-btn.danger {
+            background: white;
+            color: #dc2626;
+            border-color: rgba(220, 38, 38, 0.3);
+        }
+
+        [data-theme="light"] .control-btn.danger:hover {
+            background: rgba(220, 38, 38, 0.05);
+            border-color: #dc2626;
+        }
+
+        [data-theme="light"] .send-btn {
+            background: linear-gradient(135deg, #00A6CE, #8DC63F);
+            color: white;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 166, 206, 0.3);
+        }
+
+        [data-theme="light"] .send-btn:hover {
+            background: linear-gradient(135deg, #0088a8, #7ab636);
+            box-shadow: 0 4px 12px rgba(0, 166, 206, 0.4);
+        }
+
+        [data-theme="light"] .sms-composer textarea {
+            background: white;
+            border-color: rgba(0, 166, 206, 0.2);
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .char-count {
+            color: #666666;
+        }
+
+        [data-theme="light"] .timeline-item {
+            background: rgba(0, 166, 206, 0.03);
+            border-left: 3px solid #00A6CE;
+        }
+
+        [data-theme="light"] .timeline-time {
+            color: #666666;
+        }
+
+        [data-theme="light"] .timeline-content {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .action-bar {
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 2px solid rgba(0, 166, 206, 0.2);
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="light"] .action-btn-primary {
+            background: linear-gradient(135deg, #00A6CE, #8DC63F);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 166, 206, 0.3);
+        }
+
+        [data-theme="light"] .action-btn-primary:hover {
+            background: linear-gradient(135deg, #0088a8, #7ab636);
+            box-shadow: 0 4px 12px rgba(0, 166, 206, 0.4);
+        }
+
+        [data-theme="light"] .action-btn-secondary {
+            background: white;
+            color: #00A6CE;
+            border: 2px solid rgba(0, 166, 206, 0.3);
+        }
+
+        [data-theme="light"] .action-btn-secondary:hover {
+            background: rgba(0, 166, 206, 0.05);
+            border-color: #00A6CE;
+        }
+
+        [data-theme="light"] .poc-badge {
+            background: rgba(249, 115, 22, 0.95);
+        }
+
+        [data-theme="light"] .tech-outline-amazon {
+            border-color: #ff9900;
+        }
+
+        [data-theme="light"] .tech-outline-twilio {
+            border-color: #f03b4a;
+        }
+
+        [data-theme="light"] .tech-outline-hubspot {
+            border-color: #ff7a59;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow: hidden;
+        }
+
+        /* Header Bar */
+        .top-bar {
+            background: rgba(26, 35, 50, 0.95);
+            border-bottom: 2px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 166, 206, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 166, 206, 0.3);
+        }
+
+        .contact-info strong {
+            color: var(--primary-color);
+        }
+
+        .call-timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-green);
+        }
+
+        .call-status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            height: calc(100vh - 80px);
+            gap: 0;
+        }
+
+        /* Left Panel - Protocol */
+        .protocol-panel {
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: linear-gradient(180deg, rgba(10, 15, 30, 0.5), rgba(26, 35, 50, 0.5));
+        }
+
+        .protocol-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .protocol-panel::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .protocol-panel::-webkit-scrollbar-thumb {
+            background: rgba(0, 166, 206, 0.3);
+            border-radius: 4px;
+        }
+
+        /* Right Panel - Communication Hub */
+        .communication-panel {
+            background: rgba(26, 35, 50, 0.8);
+            border-left: 2px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Section Card */
+        .section-card {
+            background: rgba(26, 35, 50, 0.6);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover {
+            border-color: var(--primary-color);
+            transform: translateX(4px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .section-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .section-card.completed .section-number {
+            background: var(--accent-green);
+        }
+
+        .section-title {
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .collapse-icon {
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .section-card.collapsed .collapse-icon {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            padding-left: 3rem;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.4s ease;
+        }
+
+        .section-card.collapsed .section-content {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .form-field {
+            margin-bottom: 1rem;
+        }
+
+        .form-field label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(0, 166, 206, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+        }
+
+        /* Communication Hub Sections */
+        .comm-section {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comm-section:last-child {
+            border-bottom: none;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .comm-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Phone Controls */
+        .phone-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .control-btn {
+            padding: 0.75rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .control-btn.active {
+            background: rgba(0, 166, 206, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .control-btn.danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .control-btn.danger:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Queue & Dialer Dropdown */
+        .queue-dropdown {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            width: 400px;
+            max-height: 600px;
+            background: rgba(26, 35, 50, 0.98);
+            border: 2px solid #ff9900;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .queue-dropdown.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        [data-theme="light"] .queue-dropdown {
+            background: rgba(255, 255, 255, 0.98);
+            border-color: #ff9900;
+        }
+
+        .queue-header {
+            background: linear-gradient(135deg, #ff9900, #cc7a00);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .queue-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .queue-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .queue-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .queue-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .queue-tabs {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .queue-tab {
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            border-bottom: 3px solid transparent;
+        }
+
+        .queue-tab.active {
+            color: #ff9900;
+            border-bottom-color: #ff9900;
+            background: rgba(255, 153, 0, 0.1);
+        }
+
+        .queue-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] .queue-tab:hover:not(.active) {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .queue-content {
+            max-height: 450px;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .queue-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .queue-stats {
+            border-bottom-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-box {
+            background: rgba(255, 153, 0, 0.1);
+            border: 1px solid rgba(255, 153, 0, 0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ff9900;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .queue-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .queue-item {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .queue-item:hover {
+            border-color: #ff9900;
+            transform: translateX(4px);
+        }
+
+        .queue-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .queue-caller-name {
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .queue-wait-time {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .queue-wait-time.urgent {
+            background: rgba(239, 68, 68, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .queue-caller-info {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .queue-caller-reason {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+
+        .queue-take-call {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .queue-take-call:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Outbound Dialer */
+        .dialer-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .dialer-btn {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        [data-theme="light"] .dialer-btn {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dialer-btn:hover {
+            background: rgba(255, 153, 0, 0.2);
+            border-color: #ff9900;
+            transform: scale(1.05);
+        }
+
+        .dialer-btn-sub {
+            font-size: 0.65rem;
+            color: var(--text-gray);
+            letter-spacing: 2px;
+        }
+
+        .dialer-display {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        [data-theme="light"] .dialer-display {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dialer-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            min-height: 30px;
+        }
+
+        .dialer-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .dialer-call-btn {
+            padding: 1rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dialer-call-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .dialer-clear-btn {
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: var(--accent-red);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dialer-clear-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .recent-contacts {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .recent-contacts {
+            border-top-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .recent-contacts-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--text-gray);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .recent-contact {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="light"] .recent-contact {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .recent-contact:hover {
+            background: rgba(255, 153, 0, 0.1);
+            transform: translateX(4px);
+        }
+
+        .recent-contact-name {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .recent-contact-number {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            font-family: 'Courier New', monospace;
+        }
+
+        .contact-info.clickable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .contact-info.clickable:hover {
+            background: rgba(0, 166, 206, 0.2);
+            border-color: #ff9900;
+        }
+
+        /* SMS Section */
+        .sms-templates {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .template-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(141, 198, 63, 0.1);
+            border: 1px solid rgba(141, 198, 63, 0.3);
+            border-radius: 6px;
+            color: var(--secondary-color);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-btn:hover {
+            background: rgba(141, 198, 63, 0.2);
+            transform: scale(1.05);
+        }
+
+        .sms-composer {
+            position: relative;
+        }
+
+        .sms-composer textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            resize: none;
+        }
+
+        .sms-composer textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .char-count {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-gray);
+        }
+
+        .send-btn {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+            background: linear-gradient(135deg, var(--secondary-color), #7ab82e);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(141, 198, 63, 0.4);
+        }
+
+        /* Email Quick Actions */
+        .email-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .email-btn {
+            padding: 0.75rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .email-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateX(4px);
+        }
+
+        /* Activity Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 6px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-time {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            white-space: nowrap;
+        }
+
+        .timeline-content {
+            flex: 1;
+            font-size: 0.875rem;
+        }
+
+        .timeline-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 400px;
+            background: rgba(26, 35, 50, 0.95);
+            border-top: 2px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            display: flex;
+            gap: 1rem;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .action-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 166, 206, 0.4);
+        }
+
+        .action-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .action-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150px);
+            background: rgba(16, 185, 129, 0.95);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* POC Badge */
+        .poc-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(249, 115, 22, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Tech Stack Outlines */
+        .tech-outline-amazon {
+            border: 2px solid #ff9900;
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .tech-label {
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 10;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tech-label:hover {
+            transform: scale(1.05);
+        }
+
+        .tech-label-amazon {
+            background: #ff9900;
+        }
+
+        .tech-label-amazon:hover {
+            box-shadow: 0 2px 8px rgba(255, 153, 0, 0.4);
+        }
+
+        .tech-outline-twilio {
+            border: 2px solid #f03b4a;
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .tech-label-twilio {
+            background: #f03b4a;
+        }
+
+        .tech-label-twilio:hover {
+            box-shadow: 0 2px 8px rgba(240, 59, 74, 0.4);
+        }
+
+        .tech-outline-hubspot {
+            border: 2px solid #ff7a59;
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .tech-label-hubspot {
+            background: #ff7a59;
+        }
+
+        .tech-label-hubspot:hover {
+            box-shadow: 0 2px 8px rgba(255, 122, 89, 0.4);
+        }
+
+        .tech-label.hidden {
+            display: none;
+        }
+
+        .tech-outline-amazon.no-label,
+        .tech-outline-twilio.no-label,
+        .tech-outline-hubspot.no-label {
+            margin-top: 0;
+            border: 1px solid var(--border-color);
+        }
+
+        [data-theme="light"] .tech-outline-amazon.no-label,
+        [data-theme="light"] .tech-outline-twilio.no-label,
+        [data-theme="light"] .tech-outline-hubspot.no-label {
+            border: 2px solid rgba(0, 166, 206, 0.15);
+        }
+
+        /* Script Blocks for Agent Guidance */
+        .script-block {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        [data-theme="light"] .script-block {
+            background: rgba(0, 166, 206, 0.08);
+            border-left-color: #00A6CE;
+        }
+
+        .script-label {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        [data-theme="light"] .script-label {
+            background: #00A6CE;
+        }
+
+        .script-block p {
+            margin-top: 0.5rem;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        [data-theme="light"] .script-block p {
+            color: #1a1a1a;
+        }
+
+        /* Tech Info Modal */
+        .tech-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tech-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tech-modal-content {
+            background: var(--secondary-dark);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] .tech-modal-content {
+            background: white;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .tech-modal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tech-modal-icon {
+            font-size: 3rem;
+        }
+
+        .tech-modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-light);
+        }
+
+        .tech-modal-subtitle {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        .tech-modal-body {
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-modal-body p {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-modal-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tech-modal-list li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-modal-close {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tech-modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 166, 206, 0.4);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(26, 35, 50, 0.6);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-top: 1rem;
+        }
+
+        [data-theme="light"] .theme-toggle {
+            background: rgba(248, 250, 252, 0.9);
+            border: 2px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .theme-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .communication-panel {
+                display: none;
+            }
+
+            .action-bar {
+                right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- POC Badge -->
+    <div class="poc-badge">🚀 DEMO MODE - Proof of Concept</div>
+
+    <!-- Tech Info Modals -->
+    <div class="tech-modal" id="tech-modal-amazon" onclick="if(event.target === this) closeTechModal()">
+        <div class="tech-modal-content">
+            <div class="tech-modal-header">
+                <span class="tech-modal-icon">☁️</span>
+                <div>
+                    <div class="tech-modal-title">Amazon Connect</div>
+                    <div class="tech-modal-subtitle">Cloud Contact Center Platform</div>
+                </div>
+            </div>
+            <div class="tech-modal-body">
+                <p><strong>Powers these features:</strong></p>
+                <ul class="tech-modal-list">
+                    <li>📞 Live call handling & routing</li>
+                    <li>⏱️ Call timer & duration tracking</li>
+                    <li>🔇 Mute, Hold, Transfer controls</li>
+                    <li>📊 Real-time call analytics</li>
+                    <li>🎧 Agent desktop CTI integration</li>
+                </ul>
+            </div>
+            <button class="tech-modal-close" onclick="closeTechModal()">Got it! ✓</button>
+        </div>
+    </div>
+
+    <div class="tech-modal" id="tech-modal-twilio" onclick="if(event.target === this) closeTechModal()">
+        <div class="tech-modal-content">
+            <div class="tech-modal-header">
+                <span class="tech-modal-icon">💬</span>
+                <div>
+                    <div class="tech-modal-title">Twilio</div>
+                    <div class="tech-modal-subtitle">Programmable SMS Platform</div>
+                </div>
+            </div>
+            <div class="tech-modal-body">
+                <p><strong>Powers these features:</strong></p>
+                <ul class="tech-modal-list">
+                    <li>📱 SMS messaging to clients</li>
+                    <li>📝 Template-based quick send</li>
+                    <li>✉️ Two-way text conversations</li>
+                    <li>🔔 Automated follow-up reminders</li>
+                    <li>📊 Message delivery tracking</li>
+                </ul>
+            </div>
+            <button class="tech-modal-close" onclick="closeTechModal()">Got it! ✓</button>
+        </div>
+    </div>
+
+    <div class="tech-modal" id="tech-modal-hubspot" onclick="if(event.target === this) closeTechModal()">
+        <div class="tech-modal-content">
+            <div class="tech-modal-header">
+                <span class="tech-modal-icon">🎯</span>
+                <div>
+                    <div class="tech-modal-title">HubSpot CRM</div>
+                    <div class="tech-modal-subtitle">Contact & Engagement Management</div>
+                </div>
+            </div>
+            <div class="tech-modal-body">
+                <p><strong>Powers these features:</strong></p>
+                <ul class="tech-modal-list">
+                    <li>👤 Contact record updates</li>
+                    <li>📧 Email resource distribution</li>
+                    <li>📅 Activity timeline logging</li>
+                    <li>🎯 Lead scoring & tracking</li>
+                    <li>📈 Engagement analytics & reporting</li>
+                </ul>
+            </div>
+            <button class="tech-modal-close" onclick="closeTechModal()">Got it! ✓</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <div class="logo">YVAPE</div>
+            <div class="contact-info clickable" onclick="toggleQueueDropdown()">
+                <strong>📞 Active Call:</strong> 
+                <span id="contactName">John Smith</span>
+                <span style="color: var(--text-gray);">•</span>
+                <span>(555) 123-4567</span>
+                <span style="margin-left: 0.5rem; font-size: 0.875rem;">▼</span>
+            </div>
+        </div>
+        <div class="call-timer">
+            <span class="call-status"></span>
+            <span id="callTimer">05:23</span>
+        </div>
+    </div>
+
+    <!-- Queue & Dialer Dropdown -->
+    <div class="queue-dropdown" id="queueDropdown">
+        <div class="queue-header">
+            <h3>☁️ Amazon Connect Queue</h3>
+            <button class="queue-close" onclick="toggleQueueDropdown()">✕</button>
+        </div>
+        
+        <div class="queue-tabs">
+            <button class="queue-tab active" onclick="switchQueueTab('incoming')">
+                📥 Incoming Queue
+            </button>
+            <button class="queue-tab" onclick="switchQueueTab('dialer')">
+                📞 Make Call
+            </button>
+        </div>
+
+        <!-- Incoming Queue Tab -->
+        <div class="queue-content" id="incomingTab">
+            <div class="queue-stats">
+                <div class="stat-box">
+                    <div class="stat-number" id="queueCount">4</div>
+                    <div class="stat-label">In Queue</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="avgWait">3:45</div>
+                    <div class="stat-label">Avg Wait</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="availableAgents">2</div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+
+            <div class="queue-list" id="queueList">
+                <div class="queue-item">
+                    <div class="queue-item-header">
+                        <span class="queue-caller-name">Sarah Johnson</span>
+                        <span class="queue-wait-time urgent">⏱️ 5:30</span>
+                    </div>
+                    <div class="queue-caller-info">📱 (555) 234-5678</div>
+                    <div class="queue-caller-reason">Reason: Ready to quit vaping, needs support</div>
+                    <button class="queue-take-call" onclick="takeCall('Sarah Johnson', '555-234-5678')">
+                        📞 Answer Call
+                    </button>
+                </div>
+
+                <div class="queue-item">
+                    <div class="queue-item-header">
+                        <span class="queue-caller-name">Michael Chen</span>
+                        <span class="queue-wait-time urgent">⏱️ 4:15</span>
+                    </div>
+                    <div class="queue-caller-info">📱 (555) 345-6789</div>
+                    <div class="queue-caller-reason">Reason: Question about quit plan</div>
+                    <button class="queue-take-call" onclick="takeCall('Michael Chen', '555-345-6789')">
+                        📞 Answer Call
+                    </button>
+                </div>
+
+                <div class="queue-item">
+                    <div class="queue-item-header">
+                        <span class="queue-caller-name">Emily Rodriguez</span>
+                        <span class="queue-wait-time">⏱️ 2:30</span>
+                    </div>
+                    <div class="queue-caller-info">📱 (555) 456-7890</div>
+                    <div class="queue-caller-reason">Reason: Follow-up from previous session</div>
+                    <button class="queue-take-call" onclick="takeCall('Emily Rodriguez', '555-456-7890')">
+                        📞 Answer Call
+                    </button>
+                </div>
+
+                <div class="queue-item">
+                    <div class="queue-item-header">
+                        <span class="queue-caller-name">David Thompson</span>
+                        <span class="queue-wait-time">⏱️ 1:45</span>
+                    </div>
+                    <div class="queue-caller-info">📱 (555) 567-8901</div>
+                    <div class="queue-caller-reason">Reason: New caller, first time quitting</div>
+                    <button class="queue-take-call" onclick="takeCall('David Thompson', '555-567-8901')">
+                        📞 Answer Call
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dialer Tab -->
+        <div class="queue-content" id="dialerTab" style="display: none;">
+            <div class="dialer-display">
+                <div class="dialer-number" id="dialerDisplay"></div>
+            </div>
+
+            <div class="dialer-pad">
+                <button class="dialer-btn" onclick="dialerInput('1')">
+                    <span>1</span>
+                    <span class="dialer-btn-sub"></span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('2')">
+                    <span>2</span>
+                    <span class="dialer-btn-sub">ABC</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('3')">
+                    <span>3</span>
+                    <span class="dialer-btn-sub">DEF</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('4')">
+                    <span>4</span>
+                    <span class="dialer-btn-sub">GHI</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('5')">
+                    <span>5</span>
+                    <span class="dialer-btn-sub">JKL</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('6')">
+                    <span>6</span>
+                    <span class="dialer-btn-sub">MNO</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('7')">
+                    <span>7</span>
+                    <span class="dialer-btn-sub">PQRS</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('8')">
+                    <span>8</span>
+                    <span class="dialer-btn-sub">TUV</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('9')">
+                    <span>9</span>
+                    <span class="dialer-btn-sub">WXYZ</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('*')">
+                    <span>*</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('0')">
+                    <span>0</span>
+                    <span class="dialer-btn-sub">+</span>
+                </button>
+                <button class="dialer-btn" onclick="dialerInput('#')">
+                    <span>#</span>
+                </button>
+            </div>
+
+            <div class="dialer-actions">
+                <button class="dialer-call-btn" onclick="makeOutboundCall()">
+                    📞 Call
+                </button>
+                <button class="dialer-clear-btn" onclick="clearDialer()">
+                    ⌫ Clear
+                </button>
+            </div>
+
+            <div class="recent-contacts">
+                <div class="recent-contacts-title">Recent Contacts</div>
+                <div class="recent-contact" onclick="quickDial('555-123-4567', 'John Smith')">
+                    <span class="recent-contact-name">John Smith</span>
+                    <span class="recent-contact-number">(555) 123-4567</span>
+                </div>
+                <div class="recent-contact" onclick="quickDial('555-987-6543', 'Lisa Anderson')">
+                    <span class="recent-contact-name">Lisa Anderson</span>
+                    <span class="recent-contact-number">(555) 987-6543</span>
+                </div>
+                <div class="recent-contact" onclick="quickDial('555-246-8135', 'Robert Martinez')">
+                    <span class="recent-contact-name">Robert Martinez</span>
+                    <span class="recent-contact-number">(555) 246-8135</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Panel: Protocol -->
+        <div class="protocol-panel">
+            <!-- Section 1 -->
+            <div class="section-card" data-section="1">
+                <div class="section-header" onclick="toggleSection(1)">
+                    <div class="section-number">1</div>
+                    <div class="section-title">Introduction & Rapport</div>
+                    <div class="collapse-icon">▼</div>
+                </div>
+                <div class="section-content">
+                    <div class="script-block">
+                        <span class="script-label">Say This</span>
+                        <p>"Hi, my name is [YOUR NAME] and I'm calling from YVAPE. Thank you for reaching out to us today. Before we begin, I want you to know that this call is confidential, and I'm here to support you. This conversation will take about 15-20 minutes. Does that work for you?"</p>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Client confirmed availability?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="intro_confirm" onchange="updateProgress()">
+                                <label for="intro_confirm">Time confirmed (15-20 min)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="intro_comfort" onchange="updateProgress()">
+                                <label for="intro_comfort">Client comfortable proceeding</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Notes</label>
+                        <textarea placeholder="Add notes..." rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section-card" data-section="2">
+                <div class="section-header" onclick="toggleSection(2)">
+                    <div class="section-number">2</div>
+                    <div class="section-title">Vaping Assessment</div>
+                    <div class="collapse-icon">▼</div>
+                </div>
+                <div class="section-content">
+                    <div class="script-block">
+                        <span class="script-label">Ask</span>
+                        <p>"Can you tell me about your vaping? What type of device do you use, and how often do you vape throughout the day?"</p>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Device Type</label>
+                        <select onchange="updateProgress()">
+                            <option value="">Select device...</option>
+                            <option>Pod System (Juul, Vuse)</option>
+                            <option>Mod/Tank</option>
+                            <option>Disposable</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>Daily Frequency</label>
+                        <select onchange="updateProgress()">
+                            <option value="">Select frequency...</option>
+                            <option>Light (1-5 times/day)</option>
+                            <option>Moderate (6-15 times/day)</option>
+                            <option>Heavy (16+ times/day)</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>Assessment Notes</label>
+                        <textarea placeholder="Document patterns, triggers..." rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="section-card" data-section="3">
+                <div class="section-header" onclick="toggleSection(3)">
+                    <div class="section-number">3</div>
+                    <div class="section-title">Motivation & Goals</div>
+                    <div class="collapse-icon">▼</div>
+                </div>
+                <div class="section-content">
+                    <div class="script-block">
+                        <span class="script-label">Explore</span>
+                        <p>"What's bringing you to quit vaping right now? What would be different in your life if you were vape-free?"</p>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Primary Motivations</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Health concerns</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Financial reasons</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Family/relationships</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Regain control</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Quit Goal</label>
+                        <select onchange="updateProgress()">
+                            <option value="">Select goal...</option>
+                            <option>Quit immediately</option>
+                            <option>Quit within 30 days</option>
+                            <option>Reduce first, then quit</option>
+                            <option>Still exploring</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>Motivation Notes</label>
+                        <textarea placeholder="Document reasons and goals..." rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section-card" data-section="4">
+                <div class="section-header" onclick="toggleSection(4)">
+                    <div class="section-number">4</div>
+                    <div class="section-title">Action Plan</div>
+                    <div class="collapse-icon">▼</div>
+                </div>
+                <div class="section-content">
+                    <div class="script-block">
+                        <span class="script-label">Collaborate</span>
+                        <p>"Let's work together to create a personalized plan. Based on what you've shared, here are some strategies and resources that might help you..."</p>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Resources Provided</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>NRT information</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Quit app recommendation</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Support group info</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Counseling sessions</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Follow-up Schedule</label>
+                        <select onchange="updateProgress()">
+                            <option value="">Select timeline...</option>
+                            <option>3 days</option>
+                            <option>1 week</option>
+                            <option>2 weeks</option>
+                            <option>1 month</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>Action Plan Notes</label>
+                        <textarea placeholder="Document plan and next steps..." rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section-card" data-section="5">
+                <div class="section-header" onclick="toggleSection(5)">
+                    <div class="section-number">5</div>
+                    <div class="section-title">Closing</div>
+                    <div class="collapse-icon">▼</div>
+                </div>
+                <div class="section-content">
+                    <div class="script-block">
+                        <span class="script-label">Conclude</span>
+                        <p>"Thank you so much for taking this time with me today. Remember, you don't have to do this alone. We're here to support you every step of the way. Do you have any final questions for me?"</p>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Closing Checklist</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>All questions answered</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Contact info confirmed</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Resources scheduled</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" onchange="updateProgress()">
+                                <label>Encouragement provided</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Final Notes</label>
+                        <textarea placeholder="Document final thoughts..." rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spacing for action bar -->
+            <div style="height: 100px;"></div>
+        </div>
+
+        <!-- Right Panel: Communication Hub -->
+        <div class="communication-panel">
+            <!-- Phone Controls -->
+            <div class="comm-section tech-outline-amazon">
+                <span class="tech-label tech-label-amazon" onclick="showTechModal('amazon')">☁️ Amazon Connect</span>
+                <div class="comm-title">📞 CALL CONTROLS</div>
+                <div class="phone-controls">
+                    <button class="control-btn" id="muteBtn" onclick="toggleMute()">
+                        🎤 <span id="muteText">Mute</span>
+                    </button>
+                    <button class="control-btn" id="holdBtn" onclick="toggleHold()">
+                        ⏸️ <span id="holdText">Hold</span>
+                    </button>
+                    <button class="control-btn" onclick="transferCall()">
+                        ↗️ Transfer
+                    </button>
+                    <button class="control-btn danger" onclick="endCall()">
+                        ❌ End Call
+                    </button>
+                </div>
+            </div>
+
+            <!-- SMS Quick Send -->
+            <div class="comm-section tech-outline-twilio">
+                <span class="tech-label tech-label-twilio" onclick="showTechModal('twilio')">💬 Twilio SMS</span>
+                <div class="comm-title">💬 SMS QUICK SEND</div>
+                <div class="sms-templates">
+                    <button class="template-btn" onclick="loadTemplate('welcome')">Welcome</button>
+                    <button class="template-btn" onclick="loadTemplate('checkin')">Check-in</button>
+                    <button class="template-btn" onclick="loadTemplate('resources')">Resources</button>
+                    <button class="template-btn" onclick="loadTemplate('reminder')">Reminder</button>
+                </div>
+                <div class="sms-composer">
+                    <textarea id="smsText" placeholder="Type message..." maxlength="160" oninput="updateCharCount()"></textarea>
+                    <span class="char-count" id="charCount">0/160</span>
+                </div>
+                <button class="send-btn" onclick="sendSMS()">📤 Send Text</button>
+            </div>
+
+            <!-- Email Quick Actions -->
+            <div class="comm-section tech-outline-hubspot">
+                <span class="tech-label tech-label-hubspot" onclick="showTechModal('hubspot')">🎯 HubSpot CRM</span>
+                <div class="comm-title">📧 EMAIL RESOURCES</div>
+                <div class="email-actions">
+                    <button class="email-btn" onclick="sendEmail('quit-guide')">
+                        📄 Quit Guide PDF
+                    </button>
+                    <button class="email-btn" onclick="sendEmail('videos')">
+                        🎥 Video Library Link
+                    </button>
+                    <button class="email-btn" onclick="sendEmail('app')">
+                        📱 Mobile App Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div class="comm-section tech-outline-hubspot">
+                <span class="tech-label tech-label-hubspot" onclick="showTechModal('hubspot')">🎯 HubSpot CRM</span>
+                <div class="comm-title">📝 ACTIVITY LOG</div>
+                <div class="timeline" id="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon">📞</div>
+                        <div class="timeline-time">10:15</div>
+                        <div class="timeline-content">Call started with John Smith</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">✅</div>
+                        <div class="timeline-time">10:16</div>
+                        <div class="timeline-content">Section 1 completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="action-bar">
+        <button class="action-btn action-btn-secondary" onclick="saveProgress()">
+            💾 Save Progress
+        </button>
+        <button class="action-btn action-btn-secondary" onclick="exportData()">
+            📥 Export Data
+        </button>
+        <button class="action-btn action-btn-primary" onclick="completeCall()">
+            ✅ Complete Call & Sync to HubSpot
+        </button>
+        <button class="action-btn action-btn-secondary" id="tech-toggle-btn" onclick="toggleTechLabels()" title="Show/Hide Tech Stack Labels">
+            <span id="tech-toggle-icon">🏷️</span>
+            <span id="tech-toggle-text">Tech Labels</span>
+        </button>
+        <button class="action-btn action-btn-secondary" onclick="toggleTheme()" title="Toggle Light/Dark Mode">
+            <span id="theme-icon">🌙</span>
+            <span id="theme-text">Dark Mode</span>
+        </button>
+    </div>
+
+    <script>
+        // Timer functionality
+        let seconds = 323; // Starting at 5:23
+        let timerInterval;
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                seconds++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.getElementById('callTimer').textContent = 
+                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        startTimer();
+
+        // Section toggle
+        function toggleSection(num) {
+            const card = document.querySelector(`[data-section="${num}"]`);
+            card.classList.toggle('collapsed');
+            logActivity(`Section ${num} ${card.classList.contains('collapsed') ? 'collapsed' : 'expanded'}`);
+        }
+
+        // Phone controls
+        let isMuted = false;
+        let isOnHold = false;
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const btn = document.getElementById('muteBtn');
+            const text = document.getElementById('muteText');
+            
+            if (isMuted) {
+                btn.classList.add('active');
+                text.textContent = 'Unmute';
+                showToast('🎤 Microphone muted');
+                logActivity('Call muted');
+            } else {
+                btn.classList.remove('active');
+                text.textContent = 'Mute';
+                showToast('🎤 Microphone unmuted');
+                logActivity('Call unmuted');
+            }
+        }
+
+        function toggleHold() {
+            isOnHold = !isOnHold;
+            const btn = document.getElementById('holdBtn');
+            const text = document.getElementById('holdText');
+            
+            if (isOnHold) {
+                btn.classList.add('active');
+                text.textContent = 'Resume';
+                showToast('⏸️ Call on hold');
+                logActivity('Call placed on hold');
+            } else {
+                btn.classList.remove('active');
+                text.textContent = 'Hold';
+                showToast('▶️ Call resumed');
+                logActivity('Call resumed');
+            }
+        }
+
+        function transferCall() {
+            if (confirm('Transfer call to supervisor?')) {
+                showToast('↗️ Transferring call...');
+                logActivity('Call transferred to supervisor');
+            }
+        }
+
+        function endCall() {
+            if (confirm('End call and save data?')) {
+                clearInterval(timerInterval);
+                showToast('❌ Call ended - Duration: ' + document.getElementById('callTimer').textContent);
+                logActivity('Call ended');
+                setTimeout(() => {
+                    completeCall();
+                }, 1500);
+            }
+        }
+
+        // SMS functionality
+        function updateCharCount() {
+            const text = document.getElementById('smsText').value;
+            document.getElementById('charCount').textContent = `${text.length}/160`;
+        }
+
+        function loadTemplate(type) {
+            const templates = {
+                welcome: "Hi John! Thanks for calling YVAPE today. We're here to support you on your quit journey. Reply STOP to opt out.",
+                checkin: "Hi John, checking in to see how you're doing. Remember, we're here if you need support. Call us anytime!",
+                resources: "Hi John! Here are the resources we discussed: [link]. You've got this! 💪",
+                reminder: "Reminder: Your follow-up call is scheduled for tomorrow at 2pm. Looking forward to hearing your progress!"
+            };
+            
+            document.getElementById('smsText').value = templates[type];
+            updateCharCount();
+            showToast(`📝 Template loaded: ${type}`);
+        }
+
+        function sendSMS() {
+            const text = document.getElementById('smsText').value;
+            if (!text) {
+                alert('Please enter a message');
+                return;
+            }
+            
+            showToast('💬 SMS sent to (555) 123-4567');
+            logActivity('SMS sent: "' + text.substring(0, 30) + '..."');
+            document.getElementById('smsText').value = '';
+            updateCharCount();
+            
+            // Simulate auto-log to HubSpot
+            setTimeout(() => {
+                logActivity('✅ SMS logged to HubSpot');
+            }, 1000);
+        }
+
+        // Email functionality
+        function sendEmail(type) {
+            const emails = {
+                'quit-guide': 'Quit Guide PDF',
+                'videos': 'Video Library',
+                'app': 'Mobile App Download'
+            };
+            
+            showToast(`📧 Email sent: ${emails[type]}`);
+            logActivity(`Email sent: ${emails[type]}`);
+            
+            setTimeout(() => {
+                logActivity('✅ Email logged to HubSpot');
+            }, 1000);
+        }
+
+        // Activity logging
+        function logActivity(text) {
+            const timeline = document.getElementById('timeline');
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            const icons = {
+                'Section': '✅',
+                'SMS': '💬',
+                'Email': '📧',
+                'Call': '📞',
+                'muted': '🔇',
+                'unmuted': '🔊',
+                'hold': '⏸️',
+                'resumed': '▶️',
+                'transferred': '↗️',
+                'ended': '❌'
+            };
+            
+            let icon = '📝';
+            for (const [key, value] of Object.entries(icons)) {
+                if (text.includes(key)) {
+                    icon = value;
+                    break;
+                }
+            }
+            
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+            item.innerHTML = `
+                <div class="timeline-icon">${icon}</div>
+                <div class="timeline-time">${timeStr}</div>
+                <div class="timeline-content">${text}</div>
+            `;
+            
+            timeline.insertBefore(item, timeline.firstChild);
+            
+            // Keep only last 10 items
+            while (timeline.children.length > 10) {
+                timeline.removeChild(timeline.lastChild);
+            }
+        }
+
+        // Progress tracking
+        function updateProgress() {
+            const totalCheckboxes = document.querySelectorAll('input[type="checkbox"]').length;
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const totalSelects = document.querySelectorAll('select').length;
+            const filledSelects = document.querySelectorAll('select').length; // Simplified for demo
+            
+            // Mark sections as completed
+            document.querySelectorAll('.section-card').forEach((card, index) => {
+                const checkboxes = card.querySelectorAll('input[type="checkbox"]');
+                const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                
+                if (allChecked && checkboxes.length > 0) {
+                    if (!card.classList.contains('completed')) {
+                        card.classList.add('completed');
+                        logActivity(`Section ${index + 1} completed`);
+                    }
+                }
+            });
+        }
+
+        // Save and export
+        function saveProgress() {
+            showToast('💾 Progress saved to local storage');
+            logActivity('Progress saved locally');
+        }
+
+        function exportData() {
+            const data = {
+                contact: {
+                    name: document.getElementById('contactName').textContent,
+                    phone: '(555) 123-4567'
+                },
+                callDuration: document.getElementById('callTimer').textContent,
+                timestamp: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `call_${Date.now()}.json`;
+            a.click();
+            
+            showToast('📥 Data exported as JSON');
+            logActivity('Call data exported');
+        }
+
+        // Complete call and sync
+        function completeCall() {
+            showToast('🚀 Syncing call data to HubSpot...');
+            
+            setTimeout(() => {
+                showToast('✅ Call logged to HubSpot successfully!');
+                logActivity('✅ Full call summary synced to HubSpot');
+                
+                // Show what would be sent to HubSpot
+                console.log('HubSpot Sync Data:', {
+                    contactPhone: '(555) 123-4567',
+                    callDuration: document.getElementById('callTimer').textContent,
+                    timestamp: new Date().toISOString(),
+                    protocol_completion: '60%',
+                    notes: 'All notes collected',
+                    follow_up: 'Scheduled for 3 days'
+                });
+            }, 2000);
+        }
+
+        // Queue Dropdown Toggle
+        function toggleQueueDropdown() {
+            const dropdown = document.getElementById('queueDropdown');
+            dropdown.classList.toggle('active');
+            
+            if (dropdown.classList.contains('active')) {
+                console.log('Amazon Connect Queue opened');
+            }
+        }
+
+        // Switch between queue tabs
+        function switchQueueTab(tab) {
+            const tabs = document.querySelectorAll('.queue-tab');
+            const incomingTab = document.getElementById('incomingTab');
+            const dialerTab = document.getElementById('dialerTab');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            if (tab === 'incoming') {
+                tabs[0].classList.add('active');
+                incomingTab.style.display = 'block';
+                dialerTab.style.display = 'none';
+            } else {
+                tabs[1].classList.add('active');
+                incomingTab.style.display = 'none';
+                dialerTab.style.display = 'block';
+            }
+        }
+
+        // Take incoming call from queue
+        function takeCall(name, phone) {
+            document.getElementById('contactName').textContent = name;
+            showToast(`📞 Connected to ${name}`);
+            logActivity(`📞 Call accepted from ${name} (${phone})`);
+            
+            // Update queue count
+            const queueCount = document.getElementById('queueCount');
+            const currentCount = parseInt(queueCount.textContent);
+            queueCount.textContent = Math.max(0, currentCount - 1);
+            
+            // Close dropdown
+            toggleQueueDropdown();
+            
+            console.log(`Amazon Connect: Call connected to ${name} at ${phone}`);
+        }
+
+        // Dialer functions
+        let dialerNumber = '';
+
+        function dialerInput(digit) {
+            dialerNumber += digit;
+            document.getElementById('dialerDisplay').textContent = formatPhoneNumber(dialerNumber);
+        }
+
+        function clearDialer() {
+            dialerNumber = '';
+            document.getElementById('dialerDisplay').textContent = '';
+        }
+
+        function formatPhoneNumber(number) {
+            // Remove non-digits
+            const digits = number.replace(/\D/g, '');
+            
+            // Format as (XXX) XXX-XXXX
+            if (digits.length <= 3) {
+                return digits;
+            } else if (digits.length <= 6) {
+                return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+            } else {
+                return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+            }
+        }
+
+        function makeOutboundCall() {
+            if (!dialerNumber || dialerNumber.replace(/\D/g, '').length < 10) {
+                showToast('⚠️ Please enter a valid 10-digit phone number');
+                return;
+            }
+            
+            const formattedNumber = formatPhoneNumber(dialerNumber);
+            showToast(`📞 Calling ${formattedNumber}...`);
+            logActivity(`📞 Outbound call placed to ${formattedNumber}`);
+            
+            // Simulate connecting
+            setTimeout(() => {
+                document.getElementById('contactName').textContent = formattedNumber;
+                showToast(`✅ Connected to ${formattedNumber}`);
+                clearDialer();
+                toggleQueueDropdown();
+            }, 2000);
+            
+            console.log(`Amazon Connect: Outbound call initiated to ${formattedNumber}`);
+        }
+
+        function quickDial(number, name) {
+            dialerNumber = number.replace(/\D/g, '');
+            document.getElementById('dialerDisplay').textContent = formatPhoneNumber(dialerNumber);
+            showToast(`📱 ${name} selected - ready to call`);
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('queueDropdown');
+            const contactInfo = document.querySelector('.contact-info');
+            
+            if (dropdown && dropdown.classList.contains('active')) {
+                if (!dropdown.contains(event.target) && !contactInfo.contains(event.target)) {
+                    dropdown.classList.remove('active');
+                }
+            }
+        });
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? '' : 'light';
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            
+            html.setAttribute('data-theme', newTheme);
+            icon.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            text.textContent = newTheme === 'light' ? 'Light Mode' : 'Dark Mode';
+            
+            // Save preference
+            localStorage.setItem('yvape-theme', newTheme);
+            
+            showToast(newTheme === 'light' ? '☀️ Light mode activated' : '🌙 Dark mode activated');
+            console.log(`Theme switched to: ${newTheme === 'light' ? 'Light' : 'Dark'} Mode`);
+        }
+
+        // Tech stack modals
+        function showTechModal(tech) {
+            if (event) event.stopPropagation();
+            const modal = document.getElementById(`tech-modal-${tech}`);
+            if (modal) {
+                modal.classList.add('show');
+                console.log(`Tech info displayed: ${tech}`);
+            }
+        }
+
+        function closeTechModal() {
+            document.querySelectorAll('.tech-modal').forEach(modal => {
+                modal.classList.remove('show');
+            });
+        }
+
+        // Toggle tech stack labels
+        function toggleTechLabels() {
+            const labels = document.querySelectorAll('.tech-label');
+            const outlines = document.querySelectorAll('.tech-outline-amazon, .tech-outline-twilio, .tech-outline-hubspot');
+            const icon = document.getElementById('tech-toggle-icon');
+            const text = document.getElementById('tech-toggle-text');
+            const isHidden = labels[0].classList.contains('hidden');
+            
+            labels.forEach(label => {
+                if (isHidden) {
+                    label.classList.remove('hidden');
+                } else {
+                    label.classList.add('hidden');
+                }
+            });
+            
+            outlines.forEach(outline => {
+                if (isHidden) {
+                    outline.classList.remove('no-label');
+                } else {
+                    outline.classList.add('no-label');
+                }
+            });
+            
+            icon.textContent = isHidden ? '🏷️' : '🚫';
+            text.textContent = isHidden ? 'Tech Labels' : 'Labels Off';
+            
+            // Save preference
+            localStorage.setItem('yvape-tech-labels', isHidden ? 'show' : 'hide');
+            
+            showToast(isHidden ? '🏷️ Tech labels shown' : '🚫 Tech labels hidden');
+            console.log(`Tech labels: ${isHidden ? 'shown' : 'hidden'}`);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 YVAPE Unified Agent Dashboard - POC Demo');
+            console.log('📊 Ready for Option 3: HubSpot CRM Card Embedding');
+            console.log('💡 Tech Stack: Amazon Connect (Phone) | Twilio (SMS) | HubSpot (CRM)');
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('yvape-theme');
+            if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.getElementById('theme-icon').textContent = '☀️';
+                document.getElementById('theme-text').textContent = 'Light Mode';
+            }
+            
+            // Load saved tech labels preference
+            const savedLabels = localStorage.getItem('yvape-tech-labels');
+            if (savedLabels === 'hide') {
+                const labels = document.querySelectorAll('.tech-label');
+                const outlines = document.querySelectorAll('.tech-outline-amazon, .tech-outline-twilio, .tech-outline-hubspot');
+                labels.forEach(label => label.classList.add('hidden'));
+                outlines.forEach(outline => outline.classList.add('no-label'));
+                document.getElementById('tech-toggle-icon').textContent = '🚫';
+                document.getElementById('tech-toggle-text').textContent = 'Labels Off';
+            }
+            
+            showToast('🎉 Demo loaded successfully!');
+        });
+    </script>
+</body>
+</html>

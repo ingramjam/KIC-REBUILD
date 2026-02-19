@@ -1,0 +1,291 @@
+{
+  "name": "Quit Now Intake Form",
+  "guid": "",
+  "action": "",
+  "method": "POST",
+  "cssClass": "",
+  "redirect": "/thank-you",
+  "submitText": "Get Started with a Quit Coach",
+  "followUpId": "",
+  "notifyRecipients": "kickit-admin@example.com",
+  "leadNurturingCampaignId": "",
+  "formFieldGroups": [
+    {
+      "fields": [
+        {
+          "name": "firstname",
+          "label": "First Name",
+          "type": "string",
+          "fieldType": "text",
+          "description": "",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "placeholder": "John",
+          "displayOrder": 0,
+          "validation": {
+            "name": "firstname",
+            "message": "Please enter your first name",
+            "data": "",
+            "useDefaultBlockList": false,
+            "blockedEmailDomains": []
+          }
+        },
+        {
+          "name": "lastname",
+          "label": "Last Name",
+          "type": "string",
+          "fieldType": "text",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "placeholder": "Smith",
+          "displayOrder": 1
+        },
+        {
+          "name": "email",
+          "label": "Email Address",
+          "type": "string",
+          "fieldType": "text",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "placeholder": "john@example.com",
+          "displayOrder": 2,
+          "validation": {
+            "name": "email",
+            "message": "Please enter a valid email address",
+            "data": "EMAIL",
+            "useDefaultBlockList": false
+          }
+        },
+        {
+          "name": "phone",
+          "label": "Phone Number",
+          "type": "string",
+          "fieldType": "text",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "placeholder": "(555) 123-4567",
+          "displayOrder": 3,
+          "validation": {
+            "name": "phone",
+            "message": "Please enter a valid phone number",
+            "data": "PHONE_NUMBER",
+            "useDefaultBlockList": false
+          }
+        },
+        {
+          "name": "zip",
+          "label": "ZIP Code",
+          "type": "string",
+          "fieldType": "text",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "placeholder": "90210",
+          "displayOrder": 4,
+          "validation": {
+            "name": "zip",
+            "message": "Please enter a valid California ZIP code",
+            "data": "",
+            "useDefaultBlockList": false
+          }
+        }
+      ],
+      "default": true,
+      "isSmartGroup": false,
+      "richText": {
+        "content": "<h3>Personal Information</h3><p>We'll use this to connect you with a Quit Coach.</p>"
+      }
+    },
+    {
+      "fields": [
+        {
+          "name": "quit_products",
+          "label": "What would you like to quit? (Select all that apply)",
+          "type": "enumeration",
+          "fieldType": "checkbox",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "displayOrder": 5,
+          "options": [
+            {
+              "label": "🚬 Cigarettes",
+              "value": "cigarettes",
+              "displayOrder": 0
+            },
+            {
+              "label": "💨 Vaping / E-Cigarettes",
+              "value": "vaping",
+              "displayOrder": 1
+            },
+            {
+              "label": "🎯 Smokeless Tobacco (Chew, Dip, Snus)",
+              "value": "smokeless",
+              "displayOrder": 2
+            },
+            {
+              "label": "🌿 Marijuana / Cannabis",
+              "value": "marijuana",
+              "displayOrder": 3
+            }
+          ]
+        },
+        {
+          "name": "usage_duration",
+          "label": "How long have you been using?",
+          "type": "enumeration",
+          "fieldType": "select",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "displayOrder": 6,
+          "options": [
+            { "label": "Less than 1 year", "value": "less_than_1_year", "displayOrder": 0 },
+            { "label": "1-3 years", "value": "1_3_years", "displayOrder": 1 },
+            { "label": "3-5 years", "value": "3_5_years", "displayOrder": 2 },
+            { "label": "5-10 years", "value": "5_10_years", "displayOrder": 3 },
+            { "label": "10-20 years", "value": "10_20_years", "displayOrder": 4 },
+            { "label": "More than 20 years", "value": "more_than_20_years", "displayOrder": 5 }
+          ]
+        }
+      ],
+      "default": false,
+      "isSmartGroup": false,
+      "richText": {
+        "content": "<h3>Your Tobacco/Nicotine Use</h3>"
+      }
+    },
+    {
+      "fields": [
+        {
+          "name": "quit_motivation",
+          "label": "What's your main motivation to quit?",
+          "type": "enumeration",
+          "fieldType": "radio",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "displayOrder": 7,
+          "options": [
+            { "label": "❤️ Health concerns", "value": "health", "displayOrder": 0 },
+            { "label": "👨‍👩‍👧‍👦 Family / loved ones", "value": "family", "displayOrder": 1 },
+            { "label": "💰 Save money", "value": "money", "displayOrder": 2 },
+            { "label": "🎯 Personal freedom", "value": "freedom", "displayOrder": 3 },
+            { "label": "💼 Work requirements", "value": "work", "displayOrder": 4 },
+            { "label": "📝 Other", "value": "other", "displayOrder": 5 }
+          ]
+        },
+        {
+          "name": "quit_timeline",
+          "label": "When do you want to quit?",
+          "type": "enumeration",
+          "fieldType": "radio",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "displayOrder": 8,
+          "options": [
+            { "label": "Immediately", "value": "immediately", "displayOrder": 0 },
+            { "label": "Within 1 week", "value": "within_1_week", "displayOrder": 1 },
+            { "label": "Within 1 month", "value": "within_1_month", "displayOrder": 2 },
+            { "label": "Not sure yet", "value": "not_sure", "displayOrder": 3 }
+          ]
+        }
+      ],
+      "default": false,
+      "isSmartGroup": false,
+      "richText": {
+        "content": "<h3>Your Quit Goals</h3>"
+      }
+    },
+    {
+      "fields": [
+        {
+          "name": "contact_method",
+          "label": "How would you like us to contact you?",
+          "type": "enumeration",
+          "fieldType": "radio",
+          "required": true,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "phone",
+          "displayOrder": 9,
+          "options": [
+            { "label": "📞 Phone call", "value": "phone", "displayOrder": 0 },
+            { "label": "💬 Text message", "value": "text", "displayOrder": 1 },
+            { "label": "📧 Email", "value": "email", "displayOrder": 2 },
+            { "label": "💻 Live chat", "value": "chat", "displayOrder": 3 }
+          ]
+        },
+        {
+          "name": "contact_time",
+          "label": "Best time to reach you",
+          "type": "enumeration",
+          "fieldType": "select",
+          "required": false,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "displayOrder": 10,
+          "options": [
+            { "label": "Morning (7am-12pm)", "value": "morning", "displayOrder": 0 },
+            { "label": "Afternoon (12pm-5pm)", "value": "afternoon", "displayOrder": 1 },
+            { "label": "Evening (5pm-9pm)", "value": "evening", "displayOrder": 2 },
+            { "label": "Anytime", "value": "anytime", "displayOrder": 3 }
+          ]
+        },
+        {
+          "name": "message",
+          "label": "Additional notes or questions (optional)",
+          "type": "string",
+          "fieldType": "textarea",
+          "required": false,
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "placeholder": "Tell us anything else that might help...",
+          "displayOrder": 11
+        }
+      ],
+      "default": false,
+      "isSmartGroup": false,
+      "richText": {
+        "content": "<h3>Contact Preferences</h3>"
+      }
+    }
+  ],
+  "metaData": [
+    {
+      "name": "lifecyclestage",
+      "value": "lead"
+    },
+    {
+      "name": "hs_lead_status",
+      "value": "NEW"
+    }
+  ],
+  "ignoreCurrentValues": false,
+  "deletable": false,
+  "inlineMessage": "Thank you! A Quit Coach will contact you soon.",
+  "tmsId": "",
+  "captchaEnabled": false,
+  "campaignGuid": "",
+  "cloneable": true,
+  "editable": true,
+  "formType": "HUBSPOT",
+  "deletedAt": 0,
+  "themeName": "Kick It California"
+}

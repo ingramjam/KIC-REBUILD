@@ -1,0 +1,120 @@
+[
+  {
+    "id": "colors",
+    "name": "colors",
+    "label": "Colors",
+    "type": "group",
+    "children": [
+      {
+        "id": "primary_color",
+        "name": "primary_color",
+        "label": "Primary Color (Dark Blue)",
+        "type": "color",
+        "default": {
+          "color": "#3b82f6",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "secondary_color",
+        "name": "secondary_color",
+        "label": "Secondary Color (Orange CTA)",
+        "type": "color",
+        "default": {
+          "color": "#f97316",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "accent_color",
+        "name": "accent_color",
+        "label": "Accent Color (Green)",
+        "type": "color",
+        "default": {
+          "color": "#10b981",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "text_color",
+        "name": "text_color",
+        "label": "Text Color (Light)",
+        "type": "color",
+        "default": {
+          "color": "#f8fafc",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "background_color",
+        "name": "background_color",
+        "label": "Background Color (Dark)",
+        "type": "color",
+        "default": {
+          "color": "#0a0f1e",
+          "opacity": 100
+        }
+      }
+    ]
+  },
+  {
+    "id": "typography",
+    "name": "typography",
+    "label": "Typography",
+    "type": "group",
+    "children": [
+      {
+        "id": "heading_font",
+        "name": "heading_font",
+        "label": "Heading Font",
+        "type": "font",
+        "default": {
+          "font": "Montserrat",
+          "font_set": "GOOGLE",
+          "variant": "700",
+          "fallback": "sans-serif",
+          "color": "#333333",
+          "size": 36,
+          "size_unit": "px"
+        }
+      },
+      {
+        "id": "body_font",
+        "name": "body_font",
+        "label": "Body Font",
+        "type": "font",
+        "default": {
+          "font": "Open Sans",
+          "font_set": "GOOGLE",
+          "variant": "400",
+          "fallback": "sans-serif",
+          "color": "#333333",
+          "size": 16,
+          "size_unit": "px"
+        }
+      }
+    ]
+  },
+  {
+    "id": "site_settings",
+    "name": "site_settings",
+    "label": "Site Settings",
+    "type": "group",
+    "children": [
+      {
+        "id": "enable_animations",
+        "name": "enable_animations",
+        "label": "Enable Animations",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "enable_parallax",
+        "name": "enable_parallax",
+        "label": "Enable Parallax Effects",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  }
+]

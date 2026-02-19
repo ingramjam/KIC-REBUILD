@@ -1,0 +1,103 @@
+[
+  {
+    "id": "show_label",
+    "name": "show_label",
+    "label": "Show Section Label",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section Label",
+    "type": "text",
+    "default": "Simple Process"
+  },
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Section Title",
+    "type": "text",
+    "default": "How Our Coaching Works"
+  },
+  {
+    "id": "section_subtitle",
+    "name": "section_subtitle",
+    "label": "Section Subtitle",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "id": "background_color",
+    "name": "background_color",
+    "label": "Background Color",
+    "type": "color",
+    "default": {
+      "color": "#1a2332"
+    }
+  },
+  {
+    "id": "columns",
+    "name": "columns",
+    "label": "Number of Columns",
+    "type": "choice",
+    "choices": [
+      ["1", "1 Column"],
+      ["2", "2 Columns"],
+      ["3", "3 Columns"],
+      ["4", "4 Columns"]
+    ],
+    "default": "3"
+  },
+  {
+    "id": "features",
+    "name": "features",
+    "label": "Features",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 12,
+      "default": 3
+    },
+    "default": [
+      {
+        "number": "01",
+        "title": "Connect",
+        "description": "Call, text, chat, or use our app. Tell us about your situation. Everything you share is 100% confidential."
+      },
+      {
+        "number": "02",
+        "title": "Create Your Plan",
+        "description": "A personal Quit Coach works with you to build a custom quit plan using proven, science-based strategies."
+      },
+      {
+        "number": "03",
+        "title": "Quit for Good",
+        "description": "Your coach checks in regularly to keep you motivated and adjust your plan. You're not alone in this journey."
+      }
+    ],
+    "children": [
+      {
+        "id": "number",
+        "name": "number",
+        "label": "Number (e.g., 01, 02)",
+        "type": "text",
+        "default": "01"
+      },
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Title",
+        "type": "text",
+        "default": "Feature Title"
+      },
+      {
+        "id": "description",
+        "name": "description",
+        "label": "Description",
+        "type": "text",
+        "default": "Feature description goes here."
+      }
+    ]
+  }
+]

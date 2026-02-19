@@ -1,0 +1,14 @@
+{
+  "label": "Modern Hero Section",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Effortel-style hero section with large title, subtitle, and dual CTA buttons. Fully editable in page editor.",
+  "host_template_types": ["PAGE", "BLOG_LISTING", "BLOG_POST"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": [],
+  "is_available_for_new_content": true,
+  "icon": "../images/module-icons/cta.svg"
+}

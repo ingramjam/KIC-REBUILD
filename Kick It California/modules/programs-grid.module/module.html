@@ -1,0 +1,17 @@
+<section class="section programs-section">
+  <div class="container">
+    <span class="section-label">{{ module.section_label }}</span>
+    <h2 class="section-title">{{ module.section_title }}</h2>
+    
+    <div class="contact-grid">
+      {% for program in module.programs %}
+      <div class="contact-card">
+        <div class="contact-icon">{{ program.icon }}</div>
+        <h3>{{ program.title }}</h3>
+        <p>{{ program.description }}</p>
+        <a href="{{ program.link_url }}" class="contact-link">{{ program.link_text }}</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

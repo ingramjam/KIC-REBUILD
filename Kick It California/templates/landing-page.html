@@ -1,0 +1,69 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Landing Page
+  screenshotPath: ../images/template-previews/landing-page.png
+-->
+{% extends "./base.html" %}
+
+{% block content %}
+<div class="landing-page">
+  <!-- Hero Section -->
+  {% dnd_area "hero_area" label='Hero Area', class='hero-area' %}
+    {% dnd_section %}
+      {% dnd_column %}
+        {% dnd_row %}
+          {% dnd_module path='../modules/hero-section.module' %}
+            {% module_attribute "hero_title" %}Welcome to Kick It California{% end_module_attribute %}
+            {% module_attribute "hero_subtitle" %}<p>Take the first step towards a tobacco-free life. We're here to support you every step of the way.</p>{% end_module_attribute %}
+            {% module_attribute "cta_button" %}
+              {
+                "text": "Start Your Journey",
+                "url": "/quit-plan",
+                "style": "primary"
+              }
+            {% end_module_attribute %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+  {% end_dnd_area %}
+  
+  <!-- Main Content Area -->
+  {% dnd_area "main_content" label='Main Content Area', class='main-content' %}
+    {% dnd_section %}
+      {% dnd_column %}
+        {% dnd_row %}
+          {% dnd_module path='../modules/content-cards.module' %}
+            {% module_attribute "section_title" %}How We Can Help{% end_module_attribute %}
+            {% module_attribute "columns" %}3{% end_module_attribute %}
+            {% module_attribute "cards" %}
+              [
+                {
+                  "title": "Quit Plan",
+                  "description": "<p>Get a personalized plan tailored to your needs and goals.</p>",
+                  "link": "/quit-plan"
+                },
+                {
+                  "title": "Resources",
+                  "description": "<p>Access tools, tips, and information to support your journey.</p>",
+                  "link": "/resources"
+                },
+                {
+                  "title": "Support",
+                  "description": "<p>Connect with coaches and community support when you need it.</p>",
+                  "link": "/support"
+                }
+              ]
+            {% end_module_attribute %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+  {% end_dnd_area %}
+  
+  <!-- Additional Content Area -->
+  {% dnd_area "additional_content" label='Additional Content', class='additional-content' %}
+  {% end_dnd_area %}
+</div>
+{% endblock %}

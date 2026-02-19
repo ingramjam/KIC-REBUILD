@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YVAPE Phone Agent Protocol - Modern interactive call script tool">
+    <title>YVAPE Agent Protocol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           Modern YVAPE Design System
+           ============================================ */
+        :root {
+            --primary-color: #00A6CE;
+            --secondary-color: #8DC63F;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-orange: #f97316;
+            --primary-dark: #0a0f1e;
+            --secondary-dark: #1a2332;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --text-dark: #1e293b;
+            --border-color: rgba(59, 130, 246, 0.2);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 166, 206, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(141, 198, 63, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        /* Header Section */
+        .protocol-header {
+            background: linear-gradient(135deg, rgba(0, 166, 206, 0.2), rgba(141, 198, 63, 0.2));
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+
+        .header-title h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .header-title p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Timer Widget */
+        .timer-widget {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .timer-label {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+            justify-content: center;
+        }
+
+        .timer-btn {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-sm);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timer-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Call Info Grid */
+        .call-info-section {
+            background: rgba(26, 35, 50, 0.6);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            backdrop-filter: blur(10px);
+        }
+
+        .call-info-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-color);
+        }
+
+        .call-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .form-field label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            padding: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(0, 166, 206, 0.1);
+        }
+
+        .form-field textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: rgba(26, 35, 50, 0.6);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 166, 206, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .section-card.completed {
+            border-color: var(--success-color);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover .section-number {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .section-card.completed .section-number {
+            background: var(--success-color);
+        }
+
+        .section-title-text {
+            flex: 1;
+        }
+
+        .section-title-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .section-title-text p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .collapse-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.25rem;
+        }
+
+        .section-card.collapsed .collapse-icon {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            padding-left: calc(50px + var(--spacing-md));
+            max-height: 5000px;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+        }
+
+        .section-card.collapsed .section-content {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        /* Script Text */
+        .script-block {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .script-label {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* Checkboxes and Radio Buttons */
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-color);
+        }
+
+        .option-item input[type="checkbox"],
+        .option-item input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .option-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            background: rgba(141, 198, 63, 0.1);
+            border: 2px solid rgba(141, 198, 63, 0.3);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .notes-section textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg) 0;
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(to top, var(--primary-dark) 70%, transparent);
+            z-index: 10;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 8px 24px rgba(0, 166, 206, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 166, 206, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Email Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--secondary-dark);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-header {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .modal-header h2 {
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .modal-header p {
+            color: var(--text-gray);
+        }
+
+        .modal-body {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: flex-end;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid var(--success-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-md);
+            color: var(--success-color);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .success-message.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            z-index: 999;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-title h1 {
+                font-size: 2rem;
+            }
+
+            .section-content {
+                padding-left: 0;
+            }
+
+            .call-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="protocol-header">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>YVAPE Agent Protocol</h1>
+                    <p>Interactive call script & documentation tool</p>
+                </div>
+                <div class="timer-widget">
+                    <div class="timer-display" id="timerDisplay">00:00</div>
+                    <div class="timer-label">Call Duration</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" id="startTimer">Start</button>
+                        <button class="timer-btn" id="pauseTimer">Pause</button>
+                        <button class="timer-btn" id="resetTimer">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call Information -->
+        <div class="call-info-section">
+            <h2 class="call-info-title">📋 Call Information</h2>
+            <div class="call-info-grid">
+                <div class="form-field">
+                    <label for="clientName">Client Name *</label>
+                    <input type="text" id="clientName" placeholder="Enter name" required>
+                </div>
+                <div class="form-field">
+                    <label for="clientPhone">Phone Number</label>
+                    <input type="tel" id="clientPhone" placeholder="(555) 123-4567">
+                </div>
+                <div class="form-field">
+                    <label for="clientEmail">Email Address</label>
+                    <input type="email" id="clientEmail" placeholder="client@example.com">
+                </div>
+                <div class="form-field">
+                    <label for="callDate">Date</label>
+                    <input type="date" id="callDate">
+                </div>
+                <div class="form-field">
+                    <label for="agentName">Agent Name</label>
+                    <input type="text" id="agentName" placeholder="Your name">
+                </div>
+                <div class="form-field">
+                    <label for="callType">Call Type</label>
+                    <select id="callType">
+                        <option value="">Select type</option>
+                        <option value="intake">Initial Intake</option>
+                        <option value="followup">Follow-up</option>
+                        <option value="crisis">Crisis Call</option>
+                        <option value="general">General Support</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Introduction -->
+        <div class="section-card" data-section="1">
+            <div class="section-header" onclick="toggleSection(1)">
+                <div class="section-number">1</div>
+                <div class="section-title-text">
+                    <h3>Introduction & Rapport Building</h3>
+                    <p>Establish connection and set expectations</p>
+                </div>
+                <div class="collapse-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="script-block">
+                    <span class="script-label">Say This</span>
+                    <p>"Hi, my name is [YOUR NAME] and I'm calling from YVAPE. Thank you for reaching out to us today. Before we begin, I want you to know that this call is confidential, and I'm here to support you. This conversation will take about 15-20 minutes. Does that work for you?"</p>
+                </div>
+                
+                <div class="option-group">
+                    <div class="option-item">
+                        <input type="checkbox" id="intro_confirmed" name="intro_confirmed">
+                        <label for="intro_confirmed">Client confirmed understanding and time availability</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="intro_comfortable" name="intro_comfortable">
+                        <label for="intro_comfortable">Client expressed comfort with proceeding</label>
+                    </div>
+                </div>
+
+                <div class="notes-section">
+                    <label><strong>📝 Notes:</strong></label>
+                    <textarea id="intro_notes" placeholder="Add any relevant notes about the introduction..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Assessment -->
+        <div class="section-card" data-section="2">
+            <div class="section-header" onclick="toggleSection(2)">
+                <div class="section-number">2</div>
+                <div class="section-title-text">
+                    <h3>Vaping Assessment</h3>
+                    <p>Understand current vaping habits and patterns</p>
+                </div>
+                <div class="collapse-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="script-block">
+                    <span class="script-label">Ask</span>
+                    <p>"Can you tell me about your vaping? What type of device do you use, and how often do you vape?"</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>Device Type</label>
+                    <select id="deviceType">
+                        <option value="">Select device</option>
+                        <option value="pod">Pod System (Juul, Vuse, etc.)</option>
+                        <option value="mod">Mod/Tank System</option>
+                        <option value="disposable">Disposable Vape</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-field" style="margin-top: 1rem;">
+                    <label>Daily Frequency</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="freq_light" name="frequency" value="light">
+                            <label for="freq_light">Light (1-5 times per day)</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="freq_moderate" name="frequency" value="moderate">
+                            <label for="freq_moderate">Moderate (6-15 times per day)</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="freq_heavy" name="frequency" value="heavy">
+                            <label for="freq_heavy">Heavy (16+ times per day or constant use)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notes-section">
+                    <label><strong>📝 Assessment Notes:</strong></label>
+                    <textarea id="assessment_notes" placeholder="Document patterns, triggers, concerns..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Motivation & Goals -->
+        <div class="section-card" data-section="3">
+            <div class="section-header" onclick="toggleSection(3)">
+                <div class="section-number">3</div>
+                <div class="section-title-text">
+                    <h3>Motivation & Goals</h3>
+                    <p>Explore reasons for quitting and set objectives</p>
+                </div>
+                <div class="collapse-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="script-block">
+                    <span class="script-label">Explore</span>
+                    <p>"What made you decide to reach out today? What would you like to achieve by quitting or reducing your vaping?"</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>Primary Motivations (check all that apply)</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="checkbox" id="mot_health" name="motivations" value="health">
+                            <label for="mot_health">Health concerns</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="mot_cost" name="motivations" value="cost">
+                            <label for="mot_cost">Financial reasons</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="mot_family" name="motivations" value="family">
+                            <label for="mot_family">Family/relationships</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="mot_control" name="motivations" value="control">
+                            <label for="mot_control">Regain control/independence</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="mot_other" name="motivations" value="other">
+                            <label for="mot_other">Other</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field" style="margin-top: 1rem;">
+                    <label>Quit Goal</label>
+                    <select id="quitGoal">
+                        <option value="">Select goal</option>
+                        <option value="quit_now">Quit immediately</option>
+                        <option value="quit_soon">Quit within 30 days</option>
+                        <option value="reduce">Reduce use first, then quit</option>
+                        <option value="exploring">Still exploring options</option>
+                    </select>
+                </div>
+
+                <div class="notes-section">
+                    <label><strong>📝 Motivation Notes:</strong></label>
+                    <textarea id="motivation_notes" placeholder="Document client's reasons, goals, and motivations..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Action Plan -->
+        <div class="section-card" data-section="4">
+            <div class="section-header" onclick="toggleSection(4)">
+                <div class="section-number">4</div>
+                <div class="section-title-text">
+                    <h3>Action Plan & Resources</h3>
+                    <p>Develop quit strategy and provide support</p>
+                </div>
+                <div class="collapse-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="script-block">
+                    <span class="script-label">Collaborate</span>
+                    <p>"Let's work together to create a personalized plan. Based on what you've shared, here are some strategies and resources that might help you..."</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>Recommended Resources (check all provided)</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="checkbox" id="res_nrt" name="resources" value="nrt">
+                            <label for="res_nrt">Nicotine replacement therapy info</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="res_app" name="resources" value="app">
+                            <label for="res_app">Quit vaping app recommendation</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="res_support" name="resources" value="support">
+                            <label for="res_support">Support group information</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="res_counseling" name="resources" value="counseling">
+                            <label for="res_counseling">Additional counseling sessions</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="res_materials" name="resources" value="materials">
+                            <label for="res_materials">Educational materials sent</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field" style="margin-top: 1rem;">
+                    <label>Follow-up Scheduled</label>
+                    <select id="followUp">
+                        <option value="">Select timeline</option>
+                        <option value="3days">3 days</option>
+                        <option value="1week">1 week</option>
+                        <option value="2weeks">2 weeks</option>
+                        <option value="1month">1 month</option>
+                        <option value="client_will_call">Client will call back</option>
+                    </select>
+                </div>
+
+                <div class="notes-section">
+                    <label><strong>📝 Action Plan Notes:</strong></label>
+                    <textarea id="action_notes" placeholder="Document the agreed-upon action plan, next steps, resources provided..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Closing -->
+        <div class="section-card" data-section="5">
+            <div class="section-header" onclick="toggleSection(5)">
+                <div class="section-number">5</div>
+                <div class="section-title-text">
+                    <h3>Closing & Next Steps</h3>
+                    <p>Summarize and provide encouragement</p>
+                </div>
+                <div class="collapse-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="script-block">
+                    <span class="script-label">Conclude</span>
+                    <p>"Thank you for taking this important step today. Remember, you're not alone in this journey. We're here to support you whenever you need us. Do you have any final questions before we wrap up?"</p>
+                </div>
+                
+                <div class="option-group">
+                    <div class="option-item">
+                        <input type="checkbox" id="close_questions" name="close_questions">
+                        <label for="close_questions">All questions answered</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="close_contact" name="close_contact">
+                        <label for="close_contact">Contact information confirmed</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="close_resources" name="close_resources">
+                        <label for="close_resources">Resources will be sent within 24 hours</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="close_encouragement" name="close_encouragement">
+                        <label for="close_encouragement">Encouragement and support provided</label>
+                    </div>
+                </div>
+
+                <div class="notes-section">
+                    <label><strong>📝 Closing Notes:</strong></label>
+                    <textarea id="closing_notes" placeholder="Document final thoughts, client reaction, any additional concerns..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="saveProgress()">💾 Save Progress</button>
+            <button class="btn btn-secondary" onclick="exportData()">📥 Export JSON</button>
+            <button class="btn btn-primary" onclick="showEmailModal()">📧 Email Summary</button>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            ✅ Action completed successfully!
+        </div>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="modal-overlay" id="emailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📧 Email Call Summary</h2>
+                <p>Enter the recipient email address to send this call summary</p>
+            </div>
+            <div class="modal-body">
+                <div class="form-field">
+                    <label for="recipientEmail">Recipient Email *</label>
+                    <input type="email" id="recipientEmail" placeholder="supervisor@yvape.org" required>
+                </div>
+                <div class="form-field" style="margin-top: 1rem;">
+                    <label for="emailSubject">Subject Line</label>
+                    <input type="text" id="emailSubject" value="YVAPE Call Summary" placeholder="Email subject">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeEmailModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="sendEmail()">Send Email</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        let timerSeconds = 0;
+        let timerInterval = null;
+        let timerRunning = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        document.getElementById('startTimer').addEventListener('click', function() {
+            if (!timerRunning) {
+                timerRunning = true;
+                timerInterval = setInterval(() => {
+                    timerSeconds++;
+                    updateTimerDisplay();
+                }, 1000);
+                this.textContent = 'Running';
+                this.style.background = 'rgba(16, 185, 129, 0.3)';
+            }
+        });
+
+        document.getElementById('pauseTimer').addEventListener('click', function() {
+            if (timerRunning) {
+                timerRunning = false;
+                clearInterval(timerInterval);
+                document.getElementById('startTimer').textContent = 'Resume';
+                document.getElementById('startTimer').style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+
+        document.getElementById('resetTimer').addEventListener('click', function() {
+            timerRunning = false;
+            clearInterval(timerInterval);
+            timerSeconds = 0;
+            updateTimerDisplay();
+            document.getElementById('startTimer').textContent = 'Start';
+            document.getElementById('startTimer').style.background = 'rgba(255, 255, 255, 0.1)';
+        });
+
+        // Section toggle
+        function toggleSection(sectionNum) {
+            const card = document.querySelector(`[data-section="${sectionNum}"]`);
+            card.classList.toggle('collapsed');
+            updateProgress();
+        }
+
+        // Progress bar
+        function updateProgress() {
+            const sections = document.querySelectorAll('.section-card');
+            const collapsedSections = document.querySelectorAll('.section-card.collapsed');
+            const completedSections = document.querySelectorAll('.section-card.completed');
+            const progress = (completedSections.length / sections.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Mark section as completed when checkboxes are checked
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const section = this.closest('.section-card');
+                const allCheckboxes = section.querySelectorAll('input[type="checkbox"]');
+                const checkedBoxes = section.querySelectorAll('input[type="checkbox"]:checked');
+                
+                if (checkedBoxes.length > 0 && checkedBoxes.length === allCheckboxes.length) {
+                    section.classList.add('completed');
+                } else {
+                    section.classList.remove('completed');
+                }
+                updateProgress();
+            });
+        });
+
+        // Auto-set date
+        document.getElementById('callDate').valueAsDate = new Date();
+
+        // Collect all form data
+        function collectData() {
+            const data = {
+                callInfo: {
+                    clientName: document.getElementById('clientName').value,
+                    clientPhone: document.getElementById('clientPhone').value,
+                    clientEmail: document.getElementById('clientEmail').value,
+                    callDate: document.getElementById('callDate').value,
+                    agentName: document.getElementById('agentName').value,
+                    callType: document.getElementById('callType').value,
+                    duration: document.getElementById('timerDisplay').textContent
+                },
+                section1: {
+                    confirmed: document.getElementById('intro_confirmed').checked,
+                    comfortable: document.getElementById('intro_comfortable').checked,
+                    notes: document.getElementById('intro_notes').value
+                },
+                section2: {
+                    deviceType: document.getElementById('deviceType').value,
+                    frequency: document.querySelector('input[name="frequency"]:checked')?.value || '',
+                    notes: document.getElementById('assessment_notes').value
+                },
+                section3: {
+                    motivations: Array.from(document.querySelectorAll('input[name="motivations"]:checked')).map(cb => cb.value),
+                    quitGoal: document.getElementById('quitGoal').value,
+                    notes: document.getElementById('motivation_notes').value
+                },
+                section4: {
+                    resources: Array.from(document.querySelectorAll('input[name="resources"]:checked')).map(cb => cb.value),
+                    followUp: document.getElementById('followUp').value,
+                    notes: document.getElementById('action_notes').value
+                },
+                section5: {
+                    questionsAnswered: document.getElementById('close_questions').checked,
+                    contactConfirmed: document.getElementById('close_contact').checked,
+                    resourcesScheduled: document.getElementById('close_resources').checked,
+                    encouragementProvided: document.getElementById('close_encouragement').checked,
+                    notes: document.getElementById('closing_notes').value
+                }
+            };
+            return data;
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            const data = collectData();
+            localStorage.setItem('yvapeProtocolData', JSON.stringify(data));
+            showSuccessMessage('Progress saved locally!');
+        }
+
+        // Export as JSON
+        function exportData() {
+            const data = collectData();
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `yvape_call_${data.callInfo.clientName || 'unnamed'}_${Date.now()}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            showSuccessMessage('Data exported successfully!');
+        }
+
+        // Email modal functions
+        function showEmailModal() {
+            document.getElementById('emailModal').classList.add('active');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').classList.remove('active');
+        }
+
+        // Send email with data
+        function sendEmail() {
+            const recipientEmail = document.getElementById('recipientEmail').value;
+            const subject = document.getElementById('emailSubject').value;
+            
+            if (!recipientEmail) {
+                alert('Please enter a recipient email address');
+                return;
+            }
+
+            const data = collectData();
+            
+            // Format data as readable text
+            const emailBody = `
+YVAPE CALL SUMMARY
+================
+
+CALL INFORMATION
+----------------
+Client Name: ${data.callInfo.clientName}
+Phone: ${data.callInfo.clientPhone}
+Email: ${data.callInfo.clientEmail}
+Date: ${data.callInfo.callDate}
+Agent: ${data.callInfo.agentName}
+Call Type: ${data.callInfo.callType}
+Duration: ${data.callInfo.duration}
+
+SECTION 1: INTRODUCTION
+----------------------
+- Confirmed: ${data.section1.confirmed ? 'Yes' : 'No'}
+- Comfortable: ${data.section1.comfortable ? 'Yes' : 'No'}
+Notes: ${data.section1.notes}
+
+SECTION 2: ASSESSMENT
+--------------------
+Device Type: ${data.section2.deviceType}
+Frequency: ${data.section2.frequency}
+Notes: ${data.section2.notes}
+
+SECTION 3: MOTIVATION & GOALS
+----------------------------
+Motivations: ${data.section3.motivations.join(', ')}
+Quit Goal: ${data.section3.quitGoal}
+Notes: ${data.section3.notes}
+
+SECTION 4: ACTION PLAN
+---------------------
+Resources Provided: ${data.section4.resources.join(', ')}
+Follow-up: ${data.section4.followUp}
+Notes: ${data.section4.notes}
+
+SECTION 5: CLOSING
+-----------------
+- Questions Answered: ${data.section5.questionsAnswered ? 'Yes' : 'No'}
+- Contact Confirmed: ${data.section5.contactConfirmed ? 'Yes' : 'No'}
+- Resources Scheduled: ${data.section5.resourcesScheduled ? 'Yes' : 'No'}
+- Encouragement Provided: ${data.section5.encouragementProvided ? 'Yes' : 'No'}
+Notes: ${data.section5.notes}
+
+================
+Generated by YVAPE Agent Protocol Tool
+            `.trim();
+
+            // Create mailto link
+            const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            closeEmailModal();
+            showSuccessMessage('Email client opened with summary!');
+        }
+
+        // Success message
+        function showSuccessMessage(message) {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.textContent = '✅ ' + message;
+            successMsg.classList.add('active');
+            setTimeout(() => {
+                successMsg.classList.remove('active');
+            }, 3000);
+        }
+
+        // Load saved data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedData = localStorage.getItem('yvapeProtocolData');
+            if (savedData && confirm('Load previously saved data?')) {
+                try {
+                    const data = JSON.parse(savedData);
+                    // Populate call info
+                    if (data.callInfo) {
+                        document.getElementById('clientName').value = data.callInfo.clientName || '';
+                        document.getElementById('clientPhone').value = data.callInfo.clientPhone || '';
+                        document.getElementById('clientEmail').value = data.callInfo.clientEmail || '';
+                        document.getElementById('callDate').value = data.callInfo.callDate || '';
+                        document.getElementById('agentName').value = data.callInfo.agentName || '';
+                        document.getElementById('callType').value = data.callInfo.callType || '';
+                    }
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                }
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveProgress();
+            }
+            // Ctrl/Cmd + E to export
+            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+                e.preventDefault();
+                exportData();
+            }
+            // Escape to close modal
+            if (e.key === 'Escape') {
+                closeEmailModal();
+            }
+        });
+    </script>
+</body>
+</html>

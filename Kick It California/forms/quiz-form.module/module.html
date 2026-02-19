@@ -1,0 +1,317 @@
+<!--
+  HubSpot Quiz Form with CRM Integration
+  Interactive quiz that saves responses to contact properties
+-->
+
+<div class="quiz-form-wrapper">
+  <div id="hubspotQuiz-{{ name }}" class="quiz-container"></div>
+</div>
+
+<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    region: "na1",
+    portalId: "{{ request.portal_id }}",
+    formId: "{{ module.form_guid }}",
+    target: '#hubspotQuiz-{{ name }}',
+    
+    // Pre-fill for returning users
+    onFormReady: function($form) {
+      const userData = localStorage.getItem('kickit_user_data');
+      const quizData = localStorage.getItem('kickit_quiz_results');
+      
+      if (userData) {
+        try {
+          const user = JSON.parse(userData);
+          console.log('Returning user - prefilling quiz with previous data');
+          
+          // Show previous quiz results if available
+          if (quizData) {
+            const results = JSON.parse(quizData);
+            displayPreviousResults(results, user.firstName);
+          }
+        } catch (e) {
+          console.error('Error loading user data:', e);
+        }
+      }
+      
+      // Add quiz-specific styling
+      $form.addClass('quiz-form');
+      
+      // Track quiz interaction
+      $form.find('input, select').on('change', function() {
+        var _hsq = window._hsq = window._hsq || [];
+        _hsq.push(["trackEvent", {
+          id: "Quiz Field Changed",
+          field: $(this).attr('name')
+        }]);
+      });
+    },
+    
+    // Calculate quiz score and save to CRM
+    onFormSubmit: function($form) {
+      const formData = {};
+      $form.serializeArray().forEach(function(field) {
+        formData[field.name] = field.value;
+      });
+      
+      // Calculate addiction level score
+      let score = 0;
+      
+      // Question 1: Cigarettes per day (0-10 points)
+      const perDay = parseInt(formData.cigarettes_per_day) || 0;
+      if (perDay < 10) score += 2;
+      else if (perDay < 20) score += 5;
+      else if (perDay < 30) score += 8;
+      else score += 10;
+      
+      // Question 2: Time to first cigarette (0-10 points)
+      const timeToFirst = formData.time_to_first_cigarette || '';
+      if (timeToFirst === 'within_5_min') score += 10;
+      else if (timeToFirst === '6_to_30_min') score += 8;
+      else if (timeToFirst === '31_to_60_min') score += 5;
+      else score += 2;
+      
+      // Question 3: Motivation level (0-10 points)
+      const motivation = parseInt(formData.motivation_level) || 5;
+      score += (10 - motivation); // Lower motivation = higher dependency
+      
+      // Determine addiction level
+      let addictionLevel = '';
+      let recommendation = '';
+      
+      if (score <= 10) {
+        addictionLevel = 'Low Dependency';
+        recommendation = 'You have a great chance of quitting! Start with behavior change techniques and nicotine replacement.';
+      } else if (score <= 20) {
+        addictionLevel = 'Moderate Dependency';
+        recommendation = 'Coaching support will significantly increase your success. We recommend weekly check-ins with a Quit Coach.';
+      } else {
+        addictionLevel = 'High Dependency';
+        recommendation = 'Intensive support recommended. Daily check-ins, medication support, and personalized quit plan will help you succeed.';
+      }
+      
+      // Save quiz results
+      const quizResults = {
+        score: score,
+        addictionLevel: addictionLevel,
+        recommendation: recommendation,
+        cigarettesPerDay: perDay,
+        timeToFirst: timeToFirst,
+        motivationLevel: motivation,
+        completedDate: new Date().toISOString()
+      };
+      
+      localStorage.setItem('kickit_quiz_results', JSON.stringify(quizResults));
+      
+      // Track event in HubSpot
+      var _hsq = window._hsq = window._hsq || [];
+      _hsq.push(["trackEvent", {
+        id: "Quiz Completed",
+        value: quizResults
+      }]);
+      
+      console.log('Quiz submitted - Score:', score, 'Level:', addictionLevel);
+    },
+    
+    onFormSubmitted: function($form, data) {
+      // Show quiz results
+      const quizResults = JSON.parse(localStorage.getItem('kickit_quiz_results'));
+      
+      if (quizResults) {
+        displayQuizResults(quizResults);
+      }
+      
+      // Track completion
+      var _hsq = window._hsq = window._hsq || [];
+      _hsq.push(["setPath", "/quiz-completed"]);
+      _hsq.push(["trackPageView"]);
+    },
+    
+    cssClass: 'kickit-quiz-form',
+    submitButtonClass: 'hs-button quiz-submit'
+  });
+  
+  function displayQuizResults(results) {
+    const container = document.getElementById('hubspotQuiz-{{ name }}');
+    
+    container.innerHTML = `
+      <div class="quiz-results">
+        <div class="quiz-results-header">
+          <div class="quiz-score-circle">
+            <span class="score-number">${results.score}</span>
+            <span class="score-label">/ 30</span>
+          </div>
+          <h3>${results.addictionLevel}</h3>
+        </div>
+        
+        <div class="quiz-results-body">
+          <p class="recommendation">${results.recommendation}</p>
+          
+          <div class="quiz-stats">
+            <div class="quiz-stat">
+              <span class="stat-label">Daily Cigarettes</span>
+              <span class="stat-value">${results.cigarettesPerDay}</span>
+            </div>
+            <div class="quiz-stat">
+              <span class="stat-label">Motivation Level</span>
+              <span class="stat-value">${results.motivationLevel}/10</span>
+            </div>
+          </div>
+          
+          <div class="quiz-cta">
+            <a href="/quit-now" class="btn btn-primary">Get Your Personalized Quit Plan →</a>
+            <p style="margin-top: 1rem; color: #94a3b8; font-size: 0.9rem;">
+              Or call <a href="tel:8003008086" style="color: #3b82f6;">800-300-8086</a> to speak with a Quit Coach now
+            </p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  function displayPreviousResults(results, firstName) {
+    const welcomeMsg = document.createElement('div');
+    welcomeMsg.className = 'previous-results-banner';
+    welcomeMsg.innerHTML = `
+      <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1)); border: 1px solid rgba(59, 130, 246, 0.3); padding: 1.5rem; margin-bottom: 2rem; border-radius: 12px;">
+        <p style="margin: 0; color: #3b82f6; font-weight: 700; font-size: 1.1rem;">👋 Welcome back, ${firstName || 'there'}!</p>
+        <p style="margin: 0.5rem 0; color: #f8fafc;">Your last quiz result: <strong>${results.addictionLevel}</strong> (Score: ${results.score}/30)</p>
+        <p style="margin: 0.5rem 0 0 0; color: #94a3b8; font-size: 0.9rem;">Take the quiz again to see your progress, or continue to your quit plan.</p>
+        <a href="/quit-now" style="display: inline-block; margin-top: 1rem; color: #10b981; font-weight: 600; text-decoration: none;">Continue to Quit Plan →</a>
+      </div>
+    `;
+    
+    const container = document.getElementById('hubspotQuiz-{{ name }}');
+    if (container && container.parentElement) {
+      container.parentElement.insertBefore(welcomeMsg, container);
+    }
+  }
+</script>
+
+<style>
+  .quiz-form-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .kickit-quiz-form {
+    background: rgba(26, 35, 50, 0.5);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  
+  .quiz-results {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .quiz-results-header {
+    margin-bottom: 2rem;
+  }
+  
+  .quiz-score-circle {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+  }
+  
+  .quiz-score-circle .score-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+  }
+  
+  .quiz-score-circle .score-label {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .quiz-results h3 {
+    font-size: 2rem;
+    color: #f8fafc;
+    margin: 0;
+    font-weight: 800;
+  }
+  
+  .quiz-results-body {
+    margin-top: 2rem;
+  }
+  
+  .recommendation {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .quiz-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .quiz-stat {
+    background: rgba(10, 15, 30, 0.6);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  
+  .quiz-stat .stat-label {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .quiz-stat .stat-value {
+    display: block;
+    color: #3b82f6;
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+  
+  .quiz-cta {
+    margin-top: 2rem;
+  }
+  
+  .quiz-cta .btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
+  
+  .quiz-cta .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+  }
+  
+  @media (max-width: 768px) {
+    .quiz-stats {
+      grid-template-columns: 1fr;
+    }
+    
+    .quiz-results {
+      padding: 1.5rem;
+    }
+  }
+</style>

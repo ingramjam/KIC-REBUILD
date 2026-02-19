@@ -1,0 +1,43 @@
+<!--
+  templateType: global_partial
+  label: Footer
+-->
+<footer class="footer">
+  {% dnd_area "footer"
+    label="Footer",
+    class="footer__container content-wrapper"
+  %}
+
+    {# Social follow and copyright #}
+
+    {% dnd_section %}
+      {% dnd_column %}
+        {% dnd_row %}
+          {% dnd_module path="../../modules/social-follow" %}
+            {% module_attribute "social_link" is_json=True %}
+              [
+                {"social_account": "facebook-f", "url": "https://www.facebook.com/Kickitca/"},
+                {"social_account": "instagram", "url": "https://www.instagram.com/kickitca/"},
+                {"social_account": "twitter", "url": "https://twitter.com/kickitca"},
+                {"social_account": "youtube", "url": "https://www.youtube.com/c/kickitca"}
+              ]
+            {% end_module_attribute %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+        {% dnd_row
+          margin={
+            "top": 12,
+            "bottom": 12
+          }
+        %}
+          {% dnd_module
+            path="@hubspot/rich_text",
+            html='<div style="text-align: center; font-size: 0.85rem; line-height: 1.6;"><p>Major funding provided by the California Department of Public Health & First 5 California.</p><p>© {{ year }} The Regents of the University of California. All Rights Reserved.</p><p><a href="/about">About Us</a> | <a href="/contact">Contact</a> | <a href="/privacy">Privacy Policy</a> | <a href="/faqs">FAQs</a></p></div>'
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+
+  {% end_dnd_area %}
+</footer>

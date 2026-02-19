@@ -1,0 +1,765 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Quit Now - Intake Form
+  screenshotPath: ../images/template-previews/home.png
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ content.html_title or "Start Your Quit Journey Today - Kick It California" }}</title>
+    <meta name="description" content="{{ content.meta_description or 'Take the first step to quit smoking, vaping, or tobacco. Get connected with a Quit Coach now.' }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    {{ standard_header_includes }}
+    
+    <style>
+      :root {
+        --primary-dark: #0a0f1e;
+        --secondary-dark: #1a2332;
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-orange: #f97316;
+        --text-light: #f8fafc;
+        --text-gray: #94a3b8;
+        --border-color: #1e293b;
+      }
+      
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--primary-dark);
+        color: var(--text-light);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      
+      .site-header {
+        background: rgba(10, 15, 30, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.5rem 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      
+      .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 50px;
+        width: auto;
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(101%) contrast(95%);
+        transition: all 0.3s ease;
+      }
+      
+      .logo img:hover {
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(110%) contrast(95%);
+      }
+      
+      .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 3rem;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .main-nav a {
+        text-decoration: none;
+        color: var(--text-gray);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .main-nav a:hover,
+      .main-nav a.active {
+        color: var(--text-light);
+      }
+      
+      /* Floating CTA is not needed on this page - this IS the quit now page */
+      
+      .page-hero {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+        padding: 12rem 3rem 4rem;
+        text-align: center;
+        margin-top: 80px;
+        position: relative;
+      }
+      
+      .page-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.1) 0%, transparent 70%);
+      }
+      
+      .hero-content {
+        max-width: 700px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .hero-label {
+        display: inline-block;
+        background: rgba(249, 115, 22, 0.1);
+        color: var(--accent-orange);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+      }
+      
+      .page-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .page-hero p {
+        font-size: 1.3rem;
+        color: var(--text-gray);
+      }
+      
+      .form-container {
+        max-width: 800px;
+        margin: -3rem auto 6rem;
+        position: relative;
+        z-index: 10;
+      }
+      
+      .form-card {
+        background: var(--secondary-dark);
+        border-radius: 16px;
+        padding: 3rem;
+        border: 2px solid var(--border-color);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+      
+      .progress-indicator {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+      
+      .progress-indicator::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--border-color);
+        z-index: 0;
+      }
+      
+      .progress-step {
+        text-align: center;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .progress-circle {
+        width: 40px;
+        height: 40px;
+        background: var(--primary-dark);
+        border: 2px solid var(--border-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.5rem;
+        font-weight: 700;
+        transition: all 0.3s;
+      }
+      
+      .progress-step.active .progress-circle {
+        background: var(--accent-orange);
+        border-color: var(--accent-orange);
+        color: white;
+      }
+      
+      .progress-step.completed .progress-circle {
+        background: var(--accent-green);
+        border-color: var(--accent-green);
+        color: white;
+      }
+      
+      .progress-label {
+        font-size: 0.85rem;
+        color: var(--text-gray);
+      }
+      
+      .form-step {
+        display: none;
+      }
+      
+      .form-step.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .form-step h2 {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .form-step .subtitle {
+        color: var(--text-gray);
+        margin-bottom: 2.5rem;
+        font-size: 1.1rem;
+      }
+      
+      .form-group {
+        margin-bottom: 2rem;
+      }
+      
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+      }
+      
+      .form-group label .required {
+        color: var(--accent-orange);
+      }
+      
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        background: var(--primary-dark);
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        color: var(--text-light);
+        font-size: 1rem;
+        font-family: inherit;
+        transition: all 0.3s;
+      }
+      
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--accent-orange);
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+      }
+      
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      
+      .radio-group,
+      .checkbox-group {
+        display: grid;
+        gap: 1rem;
+      }
+      
+      .radio-option,
+      .checkbox-option {
+        background: var(--primary-dark);
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.25rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .radio-option:hover,
+      .checkbox-option:hover {
+        border-color: var(--accent-orange);
+      }
+      
+      .radio-option input[type="radio"],
+      .checkbox-option input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+        cursor: pointer;
+      }
+      
+      .radio-option.selected,
+      .checkbox-option.selected {
+        border-color: var(--accent-orange);
+        background: rgba(249, 115, 22, 0.05);
+      }
+      
+      .form-nav {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2.5rem;
+        justify-content: space-between;
+      }
+      
+      .btn {
+        padding: 1rem 2.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        text-decoration: none;
+        display: inline-block;
+      }
+      
+      .btn-primary {
+        background: var(--accent-orange);
+        color: white;
+      }
+      
+      .btn-primary:hover:not(:disabled) {
+        background: #ea580c;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+      }
+      
+      .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-light);
+        border: 2px solid var(--border-color);
+      }
+      
+      .btn-secondary:hover:not(:disabled) {
+        border-color: var(--accent-orange);
+        background: rgba(249, 115, 22, 0.1);
+      }
+      
+      .form-help {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 4px solid var(--accent-blue);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 2rem 0;
+      }
+      
+      .form-help p {
+        color: var(--text-gray);
+        margin: 0;
+      }
+      
+      @media (max-width: 968px) {
+        .main-nav { display: none; }
+        .page-hero h1 { font-size: 2.5rem; }
+        .form-card { padding: 2rem; }
+        .progress-label { font-size: 0.75rem; }
+      }
+    </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <a href="https://244593765.hs-sites-na2.com/home" class="logo">
+        <img src="https://www.kickitca-wp.ucsd.edu/wp-content/uploads/2021/06/Primary.png" alt="Kick It California">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/quit-smoking">Smoking</a></li>
+          <li><a href="/quit-vaping">Vaping</a></li>
+          <li><a href="/quit-smokeless">Smokeless</a></li>
+          <li><a href="/quit-marijuana">Marijuana</a></li>
+          <li><a href="/quit-videos">Videos</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="hero-content">
+      <span class="hero-label">Get Started</span>
+      <h1>Quit Now</h1>
+      <p>Take the first step toward freedom. Complete this quick form to get connected with a Quit Coach.</p>
+    </div>
+  </section>
+
+  <div class="form-container">
+    <div class="form-card">
+      
+      <!-- Progress Indicator -->
+      <div class="progress-indicator">
+        <div class="progress-step active" id="progress1">
+          <div class="progress-circle">1</div>
+          <div class="progress-label">About You</div>
+        </div>
+        <div class="progress-step" id="progress2">
+          <div class="progress-circle">2</div>
+          <div class="progress-label">What You Use</div>
+        </div>
+        <div class="progress-step" id="progress3">
+          <div class="progress-circle">3</div>
+          <div class="progress-label">Your Goals</div>
+        </div>
+        <div class="progress-step" id="progress4">
+          <div class="progress-circle">4</div>
+          <div class="progress-label">Connect</div>
+        </div>
+      </div>
+
+      <!-- Step 1: Personal Info -->
+      <div class="form-step active" id="step1">
+        <h2>Tell Us About Yourself</h2>
+        <p class="subtitle">We keep all information 100% confidential.</p>
+        
+        <div class="form-group">
+          <label>First Name <span class="required">*</span></label>
+          <input type="text" id="firstName" required placeholder="Your first name">
+        </div>
+        
+        <div class="form-group">
+          <label>Last Name <span class="required">*</span></label>
+          <input type="text" id="lastName" required placeholder="Your last name">
+        </div>
+        
+        <div class="form-group">
+          <label>Age Range <span class="required">*</span></label>
+          <select id="ageRange" required>
+            <option value="">Select your age range</option>
+            <option value="12-17">12-17</option>
+            <option value="18-24">18-24</option>
+            <option value="25-34">25-34</option>
+            <option value="35-44">35-44</option>
+            <option value="45-54">45-54</option>
+            <option value="55-64">55-64</option>
+            <option value="65+">65+</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>ZIP Code <span class="required">*</span></label>
+          <input type="text" id="zipCode" required placeholder="California ZIP code">
+        </div>
+        
+        <div class="form-nav">
+          <button class="btn btn-secondary" disabled>← Back</button>
+          <button class="btn btn-primary" onclick="nextStep(2)">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: What They Use -->
+      <div class="form-step" id="step2">
+        <h2>What Would You Like to Quit?</h2>
+        <p class="subtitle">Select all that apply.</p>
+        
+        <div class="checkbox-group">
+          <label class="checkbox-option">
+            <input type="checkbox" name="product" value="cigarettes">
+            <span><strong>🚬 Cigarettes</strong> - Traditional tobacco cigarettes</span>
+          </label>
+          
+          <label class="checkbox-option">
+            <input type="checkbox" name="product" value="vaping">
+            <span><strong>💨 Vaping / E-Cigarettes</strong> - Electronic vaping devices, JUUL, disposables</span>
+          </label>
+          
+          <label class="checkbox-option">
+            <input type="checkbox" name="product" value="smokeless">
+            <span><strong>🎯 Smokeless Tobacco</strong> - Chew, dip, snus, pouches</span>
+          </label>
+          
+          <label class="checkbox-option">
+            <input type="checkbox" name="product" value="marijuana">
+            <span><strong>🌿 Marijuana</strong> - Cannabis products (smoking or vaping)</span>
+          </label>
+        </div>
+        
+        <div class="form-group" style="margin-top: 2rem;">
+          <label>How long have you been using?</label>
+          <select id="useLength">
+            <option value="">Select duration</option>
+            <option value="less-6months">Less than 6 months</option>
+            <option value="6months-1year">6 months to 1 year</option>
+            <option value="1-3years">1-3 years</option>
+            <option value="3-5years">3-5 years</option>
+            <option value="5-10years">5-10 years</option>
+            <option value="10plus">More than 10 years</option>
+          </select>
+        </div>
+        
+        <div class="form-nav">
+          <button class="btn btn-secondary" onclick="prevStep(1)">← Back</button>
+          <button class="btn btn-primary" onclick="nextStep(3)">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Goals & Motivation -->
+      <div class="form-step" id="step3">
+        <h2>Your Motivation & Goals</h2>
+        <p class="subtitle">Understanding your "why" helps us support you better.</p>
+        
+        <div class="form-group">
+          <label>What's your main reason for quitting? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="reason" value="health">
+              <span><strong>❤️ Health</strong> - Improve my physical health</span>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="reason" value="family">
+              <span><strong>👨‍👩‍👧‍👦 Family</strong> - Be there for loved ones</span>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="reason" value="money">
+              <span><strong>💰 Save Money</strong> - Reduce expenses</span>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="reason" value="freedom">
+              <span><strong>🎯 Freedom</strong> - Break free from addiction</span>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="reason" value="work">
+              <span><strong>💼 Work/School</strong> - Job requirements or performance</span>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="reason" value="other">
+              <span><strong>📝 Other</strong></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>When do you want to quit?</label>
+          <select id="quitTimeline">
+            <option value="now">Right now - I'm ready</option>
+            <option value="week">Within the next week</option>
+            <option value="month">Within the next month</option>
+            <option value="exploring">Just exploring my options</option>
+          </select>
+        </div>
+        
+        <div class="form-help">
+          <p><strong>Remember:</strong> There's no judgment here. Wherever you are in your journey, we're here to support you.</p>
+        </div>
+        
+        <div class="form-nav">
+          <button class="btn btn-secondary" onclick="prevStep(2)">← Back</button>
+          <button class="btn btn-primary" onclick="nextStep(4)">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Contact Info -->
+      <div class="form-step" id="step4">
+        <h2>How Can We Reach You?</h2>
+        <p class="subtitle">Choose your preferred way to connect with a Quit Coach.</p>
+        
+        <div class="form-group">
+          <label>Phone Number <span class="required">*</span></label>
+          <input type="tel" id="phone" required placeholder="(555) 123-4567">
+        </div>
+        
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="your@email.com">
+        </div>
+        
+        <div class="form-group">
+          <label>Preferred Contact Method <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="contact" value="call">
+              <span><strong>📞 Phone Call</strong> - Call me to discuss</span>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="contact" value="text">
+              <span><strong>💬 Text Message</strong> - Text me information and support</span>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="contact" value="email">
+              <span><strong>📧 Email</strong> - Send me resources via email</span>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="contact" value="chat">
+              <span><strong>💻 Live Chat</strong> - Start a live chat now</span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Best Time to Contact</label>
+          <select id="contactTime">
+            <option value="">Select preferred time</option>
+            <option value="morning">Morning (8am - 12pm)</option>
+            <option value="afternoon">Afternoon (12pm - 5pm)</option>
+            <option value="evening">Evening (5pm - 9pm)</option>
+            <option value="anytime">Anytime</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Anything else you'd like us to know?</label>
+          <textarea id="notes" placeholder="Optional: Share any concerns, questions, or specific needs..."></textarea>
+        </div>
+        
+        <div class="form-help">
+          <p><strong>Privacy Promise:</strong> Your information is completely confidential and will only be used to provide you with quit support services.</p>
+        </div>
+        
+        <div class="form-nav">
+          <button class="btn btn-secondary" onclick="prevStep(3)">← Back</button>
+          <button class="btn btn-primary" onclick="submitForm()">Submit & Get Help →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    
+    // Handle checkbox selections
+    document.querySelectorAll('.checkbox-option input').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          this.closest('.checkbox-option').classList.add('selected');
+        } else {
+          this.closest('.checkbox-option').classList.remove('selected');
+        }
+      });
+    });
+    
+    // Handle radio selections
+    document.querySelectorAll('.radio-option input').forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+          r.closest('.radio-option').classList.remove('selected');
+        });
+        this.closest('.radio-option').classList.add('selected');
+      });
+    });
+    
+    function nextStep(step) {
+      // Basic validation
+      if (currentStep === 1) {
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const ageRange = document.getElementById('ageRange').value;
+        const zipCode = document.getElementById('zipCode').value;
+        
+        if (!firstName || !lastName || !ageRange || !zipCode) {
+          alert('Please fill in all required fields.');
+          return;
+        }
+      }
+      
+      if (currentStep === 2) {
+        const products = document.querySelectorAll('input[name="product"]:checked');
+        if (products.length === 0) {
+          alert('Please select at least one product you want to quit.');
+          return;
+        }
+      }
+      
+      if (currentStep === 3) {
+        const reason = document.querySelector('input[name="reason"]:checked');
+        if (!reason) {
+          alert('Please select your main reason for quitting.');
+          return;
+        }
+      }
+      
+      // Update progress
+      document.getElementById('step' + currentStep).classList.remove('active');
+      document.getElementById('progress' + currentStep).classList.remove('active');
+      document.getElementById('progress' + currentStep).classList.add('completed');
+      
+      currentStep = step;
+      
+      document.getElementById('step' + step).classList.add('active');
+      document.getElementById('progress' + step).classList.add('active');
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function prevStep(step) {
+      document.getElementById('step' + currentStep).classList.remove('active');
+      document.getElementById('progress' + currentStep).classList.remove('active');
+      
+      currentStep = step;
+      
+      document.getElementById('step' + step).classList.add('active');
+      document.getElementById('progress' + step).classList.add('active');
+      document.getElementById('progress' + step).classList.remove('completed');
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function submitForm() {
+      const phone = document.getElementById('phone').value;
+      const contact = document.querySelector('input[name="contact"]:checked');
+      
+      if (!phone || !contact) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      
+      // Here you would normally submit to HubSpot form or API
+      alert('Thank you! A Quit Coach will contact you soon using your preferred method. You\'re taking an amazing first step!');
+      
+      // Redirect to thank you page or contact
+      window.location.href = '/contact';
+    }
+  </script>
+
+  {{ standard_footer_includes }}
+</body>
+</html>

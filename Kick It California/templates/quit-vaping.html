@@ -1,0 +1,680 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Quit Vaping Program
+  screenshotPath: ../images/template-previews/home.png
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ content.html_title or "Quit Vaping - Free E-Cigarette Cessation Support | Kick It California" }}</title>
+    <meta name="description" content="{{ content.meta_description or 'Get free help to quit vaping and e-cigarettes. Expert coaching, proven strategies, and 24/7 support for all ages.' }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    {{ standard_header_includes }}
+    
+    <style>
+      :root {
+        --primary-dark: #0a0f1e;
+        --secondary-dark: #1a2332;
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-orange: #f97316;
+        --text-light: #f8fafc;
+        --text-gray: #94a3b8;
+        --border-color: #1e293b;
+      }
+      
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--primary-dark);
+        color: var(--text-light);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      
+      .site-header {
+        background: rgba(10, 15, 30, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.5rem 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      
+      .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 50px;
+        width: auto;
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(101%) contrast(95%);
+        transition: all 0.3s ease;
+      }
+      
+      .logo img:hover {
+        filter: brightness(0) saturate(100%) invert(52%) sepia(98%) saturate(2664%) hue-rotate(360deg) brightness(110%) contrast(95%);
+      }
+      
+      .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 3rem;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .main-nav a {
+        text-decoration: none;
+        color: var(--text-gray);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .main-nav a:hover,
+      .main-nav a.active {
+        color: var(--text-light);
+      }
+      
+      /* Floating CTA Button */
+      .floating-cta {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+      
+      .floating-cta:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(249, 115, 22, 0.6);
+      }
+      
+      .floating-cta-icon {
+        font-size: 24px;
+        line-height: 1;
+      }
+      
+      .floating-cta-text {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      
+      .page-hero {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+        padding: 12rem 3rem 6rem;
+        text-align: center;
+        margin-top: 80px;
+        position: relative;
+      }
+      
+      .page-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+      }
+      
+      .hero-content {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .hero-label {
+        display: inline-block;
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--accent-blue);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+      }
+      
+      .hero-icon {
+        font-size: 5rem;
+        margin-bottom: 2rem;
+      }
+      
+      .page-hero h1 {
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .page-hero p {
+        font-size: 1.4rem;
+        color: var(--text-gray);
+        margin-bottom: 3rem;
+      }
+      
+      .hero-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .btn {
+        padding: 1.2rem 3rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-block;
+      }
+      
+      .btn-primary {
+        background: var(--accent-orange);
+        color: white;
+      }
+      
+      .btn-primary:hover {
+        background: #ea580c;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-light);
+        border: 2px solid var(--border-color);
+      }
+      
+      .btn-secondary:hover {
+        border-color: var(--accent-orange);
+        background: rgba(249, 115, 22, 0.1);
+      }
+      
+      .section {
+        padding: 6rem 3rem;
+      }
+      
+      .section-alt {
+        background: var(--secondary-dark);
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .section-label {
+        display: inline-block;
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--accent-blue);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+      }
+      
+      .section h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .section-subtitle {
+        font-size: 1.3rem;
+        color: var(--text-gray);
+        margin-bottom: 4rem;
+      }
+      
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin: 4rem 0;
+        padding: 4rem 0;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+      }
+      
+      .stat-item {
+        text-align: center;
+      }
+      
+      .stat-number {
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+      }
+      
+      .stat-label {
+        font-size: 1.1rem;
+        color: var(--text-gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      
+      .myth-busters {
+        display: grid;
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      
+      .myth-card {
+        background: var(--secondary-dark);
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2.5rem;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 2rem;
+        align-items: start;
+      }
+      
+      .myth-icon {
+        font-size: 3rem;
+      }
+      
+      .myth-content h3 {
+        font-size: 1.5rem;
+        color: #ef4444;
+        margin-bottom: 0.5rem;
+      }
+      
+      .myth-content h3::before {
+        content: 'MYTH: ';
+        font-size: 0.875rem;
+        color: var(--text-gray);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      
+      .myth-truth {
+        color: var(--accent-green);
+        font-weight: 700;
+        margin: 1rem 0 0.5rem;
+      }
+      
+      .myth-truth::before {
+        content: '✓ TRUTH: ';
+      }
+      
+      .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      
+      .tip-card {
+        background: var(--secondary-dark);
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2.5rem;
+        transition: all 0.3s;
+      }
+      
+      .tip-card:hover {
+        border-color: var(--accent-blue);
+        transform: translateY(-4px);
+      }
+      
+      .tip-number {
+        display: inline-flex;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+      }
+      
+      .tip-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .tip-card p {
+        color: var(--text-gray);
+        line-height: 1.8;
+      }
+      
+      .danger-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      
+      .danger-card {
+        background: rgba(239, 68, 68, 0.1);
+        border: 2px solid rgba(239, 68, 68, 0.3);
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+      }
+      
+      .danger-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .danger-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+        color: #ef4444;
+      }
+      
+      .danger-card p {
+        color: var(--text-gray);
+        font-size: 0.95rem;
+      }
+      
+      @media (max-width: 968px) {
+        .main-nav { display: none; }
+        .floating-cta {
+          bottom: 20px;
+          right: 20px;
+          padding: 12px 20px;
+        }
+        .floating-cta-text { font-size: 14px; }
+        .floating-cta-icon { font-size: 20px; }
+        .page-hero h1 { font-size: 3rem; }
+        .stats-grid { grid-template-columns: 1fr; }
+        .tips-grid { grid-template-columns: 1fr; }
+        .danger-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <a href="https://244593765.hs-sites-na2.com/home" class="logo">
+        <img src="https://www.kickitca-wp.ucsd.edu/wp-content/uploads/2021/06/Primary.png" alt="Kick It California">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/quit-smoking">Smoking</a></li>
+          <li><a href="/quit-vaping">Vaping</a></li>
+          <li><a href="/quit-smokeless">Smokeless</a></li>
+          <li><a href="/quit-marijuana">Marijuana</a></li>
+          <li><a href="/quit-videos">Videos</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Floating CTA Button -->
+  <a href="/quit-now" class="floating-cta">
+    <span class="floating-cta-icon">🚀</span>
+    <span class="floating-cta-text">Quit Now</span>
+  </a>
+
+  <section class="page-hero">
+    <div class="hero-content">
+      <span class="hero-label">E-Cigarettes & Vaping</span>
+      <div class="hero-icon">💨</div>
+      <h1>Quit Vaping & E-Cigs</h1>
+      <p>Specialized support for vaping cessation. We understand nicotine addiction and we're here to help you break free.</p>
+      <div class="hero-buttons">
+        <a href="tel:8003008086" class="btn btn-primary">Call Now 800-300-8086</a>
+        <a href="sms:66819&body=KICKIT" class="btn btn-secondary">Text KICKIT to 66819</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">2X</div>
+          <div class="stat-label">Nicotine in Some Vapes vs Cigarettes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Puffs in One Disposable Vape</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$1,200</div>
+          <div class="stat-label">Average Annual Vaping Cost</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Truth vs Fiction</span>
+      <h2>Vaping Myths Debunked</h2>
+      <p class="section-subtitle">Get the facts about vaping and e-cigarettes from real science, not marketing.</p>
+      
+      <div class="myth-busters">
+        <div class="myth-card">
+          <div class="myth-icon">❌</div>
+          <div class="myth-content">
+            <h3>Vaping is harmless water vapor</h3>
+            <p class="myth-truth">E-cigarette aerosol contains harmful chemicals including heavy metals, volatile organic compounds, and cancer-causing agents.</p>
+            <p style="color: var(--text-gray); margin-top: 0.5rem;">Studies show vaping can damage your lungs, heart, and brain development in young people.</p>
+          </div>
+        </div>
+        
+        <div class="myth-card">
+          <div class="myth-icon">❌</div>
+          <div class="myth-content">
+            <h3>Vapes help you quit smoking</h3>
+            <p class="myth-truth">Most people who vape to quit smoking end up using both products (dual use), doubling their nicotine intake.</p>
+            <p style="color: var(--text-gray); margin-top: 0.5rem;">FDA-approved quit methods like coaching and NRT are proven more effective.</p>
+          </div>
+        </div>
+        
+        <div class="myth-card">
+          <div class="myth-icon">❌</div>
+          <div class="myth-content">
+            <h3>Vaping isn't addictive</h3>
+            <p class="myth-truth">Vapes deliver highly concentrated nicotine - one JUUL pod equals a pack of cigarettes. Nicotine is extremely addictive.</p>
+            <p style="color: var(--text-gray); margin-top: 0.5rem;">Teen vaping has created a new generation addicted to nicotine.</p>
+          </div>
+        </div>
+        
+        <div class="myth-card">
+          <div class="myth-icon">❌</div>
+          <div class="myth-content">
+            <h3>Flavors make vapes safer</h3>
+            <p class="myth-truth">Flavoring chemicals can be toxic when inhaled. Some flavors contain diacetyl, linked to serious lung disease.</p>
+            <p style="color: var(--text-gray); margin-top: 0.5rem;">Flavors are used to make vaping more appealing, especially to youth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Health Risks</span>
+      <h2>What Vaping Does to Your Body</h2>
+      <p class="section-subtitle">The long-term effects are still emerging, but here's what we know now.</p>
+      
+      <div class="danger-grid">
+        <div class="danger-card">
+          <div class="danger-icon">🫁</div>
+          <h3>Lung Damage</h3>
+          <p>Causes inflammation, reduced lung function, and increases risk of respiratory infections. "Popcorn lung" and EVALI are serious conditions.</p>
+        </div>
+        
+        <div class="danger-card">
+          <div class="danger-icon">🧠</div>
+          <h3>Brain Development</h3>
+          <p>Nicotine harms brain development in people under 25, affecting attention, learning, and mood control.</p>
+        </div>
+        
+        <div class="danger-card">
+          <div class="danger-icon">❤️</div>
+          <h3>Heart Problems</h3>
+          <p>Increases heart rate and blood pressure, raises risk of heart attack and stroke, damages blood vessels.</p>
+        </div>
+        
+        <div class="danger-card">
+          <div class="danger-icon">🦷</div>
+          <h3>Oral Health</h3>
+          <p>Causes gum disease, tooth decay, dry mouth, and increases risk of oral cancer.</p>
+        </div>
+        
+        <div class="danger-card">
+          <div class="danger-icon">⚡</div>
+          <h3>Addiction</h3>
+          <p>High nicotine levels create strong addiction, leading to cravings, withdrawal, and difficulty quitting.</p>
+        </div>
+        
+        <div class="danger-card">
+          <div class="danger-icon">🤰</div>
+          <h3>Pregnancy Risks</h3>
+          <p>Nicotine exposure during pregnancy can harm fetal brain and lung development.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Quit Strategies</span>
+      <h2>How to Quit Vaping Successfully</h2>
+      <p class="section-subtitle">Proven strategies tailored specifically for e-cigarette and vape users.</p>
+      
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-number">1</div>
+          <h3>Track Your Usage</h3>
+          <p>Use an app or journal to track when and why you vape. Identifying patterns helps you prepare alternatives for triggers.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-number">2</div>
+          <h3>Gradual Reduction</h3>
+          <p>Slowly decrease nicotine strength or number of puffs per day. Set weekly goals and stick to them.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-number">3</div>
+          <h3>Delete Reminders</h3>
+          <p>Remove vape-related apps, unfollow vape accounts on social media, and get rid of all vape products and accessories.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-number">4</div>
+          <h3>Avoid Triggers</h3>
+          <p>If you vape while stressed, find healthier alternatives: exercise, meditation, deep breathing, or talk to someone.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-number">5</div>
+          <h3>Stay Hydrated</h3>
+          <p>Drink lots of water to help flush nicotine from your system and reduce cravings. Keep a water bottle handy.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-number">6</div>
+          <h3>Find Alternatives</h3>
+          <p>Keep your hands and mouth busy with gum, mints, fidget toys, or healthy snacks like carrots or sunflower seeds.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-number">7</div>
+          <h3>Get Support</h3>
+          <p>Tell friends and family you're quitting. Join online support groups or talk to a Quit Coach who understands vaping addiction.</p>
+        </div>
+        
+        <div class="tip-card">
+          <div class="tip-number">8</div>
+          <h3>Manage Withdrawal</h3>
+          <p>Withdrawal symptoms peak in 3-5 days and improve after 2 weeks. Exercise, good sleep, and coaching help you get through it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="text-align: center;">
+      <span class="section-label">Teen & Young Adult Support</span>
+      <h2>Special Program for Under 25</h2>
+      <p class="section-subtitle" style="max-width: 800px; margin: 0 auto 3rem;">We offer specialized support for young people dealing with vaping addiction. Our coaches understand the unique challenges teens and young adults face.</p>
+      
+      <div style="background: var(--secondary-dark); border-radius: 12px; padding: 3rem; border: 2px solid var(--border-color); max-width: 700px; margin: 0 auto;">
+        <h3 style="font-size: 2rem; margin-bottom: 1rem;">Confidential Teen Support</h3>
+        <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 2rem;">We won't tell your parents or school. Get judgment-free support from coaches who get it.</p>
+        <div class="hero-buttons">
+          <a href="tel:8003008086" class="btn btn-primary">Call Confidentially</a>
+          <a href="sms:66819&body=KICKIT" class="btn btn-secondary">Text for Help</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container" style="text-align: center;">
+      <span class="section-label">Get Started Today</span>
+      <h2>You Can Quit Vaping</h2>
+      <p class="section-subtitle">Thousands of people have quit vaping with our help. You can too. Free, confidential support available 24/7.</p>
+      
+      <div class="hero-buttons">
+        <a href="tel:8003008086" class="btn btn-primary">Call 800-300-8086</a>
+        <a href="/contact" class="btn btn-secondary">Start Live Chat</a>
+      </div>
+    </div>
+  </section>
+
+  {{ standard_footer_includes }}
+</body>
+</html>

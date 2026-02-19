@@ -1,0 +1,70 @@
+{
+  "label": "Contact Form",
+  "description": "Customizable contact form with validation",
+  "fields": [
+    {
+      "id": "form_title",
+      "name": "form_title",
+      "label": "Form Title",
+      "type": "text",
+      "default": "Contact Us"
+    },
+    {
+      "id": "form_description",
+      "name": "form_description",
+      "label": "Form Description",
+      "type": "richtext",
+      "default": "Get in touch with us today"
+    },
+    {
+      "id": "form_fields",
+      "name": "form_fields",
+      "label": "Form Fields",
+      "type": "group",
+      "children": [
+        {
+          "id": "show_name",
+          "name": "show_name",
+          "label": "Show Name Field",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "id": "show_email",
+          "name": "show_email",
+          "label": "Show Email Field",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "id": "show_phone",
+          "name": "show_phone",
+          "label": "Show Phone Field",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "id": "show_message",
+          "name": "show_message",
+          "label": "Show Message Field",
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "submit_button_text",
+      "name": "submit_button_text",
+      "label": "Submit Button Text",
+      "type": "text",
+      "default": "Send Message"
+    },
+    {
+      "id": "success_message",
+      "name": "success_message",
+      "label": "Success Message",
+      "type": "text",
+      "default": "Thank you! We'll be in touch soon."
+    }
+  ]
+}

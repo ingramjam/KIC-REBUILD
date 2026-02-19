@@ -1,0 +1,36 @@
+<!-- Stats Grid Module -->
+<section class="stats-section" style="text-align: center; padding: 6rem 3rem; background: {{ module.background_color }}; border-top: 1px solid #1e293b; border-bottom: 1px solid #1e293b;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto;">
+    
+    {% if module.section_title %}
+    <h2 style="font-size: 2.5rem; margin-bottom: 3rem; font-weight: 800; color: #f8fafc;">
+      {{ module.section_title }}
+    </h2>
+    {% endif %}
+    
+    <div class="stats-grid" style="display: grid; grid-template-columns: repeat({{ module.columns }}, 1fr); gap: 4rem;">
+      {% for stat in module.stats %}
+      <div class="stat-item">
+        <h3 style="font-size: 4rem; font-weight: 900; background: linear-gradient(135deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem;">
+          {{ stat.number }}
+        </h3>
+        <p style="color: #94a3b8; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">
+          {{ stat.stat_label }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .stat-item h3 {
+    font-size: 3rem !important;
+  }
+}
+</style>

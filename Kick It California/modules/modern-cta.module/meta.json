@@ -1,0 +1,14 @@
+{
+  "label": "CTA Section (Orange Accent)",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Call-to-action section with gradient background, orange primary button, and dual CTAs. Perfect for conversion-focused sections.",
+  "host_template_types": ["PAGE", "BLOG_LISTING", "BLOG_POST"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": [],
+  "is_available_for_new_content": true,
+  "icon": "../images/module-icons/cta.svg"
+}

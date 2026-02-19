@@ -1,0 +1,45 @@
+<!-- Numbered Features Module - Effortel Style -->
+<section class="numbered-features-section" style="padding: 8rem 3rem; background: {{ module.background_color }};">
+  <div class="container" style="max-width: 1400px; margin: 0 auto;">
+    
+    {% if module.show_label %}
+    <span class="section-label" style="display: inline-block; background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2rem;">
+      {{ module.section_label }}
+    </span>
+    {% endif %}
+    
+    <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.2; color: #f8fafc;">
+      {{ module.section_title }}
+    </h2>
+    
+    {% if module.section_subtitle %}
+    <p style="font-size: 1.3rem; color: #94a3b8; margin-bottom: 4rem; max-width: 700px;">
+      {{ module.section_subtitle }}
+    </p>
+    {% endif %}
+    
+    <div class="features-grid" style="display: grid; grid-template-columns: repeat({{ module.columns }}, 1fr); gap: 3rem; margin-top: 4rem;">
+      {% for item in module.features %}
+      <div class="feature-card" style="position: relative; padding-left: 5rem;">
+        <div class="feature-number" style="position: absolute; left: 0; top: 0; font-size: 4rem; font-weight: 900; background: linear-gradient(135deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; opacity: 0.3;">
+          {{ item.number }}
+        </div>
+        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-weight: 700; color: #f8fafc;">
+          {{ item.title }}
+        </h3>
+        <p style="color: #94a3b8; line-height: 1.8;">
+          {{ item.description }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>

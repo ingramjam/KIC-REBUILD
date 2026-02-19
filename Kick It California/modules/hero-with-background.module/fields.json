@@ -1,0 +1,83 @@
+[
+  {
+    "id": "background_type",
+    "name": "background_type",
+    "label": "Background Type",
+    "type": "choice",
+    "choices": [
+      ["none", "No Background"],
+      ["image", "Background Image"],
+      ["video", "Background Video"]
+    ],
+    "default": "none"
+  },
+  {
+    "id": "background_image",
+    "name": "background_image",
+    "label": "Background Image",
+    "type": "image",
+    "visibility": {
+      "controlling_field": "background_type",
+      "controlling_value_regex": "image"
+    }
+  },
+  {
+    "id": "background_video",
+    "name": "background_video",
+    "label": "Background Video URL (.mp4)",
+    "type": "text",
+    "visibility": {
+      "controlling_field": "background_type",
+      "controlling_value_regex": "video"
+    }
+  },
+  {
+    "id": "hero_label",
+    "name": "hero_label",
+    "label": "Hero Label",
+    "type": "text",
+    "default": "Free California Quit Program"
+  },
+  {
+    "id": "hero_title",
+    "name": "hero_title",
+    "label": "Hero Title",
+    "type": "text",
+    "default": "Quit Smoking.<br>Quit Vaping.<br>Take Control."
+  },
+  {
+    "id": "hero_description",
+    "name": "hero_description",
+    "label": "Hero Description",
+    "type": "text",
+    "default": "Science-based strategies. Personal coaching. Real results. Get free support to quit tobacco and nicotine for good."
+  },
+  {
+    "id": "primary_button_text",
+    "name": "primary_button_text",
+    "label": "Primary Button Text",
+    "type": "text",
+    "default": "📞 Call 800-300-8086"
+  },
+  {
+    "id": "primary_button_url",
+    "name": "primary_button_url",
+    "label": "Primary Button URL",
+    "type": "text",
+    "default": "tel:8003008086"
+  },
+  {
+    "id": "secondary_button_text",
+    "name": "secondary_button_text",
+    "label": "Secondary Button Text",
+    "type": "text",
+    "default": "💬 Start Live Chat"
+  },
+  {
+    "id": "secondary_button_url",
+    "name": "secondary_button_url",
+    "label": "Secondary Button URL",
+    "type": "text",
+    "default": "https://helpline-vision.ucsd.edu/Chat"
+  }
+]

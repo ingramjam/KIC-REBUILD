@@ -1,0 +1,120 @@
+[
+  {
+    "id": "show_label",
+    "name": "show_label",
+    "label": "Show Label Badge",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "id": "label_text",
+    "name": "label_text",
+    "label": "Label Text",
+    "type": "text",
+    "default": "Free California Quit Program",
+    "visibility": {
+      "controlling_field": "show_label",
+      "operator": "EQUAL",
+      "controlling_value_regex": "true"
+    }
+  },
+  {
+    "id": "title",
+    "name": "title",
+    "label": "Hero Title",
+    "type": "richtext",
+    "default": "Quit Smoking.<br>Quit Vaping.<br>Take Control."
+  },
+  {
+    "id": "title_size",
+    "name": "title_size",
+    "label": "Title Size (rem)",
+    "type": "number",
+    "default": 5,
+    "min": 2,
+    "max": 8,
+    "step": 0.5
+  },
+  {
+    "id": "subtitle",
+    "name": "subtitle",
+    "label": "Subtitle",
+    "type": "text",
+    "default": "Science-based strategies. Personal coaching. Real results. Get free support to quit tobacco and nicotine for good."
+  },
+  {
+    "id": "background_color",
+    "name": "background_color",
+    "label": "Background Color",
+    "type": "color",
+    "default": {
+      "color": "#0a0f1e"
+    }
+  },
+  {
+    "id": "padding_top",
+    "name": "padding_top",
+    "label": "Padding Top (px)",
+    "type": "number",
+    "default": 192,
+    "min": 0,
+    "max": 400
+  },
+  {
+    "id": "padding_bottom",
+    "name": "padding_bottom",
+    "label": "Padding Bottom (px)",
+    "type": "number",
+    "default": 128,
+    "min": 0,
+    "max": 400
+  },
+  {
+    "id": "primary_button",
+    "name": "primary_button",
+    "label": "Primary Button",
+    "type": "cta",
+    "default": {
+      "url": {
+        "href": "tel:8003008086",
+        "text": "Call 800-300-8086"
+      }
+    }
+  },
+  {
+    "id": "primary_button_icon",
+    "name": "primary_button_icon",
+    "label": "Primary Button Icon (emoji)",
+    "type": "text",
+    "default": "📞"
+  },
+  {
+    "id": "primary_button_color",
+    "name": "primary_button_color",
+    "label": "Primary Button Color",
+    "type": "color",
+    "default": {
+      "color": "#f97316"
+    }
+  },
+  {
+    "id": "secondary_button",
+    "name": "secondary_button",
+    "label": "Secondary Button",
+    "type": "cta",
+    "default": {
+      "url": {
+        "href": "https://helpline-vision.ucsd.edu/Chat",
+        "text": "Start Live Chat",
+        "open_in_new_tab": true
+      }
+    }
+  },
+  {
+    "id": "secondary_button_icon",
+    "name": "secondary_button_icon",
+    "label": "Secondary Button Icon (emoji)",
+    "type": "text",
+    "default": "💬"
+  }
+]

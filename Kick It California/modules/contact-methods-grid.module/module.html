@@ -1,0 +1,18 @@
+<section class="section">
+  <div class="container">
+    <span class="section-label">{{ module.section_label }}</span>
+    <h2 class="section-title">{{ module.section_title }}</h2>
+    <p class="section-subtitle">{{ module.section_subtitle }}</p>
+    
+    <div class="contact-grid">
+      {% for method in module.methods %}
+      <div class="contact-card">
+        <div class="contact-icon">{{ method.icon }}</div>
+        <h3>{{ method.title }}</h3>
+        <p>{{ method.description }}</p>
+        <a href="{{ method.link_url }}" class="contact-link">{{ method.link_text }}</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

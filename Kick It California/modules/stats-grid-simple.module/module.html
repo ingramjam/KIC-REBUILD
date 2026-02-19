@@ -1,0 +1,12 @@
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      {% for stat in module.stats %}
+      <div class="stat-item">
+        <h3>{{ stat.number }}</h3>
+        <p>{{ stat.stat_label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

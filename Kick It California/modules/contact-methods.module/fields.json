@@ -1,0 +1,153 @@
+[
+  {
+    "id": "show_label",
+    "name": "show_label",
+    "label": "Show Section Label",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section Label",
+    "type": "text",
+    "default": "Connect With Us"
+  },
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Section Title",
+    "type": "text",
+    "default": "Four Ways to Get Started"
+  },
+  {
+    "id": "section_subtitle",
+    "name": "section_subtitle",
+    "label": "Section Subtitle",
+    "type": "text",
+    "default": "Choose the method that works best for you. All services are 100% free for California residents."
+  },
+  {
+    "id": "background_color",
+    "name": "background_color",
+    "label": "Background Color",
+    "type": "color",
+    "default": {
+      "color": "#0a0f1e"
+    }
+  },
+  {
+    "id": "columns",
+    "name": "columns",
+    "label": "Number of Columns",
+    "type": "choice",
+    "choices": [
+      ["2", "2 Columns"],
+      ["3", "3 Columns"],
+      ["4", "4 Columns"]
+    ],
+    "default": "4"
+  },
+  {
+    "id": "link_color",
+    "name": "link_color",
+    "label": "Link Color",
+    "type": "color",
+    "default": {
+      "color": "#f97316"
+    }
+  },
+  {
+    "id": "contact_items",
+    "name": "contact_items",
+    "label": "Contact Methods",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 8,
+      "default": 4
+    },
+    "default": [
+      {
+        "icon": "📞",
+        "title": "Call",
+        "description": "Talk to a Quit Coach right now. Available 7 days a week.",
+        "link": {
+          "url": {
+            "href": "tel:8003008086",
+            "text": "800-300-8086"
+          }
+        }
+      },
+      {
+        "icon": "💬",
+        "title": "Text",
+        "description": "Get support via text message. Text KICKIT to get started.",
+        "link": {
+          "url": {
+            "href": "sms:66819?&body=KICKIT",
+            "text": "Text Now"
+          }
+        }
+      },
+      {
+        "icon": "🗨️",
+        "title": "Chat",
+        "description": "Live chat with a coach online. Quick and confidential.",
+        "link": {
+          "url": {
+            "href": "https://helpline-vision.ucsd.edu/Chat",
+            "text": "Start Chat",
+            "open_in_new_tab": true
+          }
+        }
+      },
+      {
+        "icon": "📱",
+        "title": "App",
+        "description": "Download our mobile app for 24/7 quit support tools.",
+        "link": {
+          "url": {
+            "href": "#download-app",
+            "text": "Get App"
+          }
+        }
+      }
+    ],
+    "children": [
+      {
+        "id": "icon",
+        "name": "icon",
+        "label": "Icon (emoji or text)",
+        "type": "text",
+        "default": "📞"
+      },
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Title",
+        "type": "text",
+        "default": "Call"
+      },
+      {
+        "id": "description",
+        "name": "description",
+        "label": "Description",
+        "type": "text",
+        "default": "Talk to a coach right now."
+      },
+      {
+        "id": "link",
+        "name": "link",
+        "label": "Link",
+        "type": "cta",
+        "default": {
+          "url": {
+            "href": "#",
+            "text": "Learn More"
+          }
+        }
+      }
+    ]
+  }
+]

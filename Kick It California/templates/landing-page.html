@@ -5,9 +5,9 @@
   screenshotPath: ../images/template-previews/landing-page.png
   fields: landing-page-fields.json
 -->
-{% extends "./base.html" %}
+{% extends "./layouts/base.html" %}
 
-{% block content %}
+{% block body %}
 <div class="landing-page">
   <!-- Hero Section -->
   {% dnd_area "hero_area" label='Hero Area', class='hero-area' %}
@@ -67,4 +67,4 @@
   {% dnd_area "additional_content" label='Additional Content', class='additional-content' %}
   {% end_dnd_area %}
 </div>
-{% endblock %}
+{% endblock body %}

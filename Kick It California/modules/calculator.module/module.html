@@ -6,9 +6,20 @@
 /* ADDICTION CALCULATOR STYLES */
 /* ================================================== */
 
+:root {
+  --kic-sunrise-pink: #FC4A7C;
+  --kic-sunrise-aqua: #23CED9;
+  --kic-sunrise-teal: #097C87;
+  --kic-sunrise-sand: #F9D779;
+  --kic-sunrise-mint: #A1CCA6;
+  --kic-sunrise-text: #ffffff;
+  --kic-sunrise-muted: #cfe5e7;
+  --kic-sunrise-ink: #053f46;
+}
+
 .calculator-container {
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 107, 107, 0.05) 100%);
-  border: 1px solid rgba(0, 212, 255, 0.2);
+  background: linear-gradient(135deg, rgba(35, 206, 217, 0.08) 0%, rgba(252, 74, 124, 0.08) 100%);
+  border: 1px solid rgba(35, 206, 217, 0.35);
   border-radius: 16px;
   padding: 3rem 2rem;
   margin: 2rem 0;
@@ -26,12 +37,12 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #ffffff;
+  color: var(--kic-sunrise-text);
 }
 
 .calculator-header p {
   font-size: 1.1rem;
-  color: #a8b2d1;
+  color: var(--kic-sunrise-muted);
 }
 
 /* Age Group Tabs */
@@ -45,9 +56,9 @@
 
 .age-tab {
   padding: 0.8rem 1.5rem;
-  border: 2px solid rgba(0, 212, 255, 0.3);
+  border: 2px solid rgba(35, 206, 217, 0.35);
   background: transparent;
-  color: #ffffff;
+  color: var(--kic-sunrise-text);
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
@@ -56,14 +67,14 @@
 }
 
 .age-tab:hover {
-  border-color: #00d4ff;
-  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--kic-sunrise-aqua);
+  background: rgba(35, 206, 217, 0.12);
 }
 
 .age-tab.active {
-  background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
-  color: #0a0e27;
-  border-color: #00d4ff;
+  background: linear-gradient(135deg, var(--kic-sunrise-aqua) 0%, var(--kic-sunrise-teal) 100%);
+  color: var(--kic-sunrise-ink);
+  border-color: var(--kic-sunrise-aqua);
 }
 
 /* Calculator Content */
@@ -94,29 +105,29 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--kic-sunrise-text);
 }
 
 .input-group input {
   width: 100%;
   padding: 0.8rem 1rem;
-  background: rgba(0, 212, 255, 0.1);
-  border: 2px solid rgba(0, 212, 255, 0.3);
+  background: rgba(35, 206, 217, 0.1);
+  border: 2px solid rgba(35, 206, 217, 0.35);
   border-radius: 8px;
-  color: #ffffff;
+  color: var(--kic-sunrise-text);
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
 .input-group input:focus {
   outline: none;
-  border-color: #00d4ff;
-  background: rgba(0, 212, 255, 0.15);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+  border-color: var(--kic-sunrise-aqua);
+  background: rgba(35, 206, 217, 0.16);
+  box-shadow: 0 0 20px rgba(35, 206, 217, 0.25);
 }
 
 .input-group input::placeholder {
-  color: #a8b2d1;
+  color: var(--kic-sunrise-muted);
 }
 
 /* Results Grid */
@@ -134,7 +145,7 @@
 
 .result-card {
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 212, 255, 0.2);
+  border: 1px solid rgba(35, 206, 217, 0.35);
   border-radius: 12px;
   padding: 1.5rem;
   text-align: center;
@@ -143,8 +154,8 @@
 
 .result-card:hover {
   transform: translateY(-5px);
-  border-color: #00d4ff;
-  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+  border-color: var(--kic-sunrise-aqua);
+  box-shadow: 0 10px 30px rgba(35, 206, 217, 0.25);
 }
 
 .result-icon {
@@ -154,7 +165,7 @@
 
 .result-label {
   font-size: 0.9rem;
-  color: #a8b2d1;
+  color: var(--kic-sunrise-muted);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -163,13 +174,13 @@
 .result-value {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #00d4ff;
+  color: var(--kic-sunrise-sand);
   margin-bottom: 0.5rem;
 }
 
 .result-timeframe {
   font-size: 0.85rem;
-  color: #a8b2d1;
+  color: var(--kic-sunrise-muted);
 }
 
 /* Button Group */
@@ -194,35 +205,35 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
-  color: #0a0e27;
+  background: linear-gradient(135deg, var(--kic-sunrise-aqua) 0%, var(--kic-sunrise-teal) 100%);
+  color: var(--kic-sunrise-ink);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(35, 206, 217, 0.45);
 }
 
 .btn-secondary {
   background: transparent;
-  color: #00d4ff;
-  border: 2px solid #00d4ff;
+  color: var(--kic-sunrise-aqua);
+  border: 2px solid var(--kic-sunrise-aqua);
 }
 
 .btn-secondary:hover {
-  background: rgba(0, 212, 255, 0.1);
+  background: rgba(35, 206, 217, 0.12);
   transform: translateY(-3px);
 }
 
 .btn-share {
-  background: rgba(0, 212, 255, 0.1);
-  color: #00d4ff;
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  background: rgba(35, 206, 217, 0.1);
+  color: var(--kic-sunrise-aqua);
+  border: 1px solid rgba(35, 206, 217, 0.35);
 }
 
 .btn-share:hover {
-  border-color: #00d4ff;
-  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--kic-sunrise-aqua);
+  background: rgba(35, 206, 217, 0.22);
 }
 
 /* Product Selection */
@@ -235,11 +246,11 @@
 
 .product-btn {
   padding: 1rem;
-  border: 2px solid rgba(0, 212, 255, 0.3);
+  border: 2px solid rgba(35, 206, 217, 0.35);
   background: transparent;
   border-radius: 8px;
   cursor: pointer;
-  color: #ffffff;
+  color: var(--kic-sunrise-text);
   font-weight: 600;
   transition: all 0.3s ease;
   display: flex;
@@ -252,17 +263,17 @@
   font-size: 2rem;
 }
 
-.product-btn.smoking { border-color: #ff6b6b; color: #ff6b6b; }
-.product-btn.smoking:hover { background: rgba(255, 107, 107, 0.15); }
+.product-btn.smoking { border-color: var(--kic-sunrise-pink); color: var(--kic-sunrise-pink); }
+.product-btn.smoking:hover { background: rgba(252, 74, 124, 0.16); }
 
-.product-btn.vaping { border-color: #ffd500; color: #ffd500; }
-.product-btn.vaping:hover { background: rgba(255, 213, 0, 0.15); }
+.product-btn.vaping { border-color: var(--kic-sunrise-aqua); color: var(--kic-sunrise-aqua); }
+.product-btn.vaping:hover { background: rgba(35, 206, 217, 0.16); }
 
-.product-btn.marijuana { border-color: #00d084; color: #00d084; }
-.product-btn.marijuana:hover { background: rgba(0, 208, 132, 0.15); }
+.product-btn.marijuana { border-color: var(--kic-sunrise-mint); color: var(--kic-sunrise-mint); }
+.product-btn.marijuana:hover { background: rgba(161, 204, 166, 0.16); }
 
-.product-btn.nicotine { border-color: #a78bfa; color: #a78bfa; }
-.product-btn.nicotine:hover { background: rgba(167, 139, 250, 0.15); }
+.product-btn.nicotine { border-color: var(--kic-sunrise-teal); color: var(--kic-sunrise-teal); }
+.product-btn.nicotine:hover { background: rgba(9, 124, 135, 0.16); }
 
 .product-btn.active {
   font-weight: 700;

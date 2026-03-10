@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kick It California - AI Chat Coach (Improved)</title>
+    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js" defer></script>
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #00d4ff;
+  --primary-dark: #00a8cc;
+  --success: #00d084;
+  --warning: #ffd500;
+  --danger: #ff6b6b;
+  --bg-dark: #0a0e27;
+  --bg-darker: #05070f;
+  --text-light: #ffffff;
+  --text-muted: #a8b2d1;
+  --border-color: rgba(0, 212, 255, 0.2);
+  --transition: 0.3s ease;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+  color: var(--text-light);
+}
+
+.chatbot-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  height: 100vh;
+  max-height: 700px;
+  background: var(--bg-dark);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-color);
+}
+
+/* ===== LEFT PANE: CHAT ===== */
+.chat-pane {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  background: var(--bg-dark);
+}
+
+.chat-header {
+  padding: 1.2rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--bg-dark);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-status {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.lang-toggle {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  color: var(--bg-dark);
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.lang-toggle:hover {
+  background: rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background: #0f203a;
+}
+
+.message {
+  display: flex;
+  animation: slideIn 0.3s ease-out;
+  gap: 0.5rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.message.bot {
+  justify-content: flex-start;
+}
+
+.message-content {
+  max-width: 75%;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.message.bot .message-content {
+  background: rgba(0, 212, 255, 0.15);
+  border-left: 3px solid var(--primary);
+  color: var(--text-light);
+}
+
+.message.user .message-content {
+  background: linear-gradient(135deg, var(--success) 0%, #00a866 100%);
+  color: var(--bg-dark);
+  border-radius: 12px 4px 12px 12px;
+}
+
+.message a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.message a:hover {
+  color: var(--primary-dark);
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 0.8rem 1.2rem;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: bounce 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-8px); }
+}
+
+.input-area {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#message-input {
+  flex: 1;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: all var(--transition);
+}
+
+#message-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: rgba(0, 212, 255, 0.15);
+}
+
+#message-input::placeholder {
+  color: var(--text-muted);
+}
+
+.send-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border: none;
+  color: var(--bg-dark);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+}
+
+/* ===== RIGHT PANE: ACTIONS & FORMS ===== */
+.actions-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 1px solid var(--border-color);
+  overflow-y: auto;
+}
+
+.actions-header {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.actions-content {
+  padding: 1rem 1.2rem;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.action-button {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: var(--text-light);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: left;
+  transition: all var(--transition);
+  font-weight: 500;
+}
+
+.action-button:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--primary);
+  transform: translateX(5px);
+}
+
+.action-button.success {
+  border-color: var(--success);
+  background: rgba(0, 208, 132, 0.1);
+}
+
+.action-button.warning {
+  border-color: var(--warning);
+  background: rgba(255, 213, 0, 0.1);
+}
+
+.quiz-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
+}
+
+.quiz-btn {
+  background: linear-gradient(135deg, var(--warning) 0%, #ffb800 100%);
+  border: none;
+  color: var(--bg-dark);
+  padding: 0.7rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all var(--transition);
+}
+
+.quiz-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(255, 213, 0, 0.3);
+}
+
+.form-section {
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  padding: 0.8rem;
+  border-radius: 8px;
+  display: none;
+}
+
+.form-section.active {
+  display: block;
+}
+
+.form-section h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  color: var(--primary);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: var(--text-light);
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  transition: all var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.form-section button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border: none;
+  color: var(--bg-dark);
+  padding: 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition);
+}
+
+.form-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 212, 255, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .chatbot-wrapper {
+    flex-direction: column;
+    max-height: 900px;
+  }
+
+  .chat-pane {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .actions-pane {
+    border-left: none;
+    max-height: 250px;
+  }
+
+  .message-content {
+    max-width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .chatbot-wrapper {
+    max-height: 600px;
+    border-radius: 8px;
+  }
+
+  .chat-header {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .actions-pane {
+    display: none;
+  }
+
+  .messages-container {
+    padding: 0.8rem;
+    gap: 0.6rem;
+  }
+
+  .input-area {
+    padding: 0.8rem;
+    gap: 0.4rem;
+  }
+
+  #message-input {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .send-btn {
+    padding: 0.7rem 1rem;
+  }
+
+  .message-content {
+    max-width: 90%;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatbot-wrapper {
+    max-height: 70vh;
+  }
+
+  .message-content {
+    max-width: 95%;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .chat-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .lang-toggle {
+    width: 100%;
+  }
+}
+
+/* ===== SCROLLBAR ===== */
+.messages-container::-webkit-scrollbar,
+.actions-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-track,
+.actions-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages-container::-webkit-scrollbar-thumb,
+.actions-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.3);
+  border-radius: 3px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover,
+.actions-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.5);
+}
+    </style>
+</head>
+<body>
+
+<div class="chatbot-wrapper">
+  <!-- LEFT: CHAT -->
+  <div class="chat-pane">
+    <div class="chat-header">
+      <div class="header-title">
+        <span>🎯 Quit Coach AI</span>
+        <span class="header-status">LIVE</span>
+      </div>
+      <button class="lang-toggle" id="lang-btn" onclick="toggleLanguage()">Español</button>
+    </div>
+
+    <div class="messages-container" id="messages">
+      <!-- Initial message will be added by JavaScript -->
+    </div>
+
+    <div class="input-area">
+      <input 
+        type="text" 
+        id="message-input" 
+        placeholder="Ask me anything or describe what you want to quit..." 
+        onkeypress="handleKeyPress(event)"
+      >
+      <button class="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: ACTIONS -->
+  <div class="actions-pane">
+    <div class="actions-header">💡 Quick Actions</div>
+    <div class="actions-content">
+      <button class="action-button" onclick="quickAction('patches')">
+        📦 Free Nicotine Patches
+      </button>
+      <button class="action-button" onclick="quickAction('coach')">
+        👥 Chat with Live Coach
+      </button>
+      <button class="action-button" onclick="quickAction('phone')">
+        📞 Schedule a Call
+      </button>
+      <button class="action-button" onclick="quickAction('app')">
+        📱 Download Our App
+      </button>
+      <button class="action-button success" onclick="quickAction('resources')">
+        📚 Quit Resources
+      </button>
+      <button class="action-button warning" onclick="shareQuiz()">
+        📊 Share Results
+      </button>
+
+      <div style="border-top: 1px solid rgba(0,212,255,0.2); margin-top: 0.8rem; padding-top: 0.8rem;">
+        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">Take a Quiz:</div>
+        <div class="quiz-buttons">
+          <button class="quiz-btn" onclick="startQuiz('smoking')">🚬 Smoking</button>
+          <button class="quiz-btn" onclick="startQuiz('vaping')">💨 Vaping</button>
+          <button class="quiz-btn" onclick="startQuiz('marijuana')">🌿 Cannabis</button>
+        </div>
+      </div>
+
+      <div id="contactForm" class="form-section">
+        <h3>📋 Your Info</h3>
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="fname" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="john@example.com">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" placeholder="(555) 123-4567">
+        </div>
+        <button onclick="submitContact()">Connect to Coach</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./Kick It California/js/calculator-bridge.js"></script>
+<script>
+let currentLanguage = 'en';
+
+// Initialize userProfile from calculator data if available
+function initializeUserProfile() {
+  const calculatorData = CalculatorBridge && CalculatorBridge.getCalculatorData ? CalculatorBridge.getCalculatorData() : null;
+  
+  const baseProfile = {
+    quitType: null,
+    name: null,
+    email: null,
+    phone: null,
+    stage: 'initial', // initial, exploring, committed, converting
+    messageSentCount: 0,
+    // Calculator data fields
+    ageGroup: null,
+    dailySpend: null,
+    yearsUsing: null,
+    annualCost: null,
+    healthRisk: null,
+    source: null
+  };
+  
+  // Merge calculator data if available
+  if (calculatorData && calculatorData.product) {
+    return {
+      ...baseProfile,
+      quitType: calculatorData.product,
+      ageGroup: calculatorData.ageGroup,
+      dailySpend: calculatorData.dailySpend,
+      yearsUsing: calculatorData.yearsUsing,
+      annualCost: calculatorData.annualCost,
+      healthRisk: calculatorData.healthRisk,
+      source: 'calculator'
+    };
+  }
+  
+  return baseProfile;
+}
+
+let userProfile = initializeUserProfile();
+
+const stringsEN = {
+  greeting: "Hi there! What would you like help with today?",
+  greetingWithProduct: (product, cost) => {
+    const productNames = {
+      'smoking': 'smoking',
+      'vaping': 'vaping',
+      'marijuana': 'cannabis',
+      'nicotine': 'nicotine pouches'
+    };
+    const name = productNames[product] || product;
+    return `I see you're spending $${cost.toLocaleString()} annually on ${name}. Let's create a personalized plan to help you quit! 🎯`;
+  },
+  askQuitType: "I'd love to help! First, what are you trying to quit?",
+  smokingHelp: "Quitting smoking is definitely possible! Our coaches have helped thousands. Free patches available too.",
+  vapingHelp: "Vaping can be just as addictive. Good news: our proven strategies work great for e-cigs.",
+  marijuanaHelp: "Many people successfully quit marijuana with our support. Let's create a plan that works for you.",
+  nicotineHelp: "Nicotine pouches are extremely addictive. You're smart to address it.",
+  askNextStep: "What would be most helpful for you right now?",
+  askContact: "I think you're ready! Can I get your contact info so a coach can follow up?",
+  contactThank: "Perfect! A coach will reach out within 24 hours with personalized support.",
+  quizStart: "Great! Let's assess your habits. This helps us personalize your plan.",
+  quizDone: "Your results are in! This will help your coach create the best strategy for you.",
+};
+
+const stringsES = {
+  greeting: "¡Hola! ¿Con qué te puedo ayudar hoy?",
+  greetingWithProduct: (product, cost) => {
+    const productNames = {
+      'smoking': 'fumar',
+      'vaping': 'vapear',
+      'marijuana': 'cannabis',
+      'nicotine': 'bolsas de nicotina'
+    };
+    const name = productNames[product] || product;
+    return `Veo que estás gastando $${cost.toLocaleString()} anuales en ${name}. ¡Creemos un plan personalizado para ayudarte a dejar! 🎯`;
+  },
+  askQuitType: "¡Me encantaría ayudarte! Primero, ¿qué estás tratando de dejar?",
+  smokingHelp: "¡Dejar de fumar es totalmente posible! Nuestros asesores han ayudado a miles. Parches gratis disponibles.",
+  vapingHelp: "El vapeo puede ser igual de adictivo. Buenas noticias: nuestras estrategias funcionan muy bien.",
+  marijuanaHelp: "Muchas personas dejan exitosamente la marihuana con nuestro apoyo. Creemos un plan para ti.",
+  nicotineHelp: "Las bolsas de nicotina son muy adictivas. Es inteligente que lo abordes.",
+  askNextStep: "¿Qué sería más útil para ti en este momento?",
+  askContact: "¡Creo que estás listo! ¿Puedo obtener tu información de contacto para que un asesor te dé seguimiento?",
+  contactThank: "¡Perfecto! Un asesor se comunicará dentro de 24 horas con apoyo personalizado.",
+  quizStart: "¡Excelente! Evaluemos tus hábitos. Esto nos ayuda a personalizar tu plan.",
+  quizDone: "¡Tus resultados están listos! Esto ayudará a tu asesor a crear la mejor estrategia para ti.",
+};
+
+function getString(key, ...args) {
+  const strings = currentLanguage === 'en' ? stringsEN : stringsES;
+  const value = strings[key];
+  
+  // If value is a function (like greetingWithProduct), call it with args
+  if (typeof value === 'function') {
+    return value(...args);
+  }
+  
+  return value || key;
+}
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+  document.getElementById('lang-btn').textContent = currentLanguage === 'en' ? 'Español' : 'English';
+  
+  // Use personalized greeting if calculator data exists
+  const greeting = userProfile.annualCost 
+    ? getString('greetingWithProduct', userProfile.quitType, userProfile.annualCost)
+    : getString('greeting');
+  
+  addBotMessage(greeting);
+}
+
+function sendMessage() {
+  const input = document.getElementById('message-input');
+  const text = input.value.trim();
+  
+  if (!text) return;
+  
+  addUserMessage(text);
+  input.value = '';
+  userProfile.messageSentCount++;
+  
+  showTyping();
+  setTimeout(() => {
+    processMessage(text);
+    removeTyping();
+  }, 800);
+}
+
+function handleKeyPress(e) {
+  if (e.key === 'Enter') sendMessage();
+}
+
+let messagesContainer = document.getElementById('messages');
+
+function addUserMessage(text) {
+  const msg = document.createElement('div');
+  msg.className = 'message user';
+  msg.innerHTML = `<div class="message-content">${escapeHtml(text)}</div>`;
+  messagesContainer.appendChild(msg);
+  scroll();
+}
+
+function addBotMessage(html) {
+  const msg = document.createElement('div');
+  msg.className = 'message bot';
+  msg.innerHTML = `<div class="message-content">${html}</div>`;
+  messagesContainer.appendChild(msg);
+  scroll();
+}
+
+function showTyping() {
+  const msg = document.createElement('div');
+  msg.className = 'message bot typing';
+  msg.id = 'typing-indicator';
+  msg.innerHTML = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+  messagesContainer.appendChild(msg);
+  scroll();
+}
+
+function removeTyping() {
+  const typing = document.getElementById('typing-indicator');
+  if (typing) typing.remove();
+}
+
+function scroll() {
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function escapeHtml(text) {
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+function processMessage(text) {
+  text = text.toLowerCase();
+  
+  // Detect quit type
+  if (!userProfile.quitType) {
+    if (/smok|cig|cigarette/i.test(text)) {
+      userProfile.quitType = 'smoking';
+      addBotMessage(`<strong>✅ Smoking Cessation</strong><br>${getString('smokingHelp')}<br><br>What matters most to you?<br>• Free patches<br>• One-on-one coaching<br>• Quit plan & resources`);
+      return;
+    }
+    if (/vap|e-cig|juul|vape/i.test(text)) {
+      userProfile.quitType = 'vaping';
+      addBotMessage(`<strong>✅ Vaping/E-Cigarettes</strong><br>${getString('vapingHelp')}<br><br>Let's discuss:<br>• How long you've been vaping<br>• Previous quit attempts<br>• What might help most`);
+      return;
+    }
+    if (/mari|cannabis|weed|thc|pot|ganja/i.test(text)) {
+      userProfile.quitType = 'marijuana';
+      addBotMessage(`<strong>✅ Marijuana/Cannabis</strong><br>${getString('marijuanaHelp')}<br><br>Next steps:<br>• Take our assessment quiz<br>• Chat with a specialized coach<br>• Access evidence-based resources`);
+      return;
+    }
+    if (/nicotine pouch|snus|dip|smokeless/i.test(text)) {
+      userProfile.quitType = 'nicotine';
+      addBotMessage(`<strong>✅ Nicotine Pouches</strong><br>${getString('nicotineHelp')}<br><br>We offer:<br>• Free coaching tailored for pouches<br>• Habit-breaking techniques<br>• One-on-one support`);
+      return;
+    }
+  }
+
+  // Detect readiness for contact
+  if (/ready|yes|sure|let's go|vamos|adelante|help|assist/i.test(text) && userProfile.messageSentCount > 3) {
+    if (!userProfile.email) {
+      document.getElementById('contactForm').classList.add('active');
+      addBotMessage(`<strong>Perfect!</strong> ${getString('askContact')}`);
+      return;
+    }
+  }
+
+  // Intelligent responses based on keywords
+  if (/cost|free|price|payment|afford/i.test(text)) {
+    addBotMessage("✅ <strong>100% FREE!</strong> All our services are completely free for Californians:<br>• Coaching (phone or chat)<br>• Nicotine patches (if eligible)<br>• Our mobile app<br>• All resources and tools");
+    return;
+  }
+
+  if (/hours|available|time|when|open/i.test(text)) {
+    addBotMessage("📞 <strong>Coach Schedule:</strong><br>M-F: 7am-9pm PT<br>Sat: 9am-5pm PT<br><br>Or schedule a callback anytime!");
+    return;
+  }
+
+  if (/help|how|work|success rate|effective|chance/i.test(text)) {
+    addBotMessage(`<strong>How it works:</strong><br>1. Take our assessment quiz<br>2. Get matched with a specialist coach<br>3. Create your personalized quit plan<br>4. Receive ongoing support<br><br>Studies show coaching <strong>doubles your chances!</strong>`);
+    return;
+  }
+
+  if (/app|download|mobile/i.test(text)) {
+    addBotMessage(`📱 <strong>Kick It Quit App</strong><br>FREE on iOS & Android:<br><a href="https://apps.apple.com/app/id6473648667" target="_blank">📲 App Store (iOS)</a><br><a href="https://play.google.com/store/apps/details?id=com.kickitca" target="_blank">🤖 Google Play (Android)</a><br><br>Features: Quit plan, cravings tracker, daily tips, progress tracking`);
+    return;
+  }
+
+  if (/patch|replacement|nrt|nicotine replacement/i.test(text)) {
+    addBotMessage(`🩹 <strong>Free Nicotine Patches</strong><br>Available to eligible Californians!<br><br>How long takes: 3-5 business days<br>Cost: FREE<br><br>Best used WITH coaching (doubles effectiveness). Click "Free Patches" in the menu!`);
+    return;
+  }
+
+  // Default helpful response
+  if (userProfile.quitType) {
+    addBotMessage(`Great question! Here's what I recommend:<br>• Take our ${userProfile.quitType} assessment quiz<br>• Schedule a chat with a coach<br>• Get your personalized quit plan<br><br>Or click any quick action button for direct support!`);
+  } else {
+    addBotMessage(getString('askQuitType'));
+  }
+}
+
+function quickAction(type) {
+  switch(type) {
+    case 'patches':
+      addUserMessage('Tell me about free patches');
+      setTimeout(() => { processMessage('patches'); }, 500);
+      break;
+    case 'coach':
+      document.getElementById('contactForm').classList.add('active');
+      addBotMessage(getString('askContact'));
+      break;
+    case 'phone':
+      addBotMessage(`📞 <strong>Schedule a Call</strong><br>Available M-F 7am-9pm PT, Sat 9am-5pm PT<br><br>Click below to book a time:<br><a href="https://calendar.google.com/calendar/embed?src=kickitcalifornia%40gmail.com" target="_blank">📅 Schedule Now</a>`);
+      break;
+    case 'app':
+      addUserMessage('Tell me about your app');
+      setTimeout(() => { processMessage('app'); }, 500);
+      break;
+    case 'resources':
+      addBotMessage(`📚 <strong>Free Resources:</strong><br>• Quit Smoking Kit<br>• Quit Vaping Kit<br>• Marijuana Cessation Guide<br>• Nicotine Pouch Quit Plan<br>• Daily Tips & Motivation<br>• Worksheet & Tracking Tools<br><br>All FREE! <a href="https://kickitca.org/quit-all-kit" target="_blank">Get Started →</a>`);
+      break;
+  }
+}
+
+function startQuiz(type) {
+  userProfile.quitType = type;
+  addBotMessage(`<strong>Starting ${type} Assessment Quiz...</strong><br><br>This 10-question quiz identifies your main triggers and helps customize your support.<br><br><em>Note: Full quiz would display here in production. Here's your result preview:</em><br><br><strong>Your Top Trigger:</strong> Stress Relief<br><strong>Recommendation:</strong> Stress management coaching + peer support`);
+  
+  setTimeout(() => {
+    showQuizResults();
+  }, 800);
+}
+
+function showQuizResults() {
+  addBotMessage(`<strong>🎯 Your Quiz Results:</strong><br><br>Based on your answers, you're best suited for:<br>• 1-on-1 coaching with stress-focused strategies<br>• Breathing & mindfulness exercises<br>• Our app's daily motivation feature<br><br>Ready to start? Click "Chat with Coach" or I can take your contact info now!`);
+}
+
+function shareQuiz() {
+  addBotMessage(`Your quiz results can be shared with a coach automatically when you Schedule a Call. They'll have all the info needed for your first session!`);
+}
+
+function submitContact() {
+  const fname = document.getElementById('fname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  
+  if (!fname || !email) {
+    alert('Please enter name and email');
+    return;
+  }
+  
+  userProfile.name = fname;
+  userProfile.email = email;
+  userProfile.phone = phone;
+  
+  document.getElementById('contactForm').classList.remove('active');
+  
+  // Show HubSpot form or submit data
+  addBotMessage(`<strong>Perfect, ${fname}!</strong><br><br>${getString('contactThank')}<br><br>Your quit coach profile:<br>📧 ${email}<br>📞 ${phone || 'Call to connect'}<br>🎯 Quit: ${userProfile.quitType}<br><br><strong>What's next?</strong> Check your email for our welcome guide!`);
+  
+  // In production, send to HubSpot here
+  console.log('Contact submitted:', userProfile);
+}
+
+// Initialize chatbot on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Add welcome message
+  const welcomeMsg = `<strong>Welcome to Kick It California! 👋</strong><br><br>
+I'm your AI Quit Coach. Whatever you're trying to quit—smoking, vaping, marijuana, or nicotine—I'm here to help with FREE support and resources. Let's get started!`;
+  
+  addBotMessage(welcomeMsg);
+  
+  // If calculator data exists, show personalized greeting
+  if (userProfile.annualCost && userProfile.quitType) {
+    setTimeout(() => {
+      const personalGreeting = getString('greetingWithProduct', userProfile.quitType, userProfile.annualCost);
+      addBotMessage(personalGreeting);
+    }, 800);
+  } else {
+    // Otherwise ask what they want to quit
+    setTimeout(() => {
+      addBotMessage(getString('askQuitType'));
+    }, 800);
+  }
+});
+</script>
+
+</body>
+</html>

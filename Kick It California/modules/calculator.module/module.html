@@ -1,0 +1,650 @@
+{# Addiction Cost Calculator Module #}
+{% import './fields' as calculator_module %}
+
+<style>
+/* ================================================== */
+/* ADDICTION CALCULATOR STYLES */
+/* ================================================== */
+
+.calculator-container {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 107, 107, 0.05) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.calculator-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.calculator-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.calculator-header p {
+  font-size: 1.1rem;
+  color: #a8b2d1;
+}
+
+/* Age Group Tabs */
+.age-tabs {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.age-tab {
+  padding: 0.8rem 1.5rem;
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  background: transparent;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.age-tab:hover {
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.age-tab.active {
+  background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
+  color: #0a0e27;
+  border-color: #00d4ff;
+}
+
+/* Calculator Content */
+.calculator-content {
+  margin-bottom: 2rem;
+}
+
+.age-group-content {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.age-group-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Input Groups */
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(0, 212, 255, 0.1);
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.15);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.input-group input::placeholder {
+  color: #a8b2d1;
+}
+
+/* Results Grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  display: none;
+}
+
+.results-grid.active {
+  display: grid;
+}
+
+.result-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-5px);
+  border-color: #00d4ff;
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+}
+
+.result-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.result-label {
+  font-size: 0.9rem;
+  color: #a8b2d1;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.result-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #00d4ff;
+  margin-bottom: 0.5rem;
+}
+
+.result-timeframe {
+  font-size: 0.85rem;
+  color: #a8b2d1;
+}
+
+/* Button Group */
+.calculator-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
+  color: #0a0e27;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #00d4ff;
+  border: 2px solid #00d4ff;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 212, 255, 0.1);
+  transform: translateY(-3px);
+}
+
+.btn-share {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00d4ff;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.btn-share:hover {
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.2);
+}
+
+/* Product Selection */
+.product-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.product-btn {
+  padding: 1rem;
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-btn .icon {
+  font-size: 2rem;
+}
+
+.product-btn.smoking { border-color: #ff6b6b; color: #ff6b6b; }
+.product-btn.smoking:hover { background: rgba(255, 107, 107, 0.15); }
+
+.product-btn.vaping { border-color: #ffd500; color: #ffd500; }
+.product-btn.vaping:hover { background: rgba(255, 213, 0, 0.15); }
+
+.product-btn.marijuana { border-color: #00d084; color: #00d084; }
+.product-btn.marijuana:hover { background: rgba(0, 208, 132, 0.15); }
+
+.product-btn.nicotine { border-color: #a78bfa; color: #a78bfa; }
+.product-btn.nicotine:hover { background: rgba(167, 139, 250, 0.15); }
+
+.product-btn.active {
+  font-weight: 700;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .calculator-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .calculator-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .age-tabs {
+    flex-direction: column;
+  }
+
+  .age-tab {
+    flex: 1;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-selection {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .calculator-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator-container {
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+  }
+
+  .calculator-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .age-tabs {
+    gap: 0.5rem;
+  }
+
+  .age-tab {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .result-value {
+    font-size: 1.4rem;
+  }
+
+  .product-selection {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<div class="calculator-container">
+  <div class="calculator-header">
+    <h2>{{ calculator_module.title }}</h2>
+    <p>{{ calculator_module.subtitle }}</p>
+  </div>
+
+  <div class="age-tabs">
+    <button class="age-tab active" data-age="14-18" onclick="switchAgeGroup('14-18')">Age 14-18</button>
+    <button class="age-tab" data-age="18-35" onclick="switchAgeGroup('18-35')">Age 18-35</button>
+    <button class="age-tab" data-age="35-65" onclick="switchAgeGroup('35-65')">Age 35-65</button>
+  </div>
+
+  <div class="calculator-content">
+    <!-- Age Group 14-18 -->
+    <div class="age-group-content active" data-age="14-18">
+      <div class="input-group">
+        <label>What do you use?</label>
+        <div class="product-selection">
+          <button class="product-btn smoking" onclick="selectProduct(this, 'smoking')">
+            <span class="icon">🚬</span>
+            <span>Smoking</span>
+          </button>
+          <button class="product-btn vaping" onclick="selectProduct(this, 'vaping')">
+            <span class="icon">💨</span>
+            <span>Vaping</span>
+          </button>
+          <button class="product-btn marijuana" onclick="selectProduct(this, 'marijuana')">
+            <span class="icon">🌿</span>
+            <span>Marijuana</span>
+          </button>
+          <button class="product-btn nicotine" onclick="selectProduct(this, 'nicotine')">
+            <span class="icon">🍃</span>
+            <span>Pouches</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>How much per day?</label>
+        <input type="number" id="daily-amount-14-18" placeholder="$5-10" min="0" step="0.5" oninput="calculateResults('14-18')">
+      </div>
+
+      <div class="input-group">
+        <label>How many years?</label>
+        <input type="number" id="years-14-18" placeholder="1-2" min="0" max="10" step="0.5" oninput="calculateResults('14-18')">
+      </div>
+
+      <div class="results-grid" id="results-14-18">
+        <div class="result-card">
+          <div class="result-icon">💰</div>
+          <div class="result-label">Annual Cost</div>
+          <div class="result-value" id="money-14-18">$0</div>
+          <div class="result-timeframe">per year</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🫁</div>
+          <div class="result-label">Health Impact</div>
+          <div class="result-value" id="health-14-18">--</div>
+          <div class="result-timeframe">risk level</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🌍</div>
+          <div class="result-label">Environmental</div>
+          <div class="result-value" id="env-14-18">--</div>
+          <div class="result-timeframe">impact</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Age Group 18-35 -->
+    <div class="age-group-content" data-age="18-35">
+      <div class="input-group">
+        <label>What do you use?</label>
+        <div class="product-selection">
+          <button class="product-btn smoking" onclick="selectProduct(this, 'smoking')">
+            <span class="icon">🚬</span>
+            <span>Smoking</span>
+          </button>
+          <button class="product-btn vaping" onclick="selectProduct(this, 'vaping')">
+            <span class="icon">💨</span>
+            <span>Vaping</span>
+          </button>
+          <button class="product-btn marijuana" onclick="selectProduct(this, 'marijuana')">
+            <span class="icon">🌿</span>
+            <span>Marijuana</span>
+          </button>
+          <button class="product-btn nicotine" onclick="selectProduct(this, 'nicotine')">
+            <span class="icon">🍃</span>
+            <span>Pouches</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>How much per day?</label>
+        <input type="number" id="daily-amount-18-35" placeholder="$10-20" min="0" step="0.5" oninput="calculateResults('18-35')">
+      </div>
+
+      <div class="input-group">
+        <label>How many years?</label>
+        <input type="number" id="years-18-35" placeholder="2-8" min="0" max="30" step="0.5" oninput="calculateResults('18-35')">
+      </div>
+
+      <div class="results-grid" id="results-18-35">
+        <div class="result-card">
+          <div class="result-icon">💰</div>
+          <div class="result-label">Annual Cost</div>
+          <div class="result-value" id="money-18-35">$0</div>
+          <div class="result-timeframe">per year</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🫁</div>
+          <div class="result-label">Health Impact</div>
+          <div class="result-value" id="health-18-35">--</div>
+          <div class="result-timeframe">risk level</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🌍</div>
+          <div class="result-label">Environmental</div>
+          <div class="result-value" id="env-18-35">--</div>
+          <div class="result-timeframe">impact</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Age Group 35-65 -->
+    <div class="age-group-content" data-age="35-65">
+      <div class="input-group">
+        <label>What do you use?</label>
+        <div class="product-selection">
+          <button class="product-btn smoking" onclick="selectProduct(this, 'smoking')">
+            <span class="icon">🚬</span>
+            <span>Smoking</span>
+          </button>
+          <button class="product-btn vaping" onclick="selectProduct(this, 'vaping')">
+            <span class="icon">💨</span>
+            <span>Vaping</span>
+          </button>
+          <button class="product-btn marijuana" onclick="selectProduct(this, 'marijuana')">
+            <span class="icon">🌿</span>
+            <span>Marijuana</span>
+          </button>
+          <button class="product-btn nicotine" onclick="selectProduct(this, 'nicotine')">
+            <span class="icon">🍃</span>
+            <span>Pouches</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>How much per day?</label>
+        <input type="number" id="daily-amount-35-65" placeholder="$20-40" min="0" step="0.5" oninput="calculateResults('35-65')">
+      </div>
+
+      <div class="input-group">
+        <label>How many years?</label>
+        <input type="number" id="years-35-65" placeholder="10-30" min="0" max="50" step="0.5" oninput="calculateResults('35-65')">
+      </div>
+
+      <div class="results-grid" id="results-35-65">
+        <div class="result-card">
+          <div class="result-icon">💰</div>
+          <div class="result-label">Annual Cost</div>
+          <div class="result-value" id="money-35-65">$0</div>
+          <div class="result-timeframe">per year</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🫁</div>
+          <div class="result-label">Health Impact</div>
+          <div class="result-value" id="health-35-65">--</div>
+          <div class="result-timeframe">risk level</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🌍</div>
+          <div class="result-label">Environmental</div>
+          <div class="result-value" id="env-35-65">--</div>
+          <div class="result-timeframe">impact</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calculator-buttons">
+    <button class="btn btn-primary" onclick="getHelp()">{{ calculator_module.cta_text }}</button>
+    <button class="btn btn-secondary" onclick="shareResults()">{{ calculator_module.share_text }}</button>
+  </div>
+</div>
+
+<script>
+let selectedProduct = null;
+let currentAgeGroup = '18-35';
+
+// Initialize from URL parameters
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const urlAge = params.get('age');
+  
+  if (urlAge && ['14-18', '18-35', '35-65'].includes(urlAge)) {
+    switchAgeGroup(urlAge);
+  }
+});
+
+function switchAgeGroup(age) {
+  currentAgeGroup = age;
+  
+  // Update tabs
+  document.querySelectorAll('.age-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.age === age);
+  });
+  
+  // Update content
+  document.querySelectorAll('.age-group-content').forEach(content => {
+    content.classList.toggle('active', content.dataset.age === age);
+  });
+}
+
+function selectProduct(element, product) {
+  selectedProduct = product;
+  
+  const parent = element.parentElement;
+  parent.querySelectorAll('.product-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  element.classList.add('active');
+  
+  calculateResults(currentAgeGroup);
+}
+
+function calculateResults(age) {
+  const dailyInput = document.getElementById(`daily-amount-${age}`);
+  const yearsInput = document.getElementById(`years-${age}`);
+  const resultsGrid = document.getElementById(`results-${age}`);
+  
+  const dailyAmount = parseFloat(dailyInput.value) || 0;
+  const years = parseFloat(yearsInput.value) || 0;
+  
+  if (dailyAmount <= 0 || years <= 0) {
+    resultsGrid.classList.remove('active');
+    return;
+  }
+  
+  const annualCost = dailyAmount * 365;
+  const totalCost = annualCost * years;
+  
+  // Health risk calculation
+  let healthRisk = 'Low';
+  if (dailyAmount > 15 || years > 5) healthRisk = 'Moderate';
+  if (dailyAmount > 30 || years > 15) healthRisk = 'High';
+  
+  // Environmental impact
+  let envImpact = 'Low';
+  if (selectedProduct === 'smoking' && years > 2) envImpact = 'High';
+  if (selectedProduct === 'vaping' && years > 3) envImpact = 'Moderate';
+  
+  document.getElementById(`money-${age}`).textContent = `$${Math.round(annualCost).toLocaleString()}`;
+  document.getElementById(`health-${age}`).textContent = healthRisk;
+  document.getElementById(`env-${age}`).textContent = envImpact;
+  
+  resultsGrid.classList.add('active');
+  
+  // Store in localStorage
+  saveCalculatorData({
+    ageGroup: age,
+    product: selectedProduct,
+    dailySpend: dailyAmount,
+    yearsUsing: years,
+    annualCost: Math.round(annualCost),
+    totalCost: Math.round(totalCost),
+    healthRisk: healthRisk
+  });
+}
+
+function saveCalculatorData(data) {
+  localStorage.setItem('kic_calculator_data', JSON.stringify(data));
+}
+
+function getHelp() {
+  if (!selectedProduct) {
+    alert('Please select a product and enter your information.');
+    return;
+  }
+  
+  const productPages = {
+    'smoking': '/quit-smoking',
+    'vaping': '/quit-vaping',
+    'marijuana': '/quit-marijuana',
+    'nicotine': '/quit-smokeless'
+  };
+  
+  const redirectUrl = productPages[selectedProduct] || '/quit-now';
+  window.location.href = redirectUrl;
+}
+
+function shareResults() {
+  const data = JSON.parse(localStorage.getItem('kic_calculator_data') || '{}');
+  
+  if (!data.product) {
+    alert('Please calculate your results first');
+    return;
+  }
+  
+  const message = `I'm spending $${data.annualCost} annually on ${data.product}. I'm taking control with Kick It California. Join me! 🚀 {{ calculator_module.share_url }}`;
+  
+  if (navigator.share) {
+    navigator.share({
+      title: 'Kick It California - Addiction Cost Calculator',
+      text: message
+    });
+  } else {
+    // Fallback: copy to clipboard
+    navigator.clipboard.writeText(message);
+    alert('Result copied! Share it with friends.');
+  }
+}
+</script>

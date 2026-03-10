@@ -1,0 +1,12 @@
+{
+  "label": "Addiction Cost Calculator",
+  "description": "Interactive calculator that shows the financial, health, and environmental impact of substance use by age group. Personalizes results based on daily usage and years of use.",
+  "host": {
+    "cms": "hubspot"
+  },
+  "isAvailableForNewContent": true,
+  "screenshotPath": "../../../images/module-icons/calculator.png",
+  "icon": "🧮",
+  "category": "Interactive Tools",
+  "version": "1.0.0"
+}

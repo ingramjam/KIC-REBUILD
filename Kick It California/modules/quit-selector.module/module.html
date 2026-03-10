@@ -1,0 +1,46 @@
+<section class="section quit-selector-section">
+  <div class="quit-selector-container">
+    <!-- Main Headline -->
+    <div class="quit-selector-header">
+      <h1 class="quit-selector-headline">{{ module.headline }}</h1>
+    </div>
+
+    <!-- Prompt Section -->
+    <div class="quit-selector-prompt-box">
+      {% if module.subheadline %}
+        <p class="quit-selector-prompt">{{ module.subheadline }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Selection Cards Horizontal Scroll - NO QUOTES -->
+    <div class="quit-selector-grid">
+      {% for option in module.selection_options %}
+        <div class="quit-selector-card" data-product="{{ option.title | slugify }}">
+          <!-- Icon & Title Only -->
+          <div class="quit-selector-card-icon">{{ option.icon }}</div>
+          <h2 class="quit-selector-card-title">{{ option.title }}</h2>
+
+          <!-- CTA Button -->
+          <a href="{{ option.link_url }}" class="quit-selector-btn">
+            {{ option.link_text }}
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Customer Stories Section Below -->
+    <div class="quit-selector-stories-section">
+      <h3 class="quit-selector-stories-title">Real stories from people like you</h3>
+      <div class="quit-selector-stories-grid">
+        {% for option in module.selection_options %}
+          <div class="quit-selector-story-card">
+            <div class="story-icon">{{ option.icon }}</div>
+            <p class="story-text">{{ option.story }}</p>
+            <p class="story-source">— {{ option.title }} Participant</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

@@ -3,6 +3,7 @@
   isAvailableForNewContent: true
   label: Quit Smokeless Tobacco Program
   screenshotPath: ../images/template-previews/home.png
+  fields: landing-page-fields.json
 -->
 <!doctype html>
 <html lang="en">
@@ -418,6 +419,115 @@
         font-size: 0.95rem;
       }
       
+      /* Dark/Light Mode Toggle */
+      .theme-toggle {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+        border: 2px solid rgba(59, 130, 246, 0.3);
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
+        padding: 0;
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 20px rgba(30, 64, 175, 0.5);
+      }
+
+      .theme-toggle:active {
+        transform: scale(0.95);
+      }
+
+      .theme-toggle:focus-visible {
+        outline: 3px solid #10b981;
+        outline-offset: 2px;
+      }
+
+      .theme-icon {
+        width: 28px;
+        height: 28px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .theme-icon-light {
+        display: none;
+      }
+
+      /* Light Mode */
+      body.light-mode {
+        background: #ffffff;
+        color: #111827;
+      }
+
+      body.light-mode .site-header {
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid #d1d5db;
+      }
+
+      body.light-mode .main-nav a {
+        color: #374151;
+      }
+
+      body.light-mode .main-nav a:hover,
+      body.light-mode .main-nav a.active {
+        color: #111827;
+      }
+
+      body.light-mode .logo img {
+        filter: brightness(0) saturate(100%) invert(8%) sepia(4%) saturate(300%) hue-rotate(200deg) brightness(99%) contrast(101%);
+      }
+
+      body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4, body.light-mode h5 {
+        color: #111827;
+      }
+
+      body.light-mode p { color: #374151; }
+      body.light-mode .text-gray { color: #6b7280; }
+
+      body.light-mode .page-hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+      }
+
+      body.light-mode .card {
+        background: #ffffff;
+        border-color: #d1d5db;
+        color: #111827;
+      }
+
+      body.light-mode .btn {
+        color: #ffffff;
+      }
+
+      body.light-mode .theme-toggle {
+        background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+        border-color: rgba(185, 28, 28, 0.3);
+        box-shadow: 0 4px 12px rgba(185, 28, 28, 0.4);
+      }
+
+      body.light-mode .theme-toggle:hover {
+        box-shadow: 0 8px 20px rgba(185, 28, 28, 0.5);
+      }
+
+      body.light-mode .theme-icon-dark {
+        display: none;
+      }
+
+      body.light-mode .theme-icon-light {
+        display: block;
+      }
+      
       @media (max-width: 968px) {
         .main-nav { display: none; }
         .floating-cta {
@@ -432,6 +542,16 @@
         .tips-grid { grid-template-columns: 1fr; }
         .health-risks { grid-template-columns: 1fr; }
         .substitutes-grid { grid-template-columns: 1fr; }
+        .theme-toggle {
+          bottom: 1.5rem;
+          right: 1.5rem;
+          width: 48px;
+          height: 48px;
+        }
+        .theme-icon {
+          width: 24px;
+          height: 24px;
+        }
       }
     </style>
 </head>
@@ -702,5 +822,6 @@
   </section>
 
   {{ standard_footer_includes }}
+  <script src="../../js/main.js"></script>
 </body>
 </html>

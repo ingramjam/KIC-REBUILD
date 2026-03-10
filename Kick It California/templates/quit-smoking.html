@@ -3,6 +3,7 @@
   isAvailableForNewContent: true
   label: Quit Smoking Program
   screenshotPath: ../images/template-previews/home.png
+  fields: landing-page-fields.json
 -->
 <!doctype html>
 <html lang="en">
@@ -532,6 +533,8 @@
         .timeline-marker { left: 20px; }
         .infographic-grid { grid-template-columns: repeat(2, 1fr); }
       }
+
+
     </style>
 </head>
 <body>
@@ -594,158 +597,58 @@
 
   <section class="section section-alt">
     <div class="container">
-      <span class="section-label">Interactive Quiz</span>
-      <h2>Are You Ready to Quit?</h2>
-      <p class="section-subtitle">Take this quick 3-question quiz to assess your readiness and get personalized recommendations.</p>
-      
-      <div class="quiz-container">
-        <div class="quiz-question active" data-question="1">
-          <h3>How many cigarettes do you smoke per day?</h3>
-          <div class="quiz-options">
-            <div class="quiz-option" onclick="selectQuizOption(this, 1)">Less than 10</div>
-            <div class="quiz-option" onclick="selectQuizOption(this, 2)">10-20 (about 1 pack)</div>
-            <div class="quiz-option" onclick="selectQuizOption(this, 3)">More than 20 (1+ packs)</div>
-          </div>
-        </div>
-        
-        <div class="quiz-question" data-question="2">
-          <h3>How soon after waking do you smoke your first cigarette?</h3>
-          <div class="quiz-options">
-            <div class="quiz-option" onclick="selectQuizOption(this, 1)">Within 5 minutes</div>
-            <div class="quiz-option" onclick="selectQuizOption(this, 2)">5-30 minutes</div>
-            <div class="quiz-option" onclick="selectQuizOption(this, 3)">After 30 minutes</div>
-          </div>
-        </div>
-        
-        <div class="quiz-question" data-question="3">
-          <h3>How motivated are you to quit right now?</h3>
-          <div class="quiz-options">
-            <div class="quiz-option" onclick="selectQuizOption(this, 1)">Very motivated - ready to quit now</div>
-            <div class="quiz-option" onclick="selectQuizOption(this, 2)">Somewhat motivated - thinking about it</div>
-            <div class="quiz-option" onclick="selectQuizOption(this, 3)">Not sure - just exploring options</div>
-          </div>
-        </div>
-        
-        <div class="quiz-result">
-          <h3>Your Readiness Score</h3>
-          <div class="result-score" id="quizScore">0%</div>
-          <p id="quizMessage" style="font-size: 1.2rem; margin-bottom: 2rem;"></p>
-          <a href="tel:8003008086" class="btn btn-primary">Talk to a Quit Coach</a>
-        </div>
-        
-        <div class="quiz-nav">
-          <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" style="display: none;">← Previous</button>
-          <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Next →</button>
-        </div>
-      </div>
+      {% dnd_area "quiz_module" label="Quiz Section" %}
+        {% dnd_section %}
+          {% dnd_column width=12 %}
+            {% dnd_row %}
+              {% dnd_module path="../modules/quiz-section.module" %}
+                {% module_attribute "section_label" %}Interactive Quiz{% end_module_attribute %}
+                {% module_attribute "section_title" %}Are You Ready to Quit?{% end_module_attribute %}
+                {% module_attribute "section_subtitle" %}Take this quick 3-question quiz to assess your readiness and get personalized recommendations.{% end_module_attribute %}
+                {% module_attribute "cta_button_text" %}Talk to a Quit Coach{% end_module_attribute %}
+                {% module_attribute "cta_button_url" %}tel:8003008086{% end_module_attribute %}
+              {% end_dnd_module %}
+            {% end_dnd_row %}
+          {% end_dnd_column %}
+        {% end_dnd_section %}
+      {% end_dnd_area %}
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <span class="section-label">Your Body Recovers</span>
-      <h2>Timeline: What Happens When You Quit</h2>
-      <p class="section-subtitle">See the incredible health benefits that start happening immediately after your last cigarette.</p>
-      
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <div class="timeline-time">20 Minutes</div>
-            <div class="timeline-title">Heart Rate Drops</div>
-            <div class="timeline-desc">Your heart rate and blood pressure begin returning to normal.</div>
-          </div>
-          <div></div>
-          <div class="timeline-marker">✓</div>
-        </div>
-        
-        <div class="timeline-item">
-          <div></div>
-          <div class="timeline-content">
-            <div class="timeline-time">12 Hours</div>
-            <div class="timeline-title">Carbon Monoxide Clears</div>
-            <div class="timeline-desc">Carbon monoxide level in your blood drops to normal, oxygen levels increase.</div>
-          </div>
-          <div class="timeline-marker">✓</div>
-        </div>
-        
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <div class="timeline-time">2 Weeks</div>
-            <div class="timeline-title">Circulation Improves</div>
-            <div class="timeline-desc">Your circulation and lung function begin to improve significantly.</div>
-          </div>
-          <div></div>
-          <div class="timeline-marker">✓</div>
-        </div>
-        
-        <div class="timeline-item">
-          <div></div>
-          <div class="timeline-content">
-            <div class="timeline-time">1 Year</div>
-            <div class="timeline-title">Heart Risk Cut in Half</div>
-            <div class="timeline-desc">Your risk of coronary heart disease is cut in half compared to a smoker.</div>
-          </div>
-          <div class="timeline-marker">✓</div>
-        </div>
-      </div>
+      {% dnd_area "stats_module" label="Stats Section" %}
+        {% dnd_section %}
+          {% dnd_column width=12 %}
+            {% dnd_row %}
+              {% dnd_module path="../modules/stats-grid.module" %}
+                {% module_attribute "section_title" %}Smoking by the Numbers{% end_module_attribute %}
+                {% module_attribute "background_color" %}#0a0f1e{% end_module_attribute %}
+                {% module_attribute "columns" %}3{% end_module_attribute %}
+              {% end_dnd_module %}
+            {% end_dnd_row %}
+          {% end_dnd_column %}
+        {% end_dnd_section %}
+      {% end_dnd_area %}
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container">
-      <span class="section-label">Proven Strategies</span>
-      <h2>8 Tips to Quit Successfully</h2>
-      <p class="section-subtitle">Evidence-based strategies that work. These tips are proven to increase your chances of quitting for good.</p>
-      
-      <div class="tips-grid">
-        <div class="tip-card">
-          <div class="tip-number">1</div>
-          <h3>Set Your Quit Date</h3>
-          <p>Choose a date within the next 2 weeks. Pick a day with less stress and mark it on your calendar.</p>
-        </div>
-        
-        <div class="tip-card">
-          <div class="tip-number">2</div>
-          <h3>Tell Everyone</h3>
-          <p>Let friends, family, and coworkers know. Their support doubles your chances of success.</p>
-        </div>
-        
-        <div class="tip-card">
-          <div class="tip-number">3</div>
-          <h3>Remove All Triggers</h3>
-          <p>Get rid of cigarettes, lighters, and ashtrays. Clean your car and home to remove the smell.</p>
-        </div>
-        
-        <div class="tip-card">
-          <div class="tip-number">4</div>
-          <h3>Use NRT or Medication</h3>
-          <p>Nicotine replacement therapy (patches, gum) or prescription medications can double your success rate.</p>
-        </div>
-        
-        <div class="tip-card">
-          <div class="tip-number">5</div>
-          <h3>Identify Your Triggers</h3>
-          <p>Know what makes you want to smoke: stress, coffee, alcohol, social situations. Plan alternatives.</p>
-        </div>
-        
-        <div class="tip-card">
-          <div class="tip-number">6</div>
-          <h3>Stay Busy & Active</h3>
-          <p>Exercise reduces cravings and stress. Keep your hands and mind occupied with activities.</p>
-        </div>
-        
-        <div class="tip-card">
-          <div class="tip-number">7</div>
-          <h3>Practice the 4 Ds</h3>
-          <p>Delay, Deep breathe, Drink water, Do something else. Cravings only last 3-5 minutes.</p>
-        </div>
-        
-        <div class="tip-card">
-          <div class="tip-number">8</div>
-          <h3>Don't Give Up</h3>
-          <p>Most people try 5-7 times before quitting for good. Each attempt teaches you what works for you.</p>
-        </div>
-      </div>
+      {% dnd_area "features_module" label="Features/Tips Section" %}
+        {% dnd_section %}
+          {% dnd_column width=12 %}
+            {% dnd_row %}
+              {% dnd_module path="../modules/features-grid.module" %}
+                {% module_attribute "section_label" %}Proven Strategies{% end_module_attribute %}
+                {% module_attribute "section_title" %}8 Tips to Quit Successfully{% end_module_attribute %}
+                {% module_attribute "section_subtitle" %}Evidence-based strategies that work. These tips are proven to increase your chances of quitting for good.{% end_module_attribute %}
+                {% module_attribute "columns" %}2{% end_module_attribute %}
+              {% end_dnd_module %}
+            {% end_dnd_row %}
+          {% end_dnd_column %}
+        {% end_dnd_section %}
+      {% end_dnd_area %}
     </div>
   </section>
 
@@ -798,79 +701,7 @@
     </div>
   </section>
 
-  <script>
-    let currentQuestion = 1;
-    let selectedAnswers = {};
-    
-    function selectQuizOption(element, value) {
-      const options = element.parentElement.querySelectorAll('.quiz-option');
-      options.forEach(opt => opt.classList.remove('selected'));
-      element.classList.add('selected');
-      selectedAnswers[currentQuestion] = value;
-    }
-    
-    function nextQuestion() {
-      if (!selectedAnswers[currentQuestion]) {
-        alert('Please select an answer before continuing.');
-        return;
-      }
-      
-      if (currentQuestion < 3) {
-        document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('active');
-        currentQuestion++;
-        document.querySelector(`[data-question="${currentQuestion}"]`).classList.add('active');
-        document.getElementById('prevBtn').style.display = 'block';
-        
-        if (currentQuestion === 3) {
-          document.getElementById('nextBtn').textContent = 'See Results';
-          document.getElementById('nextBtn').onclick = showResults;
-        }
-      }
-    }
-    
-    function prevQuestion() {
-      if (currentQuestion > 1) {
-        document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('active');
-        currentQuestion--;
-        document.querySelector(`[data-question="${currentQuestion}"]`).classList.add('active');
-        
-        if (currentQuestion === 1) {
-          document.getElementById('prevBtn').style.display = 'none';
-        }
-        
-        document.getElementById('nextBtn').textContent = 'Next →';
-        document.getElementById('nextBtn').onclick = nextQuestion;
-      }
-    }
-    
-    function showResults() {
-      if (!selectedAnswers[currentQuestion]) {
-        alert('Please select an answer before continuing.');
-        return;
-      }
-      
-      const total = Object.values(selectedAnswers).reduce((a, b) => a + b, 0);
-      const score = Math.round((9 - total) / 6 * 100);
-      
-      document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('active');
-      document.querySelector('.quiz-result').classList.add('active');
-      document.querySelector('.quiz-nav').style.display = 'none';
-      
-      document.getElementById('quizScore').textContent = score + '%';
-      
-      let message = '';
-      if (score >= 75) {
-        message = 'You\'re ready to quit! Your high motivation and readiness indicate excellent chances of success. A Quit Coach can help you create your personalized quit plan today.';
-      } else if (score >= 50) {
-        message = 'You\'re on the right track! With some preparation and support, you can successfully quit. Talk to a Quit Coach to develop strategies that work for your situation.';
-      } else {
-        message = 'You\'re thinking about quitting - that\'s a great first step! A Quit Coach can help you explore your options and prepare for success when you\'re ready.';
-      }
-      
-      document.getElementById('quizMessage').textContent = message;
-    }
-  </script>
-
   {{ standard_footer_includes }}
+  <script src="../../js/main.js"></script>
 </body>
 </html>

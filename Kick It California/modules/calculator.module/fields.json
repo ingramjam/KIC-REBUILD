@@ -1,0 +1,69 @@
+{
+  "title": {
+    "label": "Calculator Title",
+    "description": "Main heading for the calculator",
+    "type": "text",
+    "default": "What's Your Addiction Costing You?"
+  },
+  "subtitle": {
+    "label": "Calculator Subtitle",
+    "description": "Subtitle showing under the title",
+    "type": "text",
+    "default": "Calculate the financial, health, and environmental impact of your substance use"
+  },
+  "cta_text": {
+    "label": "Primary CTA Button Text",
+    "description": "Text for the 'Get Help' button",
+    "type": "text",
+    "default": "Get Personalized Help"
+  },
+  "share_text": {
+    "label": "Share Button Text",
+    "description": "Text for the 'Share Results' button",
+    "type": "text",
+    "default": "Share My Results"
+  },
+  "share_url": {
+    "label": "Share URL",
+    "description": "URL included in shared messages",
+    "type": "text",
+    "default": "https://kickitca.org/calculator"
+  },
+  "enable_age_14_18": {
+    "label": "Enable 14-18 Age Group",
+    "description": "Show the 14-18 age group tab",
+    "type": "boolean",
+    "default": true
+  },
+  "enable_age_18_35": {
+    "label": "Enable 18-35 Age Group",
+    "description": "Show the 18-35 age group tab",
+    "type": "boolean",
+    "default": true
+  },
+  "enable_age_35_65": {
+    "label": "Enable 35-65 Age Group",
+    "description": "Show the 35-65 age group tab",
+    "type": "boolean",
+    "default": true
+  },
+  "default_age_group": {
+    "label": "Default Age Group",
+    "description": "Which age group to show by default",
+    "type": "select",
+    "choices": ["14-18", "18-35", "35-65"],
+    "default": "18-35"
+  },
+  "primary_color": {
+    "label": "Primary Color",
+    "description": "Main accent color for the calculator",
+    "type": "color",
+    "default": "#00d4ff"
+  },
+  "enable_sharing": {
+    "label": "Enable Share Button",
+    "description": "Allow users to share their results",
+    "type": "boolean",
+    "default": true
+  }
+}

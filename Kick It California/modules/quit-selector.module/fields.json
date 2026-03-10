@@ -1,0 +1,101 @@
+[
+  {
+    "id": "headline",
+    "name": "headline",
+    "label": "Main Headline",
+    "type": "text",
+    "default": "We're ready when you are. What can we help you quit today?"
+  },
+  {
+    "id": "subheadline",
+    "name": "subheadline",
+    "label": "Subheadline (optional)",
+    "type": "text",
+    "default": "Choose your path to freedom"
+  },
+  {
+    "id": "selection_options",
+    "name": "selection_options",
+    "label": "Quit Options",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 5
+    },
+    "default": [
+      {
+        "icon": "🚬",
+        "title": "Cigarettes & Tobacco",
+        "story": "\"I've been smoking for years, but I'm finally ready to break free. With professional support, I know I can do this.\"",
+        "link_url": "/quit-smoking",
+        "link_text": "Start Your Quit Journey"
+      },
+      {
+        "icon": "💨",
+        "title": "Vaping & E-Cigarettes",
+        "story": "\"I thought vaping was safer, but I'm still addicted to nicotine. I'm ready to get my life back.\"",
+        "link_url": "/quit-vaping",
+        "link_text": "Free Vaping Quit Plan"
+      },
+      {
+        "icon": "🎯",
+        "title": "Smokeless & Nicotine Pouches",
+        "story": "\"After years of chewing and dipping, my health is suffering. I need help breaking this habit for good.\"",
+        "link_url": "/quit-smokeless",
+        "link_text": "Get Smoke-Free Support"
+      },
+      {
+        "icon": "🌿",
+        "title": "Marijuana",
+        "story": "\"Cannabis has become part of my daily routine. I want to quit and feel more in control of my life.\"",
+        "link_url": "/quit-marijuana",
+        "link_text": "Cannabis Support Program"
+      },
+      {
+        "icon": "❓",
+        "title": "Not Sure? Multiple Products",
+        "story": "\"I struggle with more than one substance. I need comprehensive guidance and support for my situation.\"",
+        "link_url": "/quit-plan",
+        "link_text": "Talk to a Coach"
+      }
+    ],
+    "children": [
+      {
+        "id": "icon",
+        "name": "icon",
+        "label": "Icon (emoji or text)",
+        "type": "text",
+        "default": "🚬"
+      },
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Product/Option Title",
+        "type": "text",
+        "default": "Cigarettes"
+      },
+      {
+        "id": "story",
+        "name": "story",
+        "label": "Customer Story / Quote",
+        "type": "richtext",
+        "default": "Customer testimonial goes here"
+      },
+      {
+        "id": "link_url",
+        "name": "link_url",
+        "label": "Link URL",
+        "type": "text",
+        "default": "/"
+      },
+      {
+        "id": "link_text",
+        "name": "link_text",
+        "label": "Button Text",
+        "type": "text",
+        "default": "Learn More"
+      }
+    ]
+  }
+]

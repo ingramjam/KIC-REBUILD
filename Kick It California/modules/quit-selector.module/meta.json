@@ -1,0 +1,6 @@
+{
+  "label": "Quit Product Selector",
+  "description": "Interactive selector for users to choose what they want to quit with customer stories",
+  "icon": "🚬",
+  "tags": ["landing", "selector", "interactive"]
+}

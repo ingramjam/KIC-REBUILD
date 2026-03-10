@@ -1,0 +1,101 @@
+[
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section Label",
+    "type": "text",
+    "default": "Interactive Quiz"
+  },
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Section Title",
+    "type": "text",
+    "default": "Are You Ready to Quit?"
+  },
+  {
+    "id": "section_subtitle",
+    "name": "section_subtitle",
+    "label": "Section Subtitle",
+    "type": "text",
+    "default": "Take this quick 3-question quiz to assess your readiness and get personalized recommendations."
+  },
+  {
+    "id": "background_color",
+    "name": "background_color",
+    "label": "Background Color",
+    "type": "color",
+    "default": "#1a2332"
+  },
+  {
+    "id": "questions",
+    "name": "questions",
+    "label": "Quiz Questions",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 3
+    },
+    "default": [
+      {
+        "question_text": "How many cigarettes do you smoke per day?",
+        "option_1": "Less than 10",
+        "option_2": "10-20 (about 1 pack)",
+        "option_3": "More than 20 (1+ packs)"
+      },
+      {
+        "question_text": "How soon after waking do you smoke your first cigarette?",
+        "option_1": "Within 5 minutes",
+        "option_2": "5-30 minutes",
+        "option_3": "After 30 minutes"
+      },
+      {
+        "question_text": "How motivated are you to quit right now?",
+        "option_1": "Very motivated - ready to quit now",
+        "option_2": "Somewhat motivated - thinking about it",
+        "option_3": "Not sure - just exploring options"
+      }
+    ],
+    "children": [
+      {
+        "id": "question_text",
+        "name": "question_text",
+        "label": "Question Text",
+        "type": "text"
+      },
+      {
+        "id": "option_1",
+        "name": "option_1",
+        "label": "Answer Option 1",
+        "type": "text"
+      },
+      {
+        "id": "option_2",
+        "name": "option_2",
+        "label": "Answer Option 2",
+        "type": "text"
+      },
+      {
+        "id": "option_3",
+        "name": "option_3",
+        "label": "Answer Option 3",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "id": "cta_button_text",
+    "name": "cta_button_text",
+    "label": "CTA Button Text",
+    "type": "text",
+    "default": "Talk to a Quit Coach"
+  },
+  {
+    "id": "cta_button_url",
+    "name": "cta_button_url",
+    "label": "CTA Button URL",
+    "type": "text",
+    "default": "tel:8003008086"
+  }
+]

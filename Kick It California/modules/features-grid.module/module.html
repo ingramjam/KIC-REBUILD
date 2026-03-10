@@ -1,0 +1,60 @@
+<section class="features-grid-section" style="background: {{ module.background_color }}; padding: 6rem 3rem;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto;">
+    
+    {% if module.section_label %}
+    <span class="section-label" style="display: inline-block; background: rgba(249, 115, 22, 0.1); color: #f97316; padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2rem;">
+      {{ module.section_label }}
+    </span>
+    {% endif %}
+    
+    <h2 style="font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 1.5rem; color: #f8fafc;">
+      {{ module.section_title }}
+    </h2>
+    
+    {% if module.section_subtitle %}
+    <p class="section-subtitle" style="font-size: 1.3rem; color: #94a3b8; margin-bottom: 4rem;">
+      {{ module.section_subtitle }}
+    </p>
+    {% endif %}
+    
+    <div class="features-grid" style="display: grid; grid-template-columns: repeat({{ module.columns }}, 1fr); gap: 2rem;">
+      {% for feature in module.features %}
+      <div class="feature-card" style="background: #1a2332; border: 2px solid #1e293b; border-radius: 12px; padding: 2.5rem; transition: all 0.3s; cursor: pointer;">
+        <div class="feature-number" style="display: inline-flex; width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6, #10b981); border-radius: 50%; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; color: white;">
+          {{ feature.number }}
+        </div>
+        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #f8fafc;">
+          {{ feature.title }}
+        </h3>
+        <p style="color: #94a3b8; line-height: 1.8;">
+          {{ feature.description }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-card:hover {
+    border-color: #f97316;
+    transform: translateY(-4px);
+    background: #1e293b;
+  }
+  
+  @media (max-width: 1024px) {
+    .features-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .features-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+    h2 {
+      font-size: 2rem !important;
+    }
+  }
+</style>

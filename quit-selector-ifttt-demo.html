@@ -274,6 +274,44 @@ body {
 }
 
 /* =====================================================
+   CALCULATOR BANNER
+   ===================================================== */
+
+.calculator-banner {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-top: 2rem;
+  animation: slideUp 0.8s ease-out 1s forwards;
+  opacity: 0;
+}
+
+.calculator-banner p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.calculator-banner button {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-hover) 100%);
+  color: var(--dark-bg);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition);
+}
+
+.calculator-banner button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
+}
+
+/* =====================================================
    CHATBOT SECTION
    ===================================================== */
 
@@ -707,6 +745,11 @@ body {
           <button class="search-btn" onclick="handleSearch()">💬 Help</button>
         </div>
         <p class="search-helper">Or chat below for personalized guidance</p>
+        
+        <div class="calculator-banner">
+          <p>💰 Want to know what your habit is costing you?</p>
+          <button onclick="redirectToCalculator()">Calculate Your Cost →</button>
+        </div>
       </div>
     </div>
   </section>
@@ -854,6 +897,23 @@ function handleSearch(e) {
 function startIntake() {
   alert('Welcome to the Quit Plan Assessment!\n\nThis will take about 5 minutes and covers:\n✓ What you use & how much\n✓ Your quit history\n✓ Your goals & motivations\n✓ Best coaching approach\n\nLet\'s create your personalized plan!');
 }
+
+function redirectToCalculator() {
+  // Redirect to calculator page or open calculator modal
+  window.location.href = '/quit-assessment';
+}
+
+// Load calculator bridge for data persistence
+document.addEventListener('DOMContentLoaded', function() {
+  // Get age from URL parameter if present
+  const params = new URLSearchParams(window.location.search);
+  const age = params.get('age');
+  
+  if (age) {
+    // Could trigger age group selection if needed
+    console.log('Detected age group from URL:', age);
+  }
+});
 
 function escapeHtml(text) {
   const div = document.createElement('div');

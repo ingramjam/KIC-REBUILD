@@ -196,6 +196,28 @@ Validated contact form with:
 - Responsive design
 - Error handling
 
+### Addiction Cost Calculator
+Interactive calculator module with:
+- Three age groups (14-18, 18-35, 35-65)
+- Product selection (smoking, vaping, marijuana, nicotine pouches)
+- Financial cost calculations ($annual, $total)
+- Health risk assessment
+- Environmental impact estimation
+- Real-time result updates
+- Share functionality for social media
+- Data persistence via calculator bridge
+- Integration with chatbot and intake forms
+
+**Features:**
+- URL parameter support (`?age=18-35`)
+- localStorage data persistence
+- Pre-fills intake forms with calculator data
+- Personalizes chatbot greeting with financial data
+- Syncs data to HubSpot CRM on form submission
+- Dedicated landing page at `/quit-assessment`
+
+**Documentation:** See [CALCULATOR_INTEGRATION.md](CALCULATOR_INTEGRATION.md) for full details.
+
 ## 🎭 Features
 
 ### Animations & Effects

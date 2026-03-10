@@ -1,0 +1,69 @@
+<section class="testimonials-section" style="background: {{ module.background_color }}; padding: 6rem 3rem;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto;">
+    
+    {% if module.section_label %}
+    <div style="text-align: center; width: 100%;">
+      <span class="section-label" style="display: inline-block; background: rgba(249, 115, 22, 0.1); color: #f97316; padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2rem;">
+        {{ module.section_label }}
+      </span>
+    </div>
+    {% endif %}
+    
+    <h2 style="font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 1.5rem; color: #f8fafc; text-align: center;">
+      {{ module.section_title }}
+    </h2>
+    
+    {% if module.section_subtitle %}
+    <p class="section-subtitle" style="font-size: 1.3rem; color: #94a3b8; margin-bottom: 4rem; text-align: center;">
+      {{ module.section_subtitle }}
+    </p>
+    {% endif %}
+    
+    <div class="testimonials-grid-{{ module.id }}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+      {% for testimonial in module.testimonials %}
+      <div class="testimonial-card-{{ module.id }}" style="background: #1a2332; border: 2px solid #1e293b; border-radius: 12px; padding: 3rem; transition: all 0.3s ease; cursor: pointer;">
+        <div class="quote-mark" style="font-size: 3rem; color: #f97316; margin-bottom: 1rem; line-height: 0.6; opacity: 0.6;">"</div>
+        
+        <p style="color: #e2e8f0; font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; font-style: italic;">
+          {{ testimonial.quote }}
+        </p>
+        
+        <div class="testimonial-author-{{ module.id }}" style="display: flex; align-items: center; gap: 1rem; border-top: 1px solid #1e293b; padding-top: 1.5rem;">
+          <div style="flex: 1;">
+            <h4 style="font-size: 1rem; font-weight: 700; color: #f8fafc; margin: 0;">
+              {{ testimonial.author_name }}
+            </h4>
+            <p style="font-size: 0.875rem; color: #94a3b8; margin: 0.25rem 0 0 0;">
+              {{ testimonial.author_role }}
+            </p>
+            <p style="font-size: 0.75rem; color: #64748b; margin: 0;">
+              {{ testimonial.author_location }}
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial-card-{{ module.id }}:hover {
+    border-color: #f97316;
+    transform: translateY(-4px);
+    background: #1e293b;
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .testimonials-section {
+      padding: 4rem 2rem !important;
+    }
+    .testimonials-section h2 {
+      font-size: 2rem !important;
+    }
+    .testimonials-grid-{{ module.id }} {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

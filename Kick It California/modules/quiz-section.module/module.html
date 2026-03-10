@@ -1,0 +1,214 @@
+<section class="quiz-section" style="background: {{ module.background_color }}; padding: 6rem 3rem;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto;">
+    
+    {% if module.section_label %}
+    <span class="section-label" style="display: inline-block; background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2rem;">
+      {{ module.section_label }}
+    </span>
+    {% endif %}
+    
+    <h2 style="font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 1.5rem; color: #f8fafc;">
+      {{ module.section_title }}
+    </h2>
+    
+    {% if module.section_subtitle %}
+    <p class="section-subtitle" style="font-size: 1.3rem; color: #94a3b8; margin-bottom: 4rem;">
+      {{ module.section_subtitle }}
+    </p>
+    {% endif %}
+    
+    <div class="quiz-container-{{ module.id }}" style="background: #1a2332; border-radius: 12px; padding: 3rem; border: 2px solid #1e293b;">
+      {% for question in module.questions %}
+      <div class="quiz-question-{{ module.id }}" data-question="{{ forloop.index }}" style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+        <h3 style="font-size: 2rem; margin-bottom: 2rem; color: #f8fafc;">
+          {{ question.question_text }}
+        </h3>
+        <div class="quiz-options-{{ module.id }}" style="display: grid; gap: 1rem; margin-bottom: 2rem;">
+          <div class="quiz-option-{{ module.id }}" data-value="1" style="background: #0a0f1e; border: 2px solid #1e293b; padding: 1.5rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; font-size: 1.1rem; color: #f8fafc;">
+            {{ question.option_1 }}
+          </div>
+          <div class="quiz-option-{{ module.id }}" data-value="2" style="background: #0a0f1e; border: 2px solid #1e293b; padding: 1.5rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; font-size: 1.1rem; color: #f8fafc;">
+            {{ question.option_2 }}
+          </div>
+          <div class="quiz-option-{{ module.id }}" data-value="3" style="background: #0a0f1e; border: 2px solid #1e293b; padding: 1.5rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; font-size: 1.1rem; color: #f8fafc;">
+            {{ question.option_3 }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+      <div class="quiz-result-{{ module.id }}" style="display: none; text-align: center;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 2rem; color: #f8fafc;">Your Readiness Score</h3>
+        <div class="result-score-{{ module.id }}" style="font-size: 5rem; font-weight: 900; background: linear-gradient(135deg, #f97316, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 2rem 0;">0%</div>
+        <p class="quiz-message-{{ module.id }}" id="quizMessage-{{ module.id }}" style="font-size: 1.2rem; margin-bottom: 2rem; color: #e2e8f0;"></p>
+        <a href="{{ module.cta_button_url }}" class="btn btn-primary" style="background: #f97316; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; display: inline-block; transition: all 0.3s;">
+          {{ module.cta_button_text }}
+        </a>
+      </div>
+      
+      <div class="quiz-nav-{{ module.id }}" style="display: flex; justify-content: space-between; margin-top: 2rem; gap: 1rem;">
+        <button class="quiz-prev-{{ module.id }}" style="background: transparent; color: #f8fafc; border: 2px solid #1e293b; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; cursor: pointer; transition: all 0.3s; display: none;">← Previous</button>
+        <button class="quiz-next-{{ module.id }}" style="background: #f97316; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; cursor: pointer; transition: all 0.3s; margin-left: auto;">Next →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quiz-option-{{ module.id }} {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .quiz-option-{{ module.id }}:hover {
+    border-color: #f97316 !important;
+    background: rgba(249, 115, 22, 0.05) !important;
+  }
+  
+  .quiz-option-{{ module.id }}.selected {
+    border-color: #f97316 !important;
+    background: rgba(249, 115, 22, 0.1) !important;
+  }
+  
+  .quiz-prev-{{ module.id }}:hover {
+    border-color: #f97316;
+    background: rgba(249, 115, 22, 0.1);
+  }
+  
+  .quiz-next-{{ module.id }}:hover {
+    background: #ea580c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    .quiz-container-{{ module.id }} {
+      padding: 2rem !important;
+    }
+    .quiz-container-{{ module.id }} h3 {
+      font-size: 1.5rem !important;
+    }
+  }
+</style>
+
+<script>
+(function() {
+  const moduleId = "{{ module.id }}";
+  let currentQuestion = 1;
+  let selectedAnswers = {};
+  const totalQuestions = {{ module.questions | length }};
+  
+  function initQuiz() {
+    const options = document.querySelectorAll('.quiz-option-' + moduleId);
+    const prevBtn = document.querySelector('.quiz-prev-' + moduleId);
+    const nextBtn = document.querySelector('.quiz-next-' + moduleId);
+    
+    // Add click handlers to options
+    options.forEach(option => {
+      option.addEventListener('click', function() {
+        const question = this.closest('.quiz-question-' + moduleId);
+        const questionNum = parseInt(question.dataset.question);
+        
+        // Remove selected from all options in this question
+        question.querySelectorAll('.quiz-option-' + moduleId).forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        
+        // Add selected to clicked option
+        this.classList.add('selected');
+        selectedAnswers[questionNum] = parseInt(this.dataset.value);
+      });
+    });
+    
+    // Previous button
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        if (currentQuestion > 1) {
+          showQuestion(currentQuestion - 1);
+        }
+      });
+    }
+    
+    // Next button
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        if (!selectedAnswers[currentQuestion]) {
+          alert('Please select an answer before continuing.');
+          return;
+        }
+        
+        if (currentQuestion < totalQuestions) {
+          showQuestion(currentQuestion + 1);
+        } else {
+          showResults();
+        }
+      });
+    }
+  }
+  
+  function showQuestion(questionNum) {
+    currentQuestion = questionNum;
+    
+    // Hide all questions
+    document.querySelectorAll('.quiz-question-' + moduleId).forEach(q => {
+      q.style.display = 'none';
+    });
+    
+    // Show current question
+    const currentQ = document.querySelector('[data-question="' + questionNum + '"].quiz-question-' + moduleId);
+    if (currentQ) currentQ.style.display = 'block';
+    
+    const prevBtn = document.querySelector('.quiz-prev-' + moduleId);
+    const nextBtn = document.querySelector('.quiz-next-' + moduleId);
+    
+    // Update prev button visibility
+    if (prevBtn) {
+      prevBtn.style.display = questionNum > 1 ? 'block' : 'none';
+    }
+    
+    // Update next button text
+    if (nextBtn) {
+      nextBtn.textContent = questionNum === totalQuestions ? 'See Results →' : 'Next →';
+    }
+  }
+  
+  function showResults() {
+    // Hide questions and nav
+    document.querySelectorAll('.quiz-question-' + moduleId).forEach(q => {
+      q.style.display = 'none';
+    });
+    document.querySelector('.quiz-nav-' + moduleId).style.display = 'none';
+    
+    // Show results
+    const resultsDiv = document.querySelector('.quiz-result-' + moduleId);
+    if (resultsDiv) resultsDiv.style.display = 'block';
+    
+    // Calculate score
+    const total = Object.values(selectedAnswers).reduce((a, b) => a + b, 0);
+    const score = Math.round((totalQuestions * 3 - total) / (totalQuestions * 2) * 100);
+    
+    const scoreEl = document.querySelector('.result-score-' + moduleId);
+    const messageEl = document.getElementById('quizMessage-' + moduleId);
+    
+    if (scoreEl) scoreEl.textContent = Math.max(0, Math.min(100, score)) + '%';
+    
+    if (messageEl) {
+      const finalScore = Math.max(0, Math.min(100, score));
+      if (finalScore >= 75) {
+        messageEl.textContent = 'You\'re ready to quit! Your high motivation and readiness indicate excellent chances of success. A Quit Coach can help you create your personalized quit plan today.';
+      } else if (finalScore >= 50) {
+        messageEl.textContent = 'You\'re on the right track! With some preparation and support, you can successfully quit. Talk to a Quit Coach to develop strategies that work for your situation.';
+      } else {
+        messageEl.textContent = 'You\'re thinking about quitting - that\'s a great first step! A Quit Coach can help you explore your options and prepare for success when you\'re ready.';
+      }
+    }
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initQuiz);
+  } else {
+    initQuiz();
+  }
+})();
+</script>

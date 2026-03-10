@@ -1,0 +1,64 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Quit Selector Landing
+  screenshotPath: ../images/template-previews/landing-page.png
+  fields: landing-page-fields.json
+-->
+{% extends "./layouts/base.html" %}
+
+{% block header %}
+{# No header/nav on this page #}
+{% endblock header %}
+
+{% block body %}
+
+{% dnd_area "dnd_area"
+  label="Main content",
+  class="body-container quit-selector-landing"
+%}
+
+  {# Quit Selector Section #}
+  {% dnd_section vertical_alignment="MIDDLE" %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        {% dnd_module path="../modules/quit-selector.module" %}
+          {% module_attribute "headline" %}We're ready when you are. What can we help you quit today?{% end_module_attribute %}
+          {% module_attribute "subheadline" %}Choose your path to freedom. Professional, free support is waiting for you.{% end_module_attribute %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+  {# Optional: CTA Section Below #}
+  {% dnd_section %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        <div class="quit-selector-cta-section">
+          <div class="container">
+            <h2 style="text-align: center; color: white; margin-bottom: 1rem;">Not sure where to start?</h2>
+            <p style="text-align: center; color: #cbd5e1; font-size: 1.1rem; margin-bottom: 2rem;">
+              Call our free helpline or chat with a coach to discuss the best approach for your situation.
+            </p>
+            <div class="quit-selector-cta-buttons" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+              <a href="tel:8003008086" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1rem;">📞 Call 800-300-8086</a>
+              <a href="https://helpline-vision.ucsd.edu/Chat" class="btn btn-secondary" style="padding: 1rem 2rem; font-size: 1rem;">💬 Live Chat</a>
+            </div>
+          </div>
+        </div>
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+  {# Additional Content Area for Drag & Drop #}
+  {% dnd_section %}
+    {% dnd_column width=12, offset=0 %}
+      {% dnd_row %}
+        {# This area can be used to add more modules or customizations #}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+{% end_dnd_area %}
+
+{% endblock %}

@@ -1,0 +1,93 @@
+[
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section Label",
+    "type": "text",
+    "default": "Success Stories"
+  },
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Section Title",
+    "type": "text",
+    "default": "Real People, Real Results"
+  },
+  {
+    "id": "section_subtitle",
+    "name": "section_subtitle",
+    "label": "Section Subtitle",
+    "type": "text",
+    "default": "Hear from Californians who've quit and taken control of their lives."
+  },
+  {
+    "id": "background_color",
+    "name": "background_color",
+    "label": "Background Color",
+    "type": "color",
+    "default": "#1a2332"
+  },
+  {
+    "id": "testimonials",
+    "name": "testimonials",
+    "label": "Testimonials",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 20,
+      "default": 3
+    },
+    "default": [
+      {
+        "quote": "I've been smoking for 20 years. I thought I'd never be able to quit. But with the support from Kick It California, I finally broke free. It's been 6 months smoke-free!",
+        "author_name": "Maria Rodriguez",
+        "author_role": "Quit 6 Months Ago",
+        "author_location": "Los Angeles, CA"
+      },
+      {
+        "quote": "The coaches were so understanding and didn't judge me. They helped me understand my triggers and gave me real tools to handle cravings. I'm finally free!",
+        "author_name": "James Chen",
+        "author_role": "Quit 1 Year Ago",
+        "author_location": "San Francisco, CA"
+      },
+      {
+        "quote": "I thought vaping was harmless, but it had the same grip on me. The Quit Coaches helped me see that. Now I'm breathing better and saving $200 a month!",
+        "author_name": "Sarah Williams",
+        "author_role": "Quit 3 Months Ago",
+        "author_location": "San Diego, CA"
+      }
+    ],
+    "children": [
+      {
+        "id": "quote",
+        "name": "quote",
+        "label": "Testimonial Quote",
+        "type": "text"
+      },
+      {
+        "id": "author_name",
+        "name": "author_name",
+        "label": "Author Name",
+        "type": "text"
+      },
+      {
+        "id": "author_role",
+        "name": "author_role",
+        "label": "Author Role/Status",
+        "type": "text"
+      },
+      {
+        "id": "author_location",
+        "name": "author_location",
+        "label": "Author Location",
+        "type": "text"
+      },
+      {
+        "id": "author_image",
+        "name": "author_image",
+        "label": "Author Image",
+        "type": "image"
+      }
+    ]
+  }
+]

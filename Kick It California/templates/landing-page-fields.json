@@ -1,0 +1,224 @@
+[
+  {
+    "id": "hero_headline",
+    "name": "hero_headline",
+    "label": "Hero Headline",
+    "type": "text",
+    "default": "Your Journey to Freedom Starts Here"
+  },
+  {
+    "id": "hero_subheadline",
+    "name": "hero_subheadline",
+    "label": "Hero Subheadline",
+    "type": "richtext",
+    "default": "Free support from Kick It California. Professional coaches ready to help you quit."
+  },
+  {
+    "id": "hero_bg_color",
+    "name": "hero_bg_color",
+    "label": "Hero Background Color",
+    "type": "color",
+    "default": "#0a0f1e"
+  },
+  {
+    "id": "hero_text_color",
+    "name": "hero_text_color",
+    "label": "Hero Text Color",
+    "type": "color",
+    "default": "#f8fafc"
+  },
+  {
+    "id": "hero_accent_color",
+    "name": "hero_accent_color",
+    "label": "Hero Accent Color",
+    "type": "color",
+    "default": "#f97316"
+  },
+  {
+    "id": "primary_cta_text",
+    "name": "primary_cta_text",
+    "label": "Primary CTA Button Text",
+    "type": "text",
+    "default": "Get Free Support"
+  },
+  {
+    "id": "primary_cta_url",
+    "name": "primary_cta_url",
+    "label": "Primary CTA Button URL",
+    "type": "text",
+    "default": "/get-started"
+  },
+  {
+    "id": "primary_button_bg",
+    "name": "primary_button_bg",
+    "label": "Primary Button Background",
+    "type": "color",
+    "default": "#3b82f6"
+  },
+  {
+    "id": "primary_button_text",
+    "name": "primary_button_text",
+    "label": "Primary Button Text Color",
+    "type": "color",
+    "default": "#ffffff"
+  },
+  {
+    "id": "secondary_cta_text",
+    "name": "secondary_cta_text",
+    "label": "Secondary CTA Button Text",
+    "type": "text",
+    "default": "Learn More"
+  },
+  {
+    "id": "secondary_cta_url",
+    "name": "secondary_cta_url",
+    "label": "Secondary CTA Button URL",
+    "type": "text",
+    "default": "/about"
+  },
+  {
+    "id": "secondary_button_bg",
+    "name": "secondary_button_bg",
+    "label": "Secondary Button Background",
+    "type": "color",
+    "default": "#10b981"
+  },
+  {
+    "id": "secondary_button_text",
+    "name": "secondary_button_text",
+    "label": "Secondary Button Text Color",
+    "type": "color",
+    "default": "#ffffff"
+  },
+  {
+    "id": "body_bg_color",
+    "name": "body_bg_color",
+    "label": "Page Background Color",
+    "type": "color",
+    "default": "#0a0f1e"
+  },
+  {
+    "id": "body_text_color",
+    "name": "body_text_color",
+    "label": "Body Text Color",
+    "type": "color",
+    "default": "#f8fafc"
+  },
+  {
+    "id": "secondary_text_color",
+    "name": "secondary_text_color",
+    "label": "Secondary Text Color",
+    "type": "color",
+    "default": "#cbd5e1"
+  },
+  {
+    "id": "border_color",
+    "name": "border_color",
+    "label": "Border Color",
+    "type": "color",
+    "default": "#1e293b"
+  },
+  {
+    "id": "card_bg_color",
+    "name": "card_bg_color",
+    "label": "Card Background Color",
+    "type": "color",
+    "default": "#1a2332"
+  },
+  {
+    "id": "card_border_color",
+    "name": "card_border_color",
+    "label": "Card Border Color",
+    "type": "color",
+    "default": "#334155"
+  },
+  {
+    "id": "hover_effect_color",
+    "name": "hover_effect_color",
+    "label": "Hover Effect Color",
+    "type": "color",
+    "default": "#3b82f6"
+  },
+  {
+    "id": "show_testimonials",
+    "name": "show_testimonials",
+    "label": "Show Testimonials Section",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "id": "testimonials_title",
+    "name": "testimonials_title",
+    "label": "Testimonials Section Title",
+    "type": "text",
+    "default": "Success Stories from Our Community"
+  },
+  {
+    "id": "testimonials",
+    "name": "testimonials",
+    "label": "Testimonials",
+    "type": "group",
+    "occurrence": {
+      "min": 0,
+      "max": 10
+    },
+    "children": [
+      {
+        "id": "testimonial_text",
+        "name": "testimonial_text",
+        "label": "Testimonial Text",
+        "type": "richtext",
+        "default": "This program changed my life..."
+      },
+      {
+        "id": "testimonial_author",
+        "name": "testimonial_author",
+        "label": "Author Name",
+        "type": "text",
+        "default": "John Doe"
+      },
+      {
+        "id": "testimonial_location",
+        "name": "testimonial_location",
+        "label": "Author Location",
+        "type": "text",
+        "default": "California"
+      },
+      {
+        "id": "testimonial_image",
+        "name": "testimonial_image",
+        "label": "Author Image",
+        "type": "image",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "footer_headline",
+    "name": "footer_headline",
+    "label": "Page Footer Headline",
+    "type": "text",
+    "default": "Ready to Start Your Journey?"
+  },
+  {
+    "id": "footer_subheadline",
+    "name": "footer_subheadline",
+    "label": "Page Footer Subheadline",
+    "type": "richtext",
+    "default": "Contact us today for your free consultation"
+  },
+  {
+    "id": "footer_button_text",
+    "name": "footer_button_text",
+    "label": "Footer Button Text",
+    "type": "text",
+    "default": "Contact Us"
+  },
+  {
+    "id": "footer_button_url",
+    "name": "footer_button_url",
+    "label": "Footer Button URL",
+    "type": "text",
+    "default": "/contact"
+  }
+]

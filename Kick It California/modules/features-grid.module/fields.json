@@ -1,0 +1,96 @@
+[
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section Label",
+    "type": "text",
+    "default": "Proven Strategies"
+  },
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Section Title",
+    "type": "text",
+    "default": "Essential Tips to Quit Successfully"
+  },
+  {
+    "id": "section_subtitle",
+    "name": "section_subtitle",
+    "label": "Section Subtitle",
+    "type": "text",
+    "default": "These evidence-based strategies have helped thousands of Californians break free from nicotine addiction."
+  },
+  {
+    "id": "background_color",
+    "name": "background_color",
+    "label": "Background Color",
+    "type": "color",
+    "default": "#0a0f1e"
+  },
+  {
+    "id": "columns",
+    "name": "columns",
+    "label": "Columns",
+    "type": "choice",
+    "choices": [
+      ["1", "1 Column"],
+      ["2", "2 Columns"],
+      ["3", "3 Columns"],
+      ["4", "4 Columns"]
+    ],
+    "default": "2"
+  },
+  {
+    "id": "features",
+    "name": "features",
+    "label": "Features/Tips",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 12,
+      "default": 4
+    },
+    "default": [
+      {
+        "number": "1",
+        "title": "Tell Your Story",
+        "description": "Share your decision with people you trust. Having support is crucial during this journey."
+      },
+      {
+        "number": "2",
+        "title": "Set a Quit Date",
+        "description": "Pick a specific day within the next two weeks and mark it on your calendar. Make it real."
+      },
+      {
+        "number": "3",
+        "title": "Manage Triggers",
+        "description": "Identify what drives your cravings and plan alternatives. Remove temptation from your environment."
+      },
+      {
+        "number": "4",
+        "title": "Get Professional Support",
+        "description": "Call our free helpline or chat with a Quit Coach. You're 3x more likely to succeed with help."
+      }
+    ],
+    "children": [
+      {
+        "id": "number",
+        "name": "number",
+        "label": "Number/Icon",
+        "type": "text"
+      },
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Title",
+        "type": "text"
+      },
+      {
+        "id": "description",
+        "name": "description",
+        "label": "Description",
+        "type": "text"
+      }
+    ]
+  }
+]

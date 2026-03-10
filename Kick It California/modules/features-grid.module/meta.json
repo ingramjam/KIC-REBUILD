@@ -1,0 +1,7 @@
+{
+  "label": "Features Grid",
+  "is_available_for_new_content": true,
+  "host_template_types": ["PAGE"],
+  "icon": "LIST",
+  "categories": ["BODY_CONTENT"]
+}

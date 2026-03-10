@@ -1,0 +1,285 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Quit Assessment Calculator Page
+  screenshotPath: ../images/template-previews/calculator-page.png
+-->
+{% extends "./layouts/base.html" %}
+
+{% block body %}
+
+<style>
+/* ================================================== */
+/* QUIT ASSESSMENT PAGE STYLES */
+/* ================================================== */
+
+:root {
+  --dark-bg: #0a0e27;
+  --darker-bg: #05070f;
+  --cyan: #00d4ff;
+  --cyan-hover: #00a8cc;
+  --text-primary: #ffffff;
+  --text-secondary: #a8b2d1;
+  --border-color: rgba(0, 212, 255, 0.2);
+  --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.assessment-hero {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+  padding: 4rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.assessment-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.assessment-hero p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.assessment-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.calculator-section {
+  padding: 3rem 0;
+}
+
+.resources-section {
+  background: rgba(0, 212, 255, 0.05);
+  border-top: 1px solid var(--border-color);
+  padding: 4rem 2rem;
+  margin-top: 3rem;
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.resource-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all var(--transition);
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--cyan);
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+}
+
+.resource-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.resource-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.resource-description {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.cta-section {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 107, 107, 0.05) 100%);
+  border-radius: 12px;
+  margin: 3rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.cta-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.cta-section p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-hover) 100%);
+  color: var(--dark-bg);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--cyan);
+  border: 2px solid var(--cyan);
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 212, 255, 0.1);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .assessment-hero {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .assessment-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .assessment-content {
+    padding: 0 1.5rem;
+  }
+
+  .calculator-section {
+    padding: 1.5rem 0;
+  }
+
+  .resources-section {
+    padding: 2.5rem 1.5rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<div class="assessment-hero">
+  <h1>Calculate Your Cost of Use</h1>
+  <p>Discover the financial, health, and environmental impact of your substance use. Get personalized support to help you quit.</p>
+</div>
+
+<div class="assessment-content">
+  <section class="calculator-section">
+    <!-- Calculator Module will be placed here via DND -->
+    <!-- Module shortcode or placeholder for HubSpot DND editor -->
+  </section>
+
+  <section class="cta-section">
+    <h2>Ready to Make a Change?</h2>
+    <p>Based on your calculation, let's create a personalized quit plan that works for you.</p>
+    <button class="btn btn-primary" onclick="handleAssessmentCTA()">
+      Get Started with Your Quit Plan
+    </button>
+  </section>
+
+  <section class="resources-section">
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: var(--text-primary);">Additional Resources</h2>
+    <div class="resources-grid">
+      <div class="resource-card">
+        <div class="resource-icon">💬</div>
+        <div class="resource-title">Talk to a Coach</div>
+        <div class="resource-description">Connect with a trained quit coach who understands your journey and can provide personalized guidance.</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📚</div>
+        <div class="resource-title">Education Hub</div>
+        <div class="resource-description">Access articles, guides, and videos about quitting smoking, vaping, cannabis, and nicotine use.</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">👥</div>
+        <div class="resource-title">Support Community</div>
+        <div class="resource-description">Join thousands of people working toward a healthier life. Share experiences and celebrate wins together.</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📞</div>
+        <div class="resource-title">Crisis Support</div>
+        <div class="resource-description">Need immediate help? Our crisis support team is available 24/7 to provide emergency guidance.</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">💊</div>
+        <div class="resource-title">Treatment Options</div>
+        <div class="resource-description">Learn about medication-assisted treatment, therapy, and other clinical options available to you.</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">✨</div>
+        <div class="resource-title">Success Stories</div>
+        <div class="resource-description">Be inspired by real stories from people who quit and reclaimed their health and finances.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="/js/calculator-bridge.js"></script>
+<script>
+// Initialize page with URL parameter support
+document.addEventListener('DOMContentLoaded', function() {
+  CalculatorBridge.init();
+  
+  // Get age from URL parameter
+  const params = new URLSearchParams(window.location.search);
+  const age = params.get('age');
+  
+  if (age) {
+    // Trigger age group selection if calculator is present
+    const event = new CustomEvent('selectAgeGroup', { detail: { age: age } });
+    document.dispatchEvent(event);
+  }
+});
+
+function handleAssessmentCTA() {
+  const data = CalculatorBridge.getCalculatorData();
+  
+  if (!data || !data.product) {
+    alert('Please complete the calculator above to get started.');
+    return;
+  }
+  
+  // Redirect to product-specific page or general quit-now form
+  const urls = {
+    'smoking': '/quit-smoking',
+    'vaping': '/quit-vaping',
+    'marijuana': '/quit-marijuana',
+    'nicotine': '/quit-smokeless'
+  };
+  
+  window.location.href = urls[data.product] || '/quit-now';
+}
+</script>
+
+{% endblock %}

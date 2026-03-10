@@ -335,6 +335,14 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
+.chatbot-iframe {
+  width: 100%;
+  height: 700px;
+  border: 0;
+  display: block;
+  background: var(--dark-bg);
+}
+
 .chat-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -757,38 +765,12 @@ body {
   <!-- CHATBOT SECTION -->
   <section class="chatbot-section">
     <div class="chatbot-wrapper">
-      <div class="chat-container">
-        <!-- Left: Messages -->
-        <div class="chat-pane-left">
-          <div class="chat-header">💬 Quit Coach - Kick It California</div>
-          <div class="chat-messages" id="chatMessages">
-            <div class="message bot">
-              <div class="message-bubble">
-                <strong>Welcome to Kick It California!</strong> 👋<br><br>
-                I'm your Quit Coach. Whatever you're trying to quit—smoking, vaping, marijuana, or pouches—we have free support for you.
-              </div>
-            </div>
-            <div class="message bot">
-              <div class="message-bubble">What can I help you with today?</div>
-            </div>
-          </div>
-          <div class="chat-input">
-            <input type="text" id="messageInput" placeholder="Type your question..." onkeypress="sendMessage(event)">
-            <button onclick="sendMessage()">Send</button>
-          </div>
-        </div>
-
-        <!-- Right: Quick Actions -->
-        <div class="chat-pane-right">
-          <h3>💡 Quick Actions</h3>
-          <button class="action-chip" onclick="quickAction('patches')">📦 Free patches delivered</button>
-          <button class="action-chip" onclick="quickAction('coach')">👥 Chat with a coach</button>
-          <button class="action-chip" onclick="quickAction('phone')">📞 Schedule a call</button>
-          <button class="action-chip" onclick="quickAction('app')">📱 Download app</button>
-          <button class="action-chip" onclick="quickAction('resources')">📚 Quit resources</button>
-          <button class="action-chip" onclick="quickAction('quiz')">🎯 Take a quiz</button>
-        </div>
-      </div>
+      <iframe
+        class="chatbot-iframe"
+        src="./chatbot-improved.html"
+        title="Kick It California Improved Chatbot"
+        loading="lazy"
+      ></iframe>
     </div>
   </section>
 
@@ -805,77 +787,17 @@ body {
   </section>
 
   <script>
-// Bot Response System
-const responses = {
-  smoking: 'Quitting smoking is a great decision! Our coaches specialize in helping smokers quit. Would you like to chat with one?',
-  vaping: 'E-cig addiction is real, but very beatable. Our free coaching doubles your quit chances. Ready to start?',
-  marijuana: 'Quitting cannabis takes the right support. We\'ve helped thousands do it. What\'s your biggest challenge?',
-  nicotine: 'Nicotine pouches are addictive, but you can break free. Let\'s talk about your options.',
-  patches: 'We provide FREE nicotine replacement patches to eligible CA residents. Let me check if you qualify!',
-  coach: 'Our coaches are available M-F 7am-9pm, Sat 9am-5pm PT. Chat now or schedule a callback?',
-  phone: 'Great choice! Our coaches can guide you through this. What time works best for you?',
-  app: 'Download our free app for daily motivation, tracking tools, and coach messages anytime.',
-  resources: 'We have quit kits, toolkits, and apps—all FREE. What type of support do you need?',
-  quiz: 'Our personalized quiz identifies your triggers and creates a custom quit plan in 5 minutes.'
-};
-
-function sendMessage(e) {
-  if (e && e.key !== 'Enter') return;
-
-  const input = document.getElementById('messageInput');
-  const text = input.value.trim();
-  
-  if (!text) return;
-
-  addMessage('user', text);
-  input.value = '';
-
-  setTimeout(() => {
-    const reply = generateReply(text);
-    addMessage('bot', reply);
-  }, 600);
-}
-
-function generateReply(text) {
-  const msg = text.toLowerCase();
-  
-  if (msg.match(/smok|cig/)) return responses.smoking;
-  if (msg.match(/vap|juul|e-cig/)) return responses.vaping;
-  if (msg.match(/mari|weed|cannabis|thc/)) return responses.marijuana;
-  if (msg.match(/nicotin|pouch|snus|dip/)) return responses.nicotine;
-  if (msg.match(/patch|nrt|nicotine replacement/)) return responses.patches;
-  if (msg.match(/coach|talk|speak|help/)) return responses.coach;
-  if (msg.match(/phone|call|schedule/)) return responses.phone;
-  if (msg.match(/app|download|mobile/)) return responses.app;
-  if (msg.match(/resource|kit|tool|free|support/)) return responses.resources;
-  if (msg.match(/quiz|test|assess|trigger/)) return responses.quiz;
-  
-  return '👍 That\'s a great question! Our coaches can help with that. Would you like to connect for personalized support?';
-}
-
-function addMessage(type, text) {
-  const container = document.getElementById('chatMessages');
-  const msg = document.createElement('div');
-  msg.className = `message ${type}`;
-  msg.innerHTML = `<div class="message-bubble">${escapeHtml(text)}</div>`;
-  container.appendChild(msg);
-  container.scrollTop = container.scrollHeight;
-}
-
-function quickAction(action) {
-  const input = document.getElementById('messageInput');
-  input.value = action;
-  sendMessage();
-}
 
 function selectProduct(product) {
-  const productNames = { smoking: 'quit smoking', vaping: 'quit vaping', marijuana: 'quit marijuana', nicotine: 'quit nicotine pouches' };
+  const payload = {
+    product,
+    quitType: product,
+    source: 'ifttt-demo',
+    selectedAt: new Date().toISOString()
+  };
+
+  localStorage.setItem('kic_chatbot_context', JSON.stringify(payload));
   document.querySelector('.chatbot-section').scrollIntoView({ behavior: 'smooth' });
-  setTimeout(() => {
-    const input = document.getElementById('messageInput');
-    input.value = `I want to ${productNames[product]}`;
-    sendMessage();
-  }, 800);
 }
 
 function handleSearch(e) {
@@ -885,17 +807,14 @@ function handleSearch(e) {
   const query = input.value.trim();
   
   if (query) {
-    document.querySelector('.chatbot-section').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => {
-      const chatInput = document.getElementById('messageInput');
-      chatInput.value = query;
-      sendMessage();
-    }, 800);
+    localStorage.setItem('kic_chatbot_seed_message', query);
   }
+
+  document.querySelector('.chatbot-section').scrollIntoView({ behavior: 'smooth' });
 }
 
 function startIntake() {
-  alert('Welcome to the Quit Plan Assessment!\n\nThis will take about 5 minutes and covers:\n✓ What you use & how much\n✓ Your quit history\n✓ Your goals & motivations\n✓ Best coaching approach\n\nLet\'s create your personalized plan!');
+  window.location.href = '/quit-now';
 }
 
 function redirectToCalculator() {
@@ -915,11 +834,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
   </script>
 
 </body>

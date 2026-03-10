@@ -57,38 +57,20 @@
   </div>
 </section>
 
+<section class="calculator-section" id="calculator">
+  <div class="calculator-shell">
+    {% module "addiction_cost_calculator" path="../modules/calculator.module", label="Addiction Cost Calculator" %}
+  </div>
+</section>
+
 <section class="chatbot-section">
   <div class="chatbot-wrapper">
-    <div class="chat-container">
-      <div class="chat-pane-left">
-        <div class="chat-header">💬 Quit Coach - Kick It California</div>
-        <div class="chat-messages" id="chatMessages">
-          <div class="message bot">
-            <div class="message-bubble">
-              <strong>Welcome to Kick It California!</strong> 👋<br><br>
-              I'm your Quit Coach. Whatever you're trying to quit—smoking, vaping, marijuana, or pouches—we have free support for you.
-            </div>
-          </div>
-          <div class="message bot">
-            <div class="message-bubble">What can I help you with today?</div>
-          </div>
-        </div>
-        <div class="chat-input">
-          <input type="text" id="messageInput" placeholder="Type your question..." onkeypress="sendMessage(event)">
-          <button onclick="sendMessage()">Send</button>
-        </div>
-      </div>
-
-      <div class="chat-pane-right">
-        <h3>💡 Quick Actions</h3>
-        <button class="action-chip" onclick="quickAction('patches')">📦 Free patches delivered</button>
-        <button class="action-chip" onclick="quickAction('coach')">👥 Chat with a coach</button>
-        <button class="action-chip" onclick="quickAction('phone')">📞 Schedule a call</button>
-        <button class="action-chip" onclick="quickAction('app')">📱 Download app</button>
-        <button class="action-chip" onclick="quickAction('resources')">📚 Quit resources</button>
-        <button class="action-chip" onclick="quickAction('quiz')">🎯 Take a quiz</button>
-      </div>
-    </div>
+    <iframe
+      class="chatbot-iframe"
+      src="/chatbot-improved.html"
+      title="Kick It California Improved Chatbot"
+      loading="lazy"
+    ></iframe>
   </div>
 </section>
 
@@ -373,6 +355,21 @@ body {
 }
 
 /* =====================================================
+   CALCULATOR SECTION
+   ===================================================== */
+
+.calculator-section {
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid var(--border-color);
+  padding: 3rem 2rem;
+}
+
+.calculator-shell {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* =====================================================
    CHATBOT SECTION
    ===================================================== */
 
@@ -394,6 +391,14 @@ body {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.chatbot-iframe {
+  width: 100%;
+  height: 700px;
+  border: 0;
+  display: block;
+  background: var(--dark-bg);
 }
 
 .chat-container {
@@ -760,100 +765,39 @@ body {
 
 <script>
 // =====================================================
-// CHAT BOT FUNCTIONALITY
+// HERO -> CHATBOT-IMPROVED BRIDGE
 // =====================================================
 
-function sendMessage(e) {
-  if (e) e.preventDefault();
-  
-  const input = document.querySelector('.chat-input input');
-  const message = input.value.trim();
-  
-  if (!message) return;
-  
-  addMessage('user', message);
-  input.value = '';
-  
-  setTimeout(() => {
-    const reply = generateReply(message);
-    addMessage('bot', reply);
-  }, 600);
-}
-
-function generateReply(text) {
-  const lower = text.toLowerCase();
-  
-  const responses = {
-    'smoking': 'Great choice! Quitting smoking is a big step. We have personalized tips, daily check-ins, and a supportive community. Start your quit plan today!',
-    'vaping': 'Vaping addiction is real! Our program helps you understand nicotine dependence and provides strategies to quit for good.',
-    'marijuana|cannabis|weed': 'Quitting marijuana takes commitment. We offer counseling, replacement strategies, and daily support to help you stay on track.',
-    'nicotine|pouches|snus': 'Nicotine pouches can be addictive. Our program shows you how to manage cravings and transition to a tobacco-free life.',
-    'help|support|guidance': 'We\'re here to help! Tell us which substance you\'re struggling with, or click one of the quick actions below.',
-    'starting|begin|start': 'Awesome! Select the product above that applies to you, and we\'ll create a personalized quit plan just for you.',
-    'week|day|progress': 'Every day smoke-free counts! Track your progress, earn badges, and celebrate milestones with our community.',
-    'thanks|thank': 'You\'re welcome! Remember, quitting is a journey. We\'re with you every step of the way!',
-    'hi|hello|hey': 'Welcome! I\'m here to help you quit. Which habit would you like to tackle?',
-  };
-  
-  for (const [key, value] of Object.entries(responses)) {
-    const patterns = key.split('|');
-    if (patterns.some(p => lower.includes(p))) {
-      return value;
-    }
-  }
-  
-  return 'That\'s a great question! Tell us more about your journey, and we\'ll provide personalized support to help you succeed.';
-}
-
-function addMessage(type, text) {
-  const messagesContainer = document.querySelector('.chat-messages');
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `message ${type}`;
-  
-  const bubble = document.createElement('div');
-  bubble.className = 'message-bubble';
-  bubble.textContent = escapeHtml(text);
-  
-  messageDiv.appendChild(bubble);
-  messagesContainer.appendChild(messageDiv);
-  
-  // Auto-scroll to bottom
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-function quickAction(action) {
-  const input = document.querySelector('.chat-input input');
-  input.value = action;
-  sendMessage();
-}
-
 function selectProduct(product) {
-  const products = {
-    'smoking': 'I want to quit smoking',
-    'vaping': 'I want to quit vaping',
-    'marijuana': 'I want to quit cannabis',
-    'nicotine': 'I want to quit nicotine pouches'
+  const productToQuitType = {
+    smoking: 'smoking',
+    vaping: 'vaping',
+    marijuana: 'marijuana',
+    nicotine: 'nicotine'
   };
-  
-  const chatContainer = document.querySelector('.chat-container');
-  chatContainer.scrollIntoView({ behavior: 'smooth' });
-  
-  setTimeout(() => {
-    if (products[product]) {
-      quickAction(products[product]);
-    }
-  }, 300);
+
+  const payload = {
+    product,
+    quitType: productToQuitType[product] || product,
+    source: 'ifttt-landing',
+    selectedAt: new Date().toISOString()
+  };
+
+  localStorage.setItem('kic_chatbot_context', JSON.stringify(payload));
+  document.querySelector('.chatbot-section').scrollIntoView({ behavior: 'smooth' });
 }
 
 function handleSearch(e) {
-  if (e.key !== 'Enter') return;
-  
-  const chatContainer = document.querySelector('.chat-container');
-  chatContainer.scrollIntoView({ behavior: 'smooth' });
-  
-  setTimeout(() => {
-    sendMessage();
-  }, 300);
+  if (e && e.key && e.key !== 'Enter') return;
+
+  const searchInput = document.getElementById('searchInput');
+  const query = searchInput ? searchInput.value.trim() : '';
+
+  if (query) {
+    localStorage.setItem('kic_chatbot_seed_message', query);
+  }
+
+  document.querySelector('.chatbot-section').scrollIntoView({ behavior: 'smooth' });
 }
 
 function startIntake() {
@@ -862,47 +806,9 @@ function startIntake() {
     intakeForm.scrollIntoView({ behavior: 'smooth' });
   } else {
     // Fallback: open form in dialog or new window
-    alert('Connecting to intake form...');
+    window.location.href = '/quit-now';
   }
 }
-
-function escapeHtml(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
-
-// =====================================================
-// INITIALIZATION
-// =====================================================
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Attach event listeners
-  const chatForm = document.querySelector('.chat-input');
-  if (chatForm) {
-    chatForm.addEventListener('submit', sendMessage);
-  }
-  
-  const chatInput = document.querySelector('.chat-input input');
-  if (chatInput) {
-    chatInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    });
-  }
-  
-  // Add initial bot greeting
-  setTimeout(() => {
-    addMessage('bot', 'Welcome! I\'m your quit coach. What would you like to work on today? 👋');
-  }, 500);
-});
 </script>
 
 {% endblock %}

@@ -20,6 +20,8 @@ concurrency:
 
 jobs:
   deploy:
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -46,14 +48,14 @@ jobs:
 
       - name: Upload Pages artifact
         if: steps.pages_check.outputs.enabled == 'true'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: '.'
 
       - name: Deploy to GitHub Pages
         if: steps.pages_check.outputs.enabled == 'true'
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: Pages not enabled
         if: steps.pages_check.outputs.enabled != 'true'

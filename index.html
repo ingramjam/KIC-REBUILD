@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kick It California – Demo Hub</title>
+  <style>
+    :root {
+      --bg: #0a0e27;
+      --card-bg: #131829;
+      --border: rgba(255,255,255,0.08);
+      --cyan: #00d4ff;
+      --cyan-dim: rgba(0,212,255,0.12);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    header img {
+      height: 56px;
+      margin-bottom: 1.25rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #00d4ff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 999px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,212,255,0.12);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .card a:hover {
+      background: rgba(0,212,255,0.22);
+      border-color: var(--cyan);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">🚀 Demo Hub</div>
+    <h1>Kick It California</h1>
+    <p>Interactive prototypes and proof-of-concept demos for the KIC Rebuild project.</p>
+  </header>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-icon">🚭</div>
+      <h2>Quit Selector – IFTTT Demo</h2>
+      <p>Interactive landing page that lets users choose their quit path (smoking, vaping, marijuana) with animated hero and product selector.</p>
+      <a href="quit-selector-ifttt-demo.html">View Demo →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">✨</div>
+      <h2>Quit Selector – Clean</h2>
+      <p>Polished, production-ready version of the quit selector landing page without demo annotations.</p>
+      <a href="quit-selector-ifttt-clean.html">View Demo →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h2>AI Chat Coach</h2>
+      <p>Improved chatbot experience for coaching users through their quit journey with HubSpot forms integration.</p>
+      <a href="chatbot-improved.html">View Demo →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📞</div>
+      <h2>YVAPE Agent Dashboard</h2>
+      <p>Unified call-center agent dashboard POC featuring Amazon Connect, live queue, SMS/email tools, and CRM integration.</p>
+      <a href="yvape-unified-agent-dashboard-demo.html">View Demo →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h2>YVAPE Agent Protocol</h2>
+      <p>Modern interactive call-script tool for YVAPE phone agents, with step-by-step protocol guidance.</p>
+      <a href="yvape-agent-protocol-modern.html">View Demo →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Kick It California · KIC Rebuild Project · Demo builds only – not for production use</p>
+  </footer>
+
+</body>
+</html>

@@ -818,8 +818,16 @@ function startIntake() {
 }
 
 function redirectToCalculator() {
-  // Redirect to calculator page or open calculator modal
-  window.location.href = '/quit-assessment';
+  const params = new URLSearchParams(window.location.search);
+  const age = params.get('age');
+  const suffix = age ? `?age=${encodeURIComponent(age)}` : '';
+
+  if (window.location.protocol === 'file:') {
+    window.location.href = `./Kick It California/templates/quit-assessment.html${suffix}`;
+    return;
+  }
+
+  window.location.href = `/quit-assessment${suffix}`;
 }
 
 // Load calculator bridge for data persistence
